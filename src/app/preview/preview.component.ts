@@ -24,7 +24,7 @@ export class PreviewComponent implements OnInit, AfterViewInit  {
         fullscreen: true,
         fullscreenWeb: true,
         plugins: [
-          UniversalVideo({
+          UniversalCanvas({
             using: "solver",
             with: "m2psdmx;rfmpgvid;ffmpeg;mp4mx;rfnalu",
             scriptDirectory: "https://bevara.ddns.net/accessors/"
@@ -37,23 +37,7 @@ export class PreviewComponent implements OnInit, AfterViewInit  {
       this.renderer.appendChild(this.content.nativeElement, player);
     }
   }
-
-  loadScript() {
-    var artplayer= document.createElement("script");
-    artplayer.src="https://bevara.ddns.net/accessors/ArtPlayer/artplayer.js";
-    artplayer.type = 'text/javascript';
-    var universalVideo= document.createElement("script");
-    universalVideo.src="https://bevara.ddns.net/accessors/ArtPlayer/universal-video.js";
-    universalVideo.type = 'text/javascript';
-
-    // append to head of document
-    document.getElementsByTagName('head')[0]
-    .appendChild(artplayer)
-    .appendChild(universalVideo); 
-  }
-
   
   ngOnInit(): void {
-    this.loadScript();
   }
 }

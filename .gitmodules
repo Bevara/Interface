@@ -1,0 +1,3 @@
+[submodule "ArtPlayer"]
+	path = ArtPlayer
+	url = https://github.com/Bevara/ArtPlayer.git
