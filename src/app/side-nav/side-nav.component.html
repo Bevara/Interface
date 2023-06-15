@@ -1,1 +1,71 @@
-<p>side-nav works!</p>
+<mat-drawer-container class="example-container mat-typography" hasBackdrop=false autosize>
+    <mat-drawer #drawer mode="side" disableClose="true" opened="true">
+        <mat-nav-list [ngClass]="{'pinned':pinned, 
+                                'unpinned':!pinned}" class="fusion-mobile-nav-holder fusion-flyout-menu fusion-flyout-mobile-menu">
+            <ul class="clearfix nav navbar-nav fusion-menu">
+                <mat-list-item class="clearfix nav navbar-nav" (click)="changePinned()">
+                    <h3 *ngIf="pinned else unpinned" mat-subheader>
+                        <img src="./assets/images/BEVARA_FULL-LOGO_COLOR-BLUE.png" width="110" alt="Bevara Logo" data-retina_logo_url="" class="fusion-standard-logo">
+                        <mat-icon style="margin-left: 10px">chevron_left</mat-icon>
+                    </h3>
+                    <ng-template #unpinned>
+                        <mat-icon mat-list-icon>chevron_right</mat-icon>
+                    </ng-template>
+                </mat-list-item>
+
+                <mat-divider></mat-divider>
+                <mat-list-item [routerLink]="['/preview']">
+                    <mat-icon mat-list-icon>play_circle_outline</mat-icon>
+                    <li class="nav-item px-xl-3 fusion-mobile-nav-item">
+                        <span class="nav-link text-uppercase is-active">Preview</span>
+                    </li>
+                </mat-list-item>
+                <mat-list-item class="clearfix nav navbar-nav" [routerLink]="['/preserve']">
+                    <mat-icon mat-list-icon>lock_open</mat-icon>
+                    <li class="nav-item px-xl-3">
+                        <span class="nav-link text-uppercase is-active">Preserve</span>
+                    </li>
+                </mat-list-item>
+                <mat-list-item class="clearfix nav navbar-nav" [routerLink]="['/develop']">
+                    <mat-icon mat-list-icon>build</mat-icon>
+                    <li class="nav-item px-xl-3">
+                        <span class="nav-link text-uppercase is-active">Develop</span>
+                    </li>
+                </mat-list-item>
+                                
+                <h3 mat-subheader>About us</h3>
+                <mat-divider></mat-divider>
+                <mat-list-item [routerLink]="['/help']">
+                    <mat-icon mat-list-icon>help</mat-icon>
+                    <li class="nav-item px-xl-3">
+                        <span class="nav-link text-uppercase is-active">Help</span>
+                    </li>
+                </mat-list-item>
+                <mat-list-item>
+                    <a
+                    target="_blank"
+                    href="https://www.bevara.com"
+                    >
+                    <mat-icon mat-list-icon>open_in_new</mat-icon>
+                    </a>
+                    <a
+                    target="_blank"
+                    href="https://www.bevara.com"
+                    >
+                    <li class="nav-item px-xl-3">
+                        <span class="nav-link text-uppercase is-active">Visit bevara.com</span>
+                    </li>
+                    </a>
+                </mat-list-item>
+            </ul>
+
+        </mat-nav-list>
+    </mat-drawer>
+    <mat-drawer-content [ngClass]="{'pinned':pinned, 
+    'unpinned':!pinned}">
+        <div class="example-sidenav-content">
+            <router-outlet></router-outlet>
+        </div>
+    </mat-drawer-content>
+
+</mat-drawer-container>
