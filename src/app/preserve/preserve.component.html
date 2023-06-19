@@ -1,0 +1,43 @@
+<div style="text-align:center;padding-top: 50px;" #content>
+    <mat-form-field class="example-chip-list">
+        <mat-label>Required libaries</mat-label>
+        <mat-chip-grid 
+        class="example-chip"
+        cdkDropList
+        cdkDropListOrientation="horizontal"
+        (cdkDropListDropped)="drop($event)"
+        #chipGrid aria-label="Enter libraries">
+          <mat-chip-row 
+          class="example-box"
+          cdkDrag
+          *ngFor="let fruit of fruits"
+                        (removed)="remove(fruit)"
+                        [editable]="true"
+                        (edited)="edit(fruit, $event)"
+                        [aria-description]="'press enter to edit ' + fruit.name"
+                        >
+                            {{fruit.name}}                           
+            <button matChipRemove [attr.aria-label]="'remove ' + fruit.name">
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip-row>
+          <input placeholder="New libraries..."
+                 [matChipInputFor]="chipGrid"
+                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                 [matChipInputAddOnBlur]="addOnBlur"
+                 (matChipInputTokenEnd)="add($event)"/>
+        </mat-chip-grid>
+      </mat-form-field>
+
+      <div class="single-page">
+        <fieldset>
+            <div class="elementwrapper">
+                <div class="sectionitem">
+                    <a class="survey-element-anchor"></a>
+                    <div role="heading" class="sectiontitle section1">Integration option</div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</div>
+
