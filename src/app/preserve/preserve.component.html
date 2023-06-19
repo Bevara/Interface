@@ -1,43 +1,49 @@
 <div style="text-align:center;padding-top: 50px;" #content>
     <mat-form-field class="example-chip-list">
         <mat-label>Required libaries</mat-label>
-        <mat-chip-grid 
-        class="example-chip"
-        cdkDropList
-        cdkDropListOrientation="horizontal"
-        (cdkDropListDropped)="drop($event)"
-        #chipGrid aria-label="Enter libraries">
-          <mat-chip-row 
-          class="example-box"
-          cdkDrag
-          *ngFor="let fruit of fruits"
-                        (removed)="remove(fruit)"
-                        [editable]="true"
-                        (edited)="edit(fruit, $event)"
-                        [aria-description]="'press enter to edit ' + fruit.name"
-                        >
-                            {{fruit.name}}                           
-            <button matChipRemove [attr.aria-label]="'remove ' + fruit.name">
-              <mat-icon>cancel</mat-icon>
-            </button>
-          </mat-chip-row>
-          <input placeholder="New libraries..."
-                 [matChipInputFor]="chipGrid"
-                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                 [matChipInputAddOnBlur]="addOnBlur"
-                 (matChipInputTokenEnd)="add($event)"/>
+        <mat-chip-grid class="example-chip" cdkDropList cdkDropListOrientation="horizontal"
+            (cdkDropListDropped)="drop($event)" #chipGrid aria-label="Enter libraries">
+            <mat-chip-row class="example-box" cdkDrag *ngFor="let fruit of fruits" (removed)="remove(fruit)"
+                [editable]="true" (edited)="edit(fruit, $event)"
+                [aria-description]="'press enter to edit ' + fruit.name">
+                {{fruit.name}}
+                <button matChipRemove [attr.aria-label]="'remove ' + fruit.name">
+                    <mat-icon>cancel</mat-icon>
+                </button>
+            </mat-chip-row>
+            <input placeholder="New libraries..." [matChipInputFor]="chipGrid"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                (matChipInputTokenEnd)="add($event)" />
         </mat-chip-grid>
-      </mat-form-field>
+    </mat-form-field>
+    <mat-list class="divider-option">
+        <mat-list-item>Integration option</mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-chip-listbox [multiple]="false" aria-label="Integration selection">
+            <mat-chip-option color="accent" selected>Universal tags</mat-chip-option>
+            <mat-chip-option color="accent">Script</mat-chip-option>
+        </mat-chip-listbox>
+        <mat-list-item>Tag</mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-chip-listbox [multiple]="false" aria-label="Integration selection">
+            <mat-chip-option color="accent" selected>img</mat-chip-option>
+            <mat-chip-option color="accent">audio</mat-chip-option>
+            <mat-chip-option color="accent">video</mat-chip-option>
+            <mat-chip-option color="accent">canvas</mat-chip-option>
+        </mat-chip-listbox>
+        <mat-list-item>Options</mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-chip-listbox [multiple]="false" aria-label="Integration selection">
+            <mat-chip-option color="accent" selected>Use cache</mat-chip-option>
+            <mat-chip-option color="accent">Use workers</mat-chip-option>
+            <mat-chip-option color="accent">Use webcodecs</mat-chip-option>
+        </mat-chip-listbox>
+        <mat-list-item>HTML code</mat-list-item>
+        <mat-divider></mat-divider>
+        <div style="text-align:left;padding-top: 10px;">
+            <textarea id="clipboard-example-textarea" cols="30" rows="10" [(ngModel)]="html_preview"></textarea><br>
+            <button mat-button [cdkCopyToClipboard]="html_preview">Copy to clipboard</button>
+        </div>
+    </mat-list>
 
-      <div class="single-page">
-        <fieldset>
-            <div class="elementwrapper">
-                <div class="sectionitem">
-                    <a class="survey-element-anchor"></a>
-                    <div role="heading" class="sectiontitle section1">Integration option</div>
-                </div>
-            </div>
-        </fieldset>
-    </div>
 </div>
-

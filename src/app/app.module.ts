@@ -16,6 +16,9 @@ import {MatLegacyListModule as MatListModule} from '@angular/material/legacy-lis
 import {CdkDrag, CdkDropList} from '@angular/cdk/drag-drop';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
+import {ClipboardModule} from '@angular/cdk/clipboard';
+import {FormsModule} from '@angular/forms';
+import {MatTabsModule} from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -37,7 +40,10 @@ import {MatCardModule} from '@angular/material/card';
     CdkDropList, 
     CdkDrag,
     MatCardModule, 
-    MatButtonModule
+    MatButtonModule,
+    FormsModule, 
+    ClipboardModule,
+    MatTabsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

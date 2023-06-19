@@ -15,6 +15,9 @@ export interface Fruit {
 })
 export class PreserveComponent implements OnInit {
 
+  html_preview = 
+  `<canvas is="universal-canvas" data-url="https://bevara.ddns.net/test-signals/mpeg2/video_mpeg2.mp4" using="solver" with="rfmpgvid;ffmpeg" data-autoplay=true controls  connections>`;
+
   addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   fruits: Fruit[] = [{name: 'avidmx'}, {name: 'xvid'}, {name: 'libmad'}, {name: 'rfmpgvid'}];
