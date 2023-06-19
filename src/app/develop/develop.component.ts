@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AccessorsService } from '../services/accessors.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-develop',
@@ -7,7 +9,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DevelopComponent implements OnInit {
 
-  constructor() { }
+  constructor(public accessorsService : AccessorsService,
+    public router: Router) { }
 
   ngOnInit(): void {
   }
