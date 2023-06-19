@@ -6,6 +6,10 @@ import { PreviewComponent } from './preview/preview.component';
 
 const routes: Routes = [
   {
+    path: '',
+    component: PreviewComponent
+  },
+  {
     path: 'preview',
     component: PreviewComponent
   },
