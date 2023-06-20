@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { AccessorsService } from '../services/accessors.service';
 
 @Component({
   selector: 'app-preview',
@@ -11,28 +12,13 @@ export class PreviewComponent implements OnInit, AfterViewInit  {
 
   @ViewChild('content') content: ElementRef | undefined;
   
-  constructor(private renderer: Renderer2) { }
+  constructor(private renderer: Renderer2,
+    private accessorsService : AccessorsService) { }
   
   ngAfterViewInit(): void {
     if(this.content){     
       var player= document.createElement("script");
-      player.innerHTML=`
-      var art = new Artplayer({
-        container: '.artplayer-app',
-        url: 'https://bevara.ddns.net/test-signals/mpeg1/medical_demo.ts',
-        autoSize: true,
-        fullscreen: true,
-        fullscreenWeb: true,
-        plugins: [
-          UniversalCanvas({
-            using: "solver",
-            with: "m2psdmx;rfmpgvid;ffmpeg;mp4mx;rfnalu",
-            scriptDirectory: "https://bevara.ddns.net/accessors/"
-          }),
-        ],
-      });
-      
-      `;
+      player.innerHTML=this.accessorsService.html_code;
     
       this.renderer.appendChild(this.content.nativeElement, player);
     }
