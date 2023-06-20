@@ -3,8 +3,9 @@
         <mat-list-item>HTML code</mat-list-item>
         <div style="text-align:left;padding-top: 10px;">
             <textarea readonly="readonly" id="clipboard-example-textarea" cols="30" rows="10" [(ngModel)]="accessorsService.html_preview"></textarea><br>
-            <button mat-button [cdkCopyToClipboard]="accessorsService.html_preview">Copy to clipboard</button>
+            <button mat-button [cdkCopyToClipboard]="accessorsService.html_preview">Copy code to clipboard</button>
         </div>
+        <br>
         <app-libs></app-libs>
         <br>
         <mat-divider></mat-divider>
