@@ -6,13 +6,14 @@
             <button mat-button [cdkCopyToClipboard]="accessorsService.html_preview">Copy to clipboard</button>
         </div>
         <app-libs></app-libs>
+        <br>
         <mat-divider></mat-divider>
         <mat-list-item>Integration option</mat-list-item>
-        <mat-divider></mat-divider>
         <mat-chip-listbox [multiple]="false" aria-label="Integration selection">
             <mat-chip-option color="accent" selected>Universal tags</mat-chip-option>
             <mat-chip-option color="accent">Script</mat-chip-option>
         </mat-chip-listbox>
+        <br>
         <mat-divider></mat-divider>
         <mat-list-item>Tag</mat-list-item>
         <mat-chip-listbox [multiple]="false" aria-label="Integration selection">
@@ -21,6 +22,7 @@
             <mat-chip-option color="accent">video</mat-chip-option>
             <mat-chip-option color="accent">canvas</mat-chip-option>
         </mat-chip-listbox>
+        <br>
         <mat-divider></mat-divider>
         <mat-list-item>Options</mat-list-item>
         <mat-chip-listbox [multiple]="true" aria-label="Integration selection">
