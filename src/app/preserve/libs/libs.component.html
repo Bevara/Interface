@@ -1,0 +1,41 @@
+<mat-form-field class="example-chip-list">
+    <mat-label>Required libaries</mat-label>
+    <mat-chip-grid class="example-chip" cdkDropList cdkDropListOrientation="horizontal"
+        (cdkDropListDropped)="accessorsService.dropLibrary($event)" #chipGrid aria-label="Enter libraries">
+        <mat-chip-row class="example-box" cdkDrag *ngFor="let library of accessorsService.libraries" (removed)="accessorsService.removeLibrary(library)"
+            [editable]="true" (edited)="accessorsService.editLibrary(library, $event)"
+            [aria-description]="'press enter to edit ' + library.name">
+            {{library.name}}
+            <button matChipRemove [attr.aria-label]="'remove ' + library.name">
+                <mat-icon>cancel</mat-icon>
+            </button>
+        </mat-chip-row>
+        <input 
+        matInput
+        #libInput
+        placeholder="New libraries..." 
+        aria-label="New libraries"
+        [matAutocomplete]="auto"
+        [formControl]="libCtrl"
+        [matChipInputFor]="chipGrid"
+            [matChipInputAddOnBlur]="addOnBlur"
+            
+             />
+            <mat-autocomplete #auto="matAutocomplete"
+            (optionSelected)="addLibraryAutoComplete($event)"
+
+            >
+                <mat-option *ngFor="let lib of filteredLibs | async" [value]="lib.name">
+                  <span>
+                    <mat-icon *ngIf="lib.support.includes('image')" class="icon-display" aria-hidden="false" aria-label="add icon" height="10">image</mat-icon>
+                    <mat-icon *ngIf="lib.support.includes('video')" class="icon-display" aria-hidden="false" aria-label="add icon" height="10">videocam</mat-icon>
+                    <mat-icon *ngIf="lib.support.includes('audio')" class="icon-display" aria-hidden="false" aria-label="add icon" height="10">audiotrack</mat-icon>
+                    {{lib.name}}</span> |
+                  <small>{{lib.description}}</small>
+
+                  <br>
+                  <small>{{lib.help}}</small>
+                </mat-option>
+              </mat-autocomplete>
+    </mat-chip-grid>
+</mat-form-field>

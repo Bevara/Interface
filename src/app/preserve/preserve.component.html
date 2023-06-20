@@ -1,21 +1,5 @@
 <div style="text-align:center;padding-top: 50px;" #content>
-    <mat-form-field class="example-chip-list">
-        <mat-label>Required libaries</mat-label>
-        <mat-chip-grid class="example-chip" cdkDropList cdkDropListOrientation="horizontal"
-            (cdkDropListDropped)="accessorsService.dropLibrary($event)" #chipGrid aria-label="Enter libraries">
-            <mat-chip-row class="example-box" cdkDrag *ngFor="let library of accessorsService.libraries" (removed)="accessorsService.removeLibrary(library)"
-                [editable]="true" (edited)="accessorsService.editLibrary(library, $event)"
-                [aria-description]="'press enter to edit ' + library.name">
-                {{library.name}}
-                <button matChipRemove [attr.aria-label]="'remove ' + library.name">
-                    <mat-icon>cancel</mat-icon>
-                </button>
-            </mat-chip-row>
-            <input placeholder="New libraries..." [matChipInputFor]="chipGrid"
-                [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
-                (matChipInputTokenEnd)="accessorsService.addLibrary($event)" />
-        </mat-chip-grid>
-    </mat-form-field>
+    <app-libs></app-libs>
     <mat-list class="divider-option">
         <mat-list-item>Integration option</mat-list-item>
         <mat-divider></mat-divider>

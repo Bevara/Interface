@@ -1,0 +1,18 @@
+.example-chip-list {
+    width: 95%;
+  }
+  
+  .example-box.cdk-drag-animating {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  }
+  
+  .example-chip .cdk-drop-list-dragging {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  }
+  
+.icon-display {
+    transform: scale(0.8);
+    margin-right: 1px !important ;
+ }
+
+ 

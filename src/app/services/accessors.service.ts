@@ -3,6 +3,7 @@ import {MatChipEditedEvent, MatChipInputEvent, MatChipsModule} from '@angular/ma
 import {LiveAnnouncer} from '@angular/cdk/a11y';
 import { inject } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 export type Option = 'use-cache' | 'use-workers' | 'use-webcodecs' ;
 export type Tag = 'img' | 'audio' | 'video' | 'canvas';
@@ -37,24 +38,20 @@ export class AccessorsService {
   private _integration : Integration = 'Universal tags';
   private _is : Is = 'universal-canvas';
   
-    
+  
   announcer = inject(LiveAnnouncer);
 
   constructor() { }
 
-  addLibrary(event: MatChipInputEvent): void {
-    const value = (event.value || '').trim();
-
-    if (value) {
+  addLibraryStr(value: string): void {
+    if (value && !this.hasLibStr(value)) {
       this._slctLibs.push({name: value, description:'', help:'', support:[]});
     }
-
-    event.chipInput!.clear();
   }
 
-  addLibraryStr(value: string): void {
-    if (value) {
-      this._slctLibs.push({name: value, description:'', help:'', support:[]});
+  addLibraryAutoComplete(event: MatAutocompleteSelectedEvent): void {
+    if ( event.option.value) {
+      this._slctLibs.push({name: event.option.value, description:'', help:'', support:[]});
     }
   }
 
@@ -119,6 +116,10 @@ export class AccessorsService {
 
   get all(){
     return this._allLibs;
+  }
+
+  get remain(){
+    return this._allLibs.filter(x => !this._slctLibs.includes(x));
   }
 
   public get html_preview(){

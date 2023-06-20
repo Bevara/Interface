@@ -7,6 +7,7 @@ import { SideNavComponent } from './side-nav/side-nav.component';
 import { PreviewComponent } from './preview/preview.component';
 import { PreserveComponent } from './preserve/preserve.component';
 import { DevelopComponent } from './develop/develop.component';
+import { LibsComponent } from './preserve/libs/libs.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatIconModule} from '@angular/material/icon';
@@ -17,8 +18,11 @@ import {CdkDrag, CdkDropList} from '@angular/cdk/drag-drop';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import {ClipboardModule} from '@angular/cdk/clipboard';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { AsyncPipe, NgFor } from '@angular/common';
+import {MatInputModule} from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -26,7 +30,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     SideNavComponent,
     PreviewComponent,
     PreserveComponent,
-    DevelopComponent
+    DevelopComponent,
+    LibsComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +48,12 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatButtonModule,
     FormsModule, 
     ClipboardModule,
-    MatTabsModule
+    MatTabsModule,
+    MatAutocompleteModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    NgFor,
+    AsyncPipe,
   ],
   providers: [],
   bootstrap: [AppComponent]
