@@ -14,7 +14,7 @@ const routes: Routes = [
     component: PreviewComponent
   },
   {
-    path: 'preserve',
+    path: 'access',
     component: PreserveComponent
   },
   {

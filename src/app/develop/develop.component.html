@@ -32,8 +32,8 @@
         </mat-card-content>
         
         <mat-card-actions>
-          <button *ngIf="!accessorsService.hasLibStr(library.name)" mat-button (click)="accessorsService.addLibraryStr(library.name);this.router.navigateByUrl('/preserve');">Add to library</button>
-          <button *ngIf="accessorsService.hasLibStr(library.name)" mat-button (click)="accessorsService.removeLibStr(library.name);this.router.navigateByUrl('/preserve');">Remove from library</button>
+          <button *ngIf="!accessorsService.hasLibStr(library.name)" mat-button (click)="accessorsService.addLibraryStr(library.name);this.router.navigateByUrl('/access');">Add to library</button>
+          <button *ngIf="accessorsService.hasLibStr(library.name)" mat-button (click)="accessorsService.removeLibStr(library.name);this.router.navigateByUrl('/access');">Remove from library</button>
           <button mat-button>Edit</button>
         </mat-card-actions>
       </mat-card>

@@ -20,20 +20,12 @@
                         <span class="nav-link text-uppercase is-active">Preview</span>
                     </li>
                 </mat-list-item>
-                <mat-list-item class="clearfix nav navbar-nav" [routerLink]="['/preserve']">
+                <mat-list-item class="clearfix nav navbar-nav" [routerLink]="['/access']">
                     <mat-icon mat-list-icon>lock_open</mat-icon>
                     <li class="nav-item px-xl-3">
-                        <span class="nav-link text-uppercase is-active">Preserve</span>
+                        <span class="nav-link text-uppercase is-active">Access</span>
                     </li>
                 </mat-list-item>
-                <mat-list-item class="clearfix nav navbar-nav" [routerLink]="['/develop']">
-                    <mat-icon mat-list-icon>build</mat-icon>
-                    <li class="nav-item px-xl-3">
-                        <span class="nav-link text-uppercase is-active">Develop</span>
-                    </li>
-                </mat-list-item>
-                                
-                <h3 mat-subheader>About us</h3>
                 <mat-divider></mat-divider>
                 <mat-list-item [routerLink]="['/help']">
                     <mat-icon mat-list-icon>help</mat-icon>
@@ -41,21 +33,11 @@
                         <span class="nav-link text-uppercase is-active">Help</span>
                     </li>
                 </mat-list-item>
-                <mat-list-item>
-                    <a
-                    target="_blank"
-                    href="https://www.bevara.com"
-                    >
-                    <mat-icon mat-list-icon>open_in_new</mat-icon>
-                    </a>
-                    <a
-                    target="_blank"
-                    href="https://www.bevara.com"
-                    >
+                <mat-list-item class="clearfix nav navbar-nav" [routerLink]="['/develop']">
+                    <mat-icon mat-list-icon>build</mat-icon>
                     <li class="nav-item px-xl-3">
-                        <span class="nav-link text-uppercase is-active">Visit bevara.com</span>
+                        <span class="nav-link text-uppercase is-active">Develop</span>
                     </li>
-                    </a>
                 </mat-list-item>
             </ul>
 
