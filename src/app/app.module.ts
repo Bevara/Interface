@@ -5,9 +5,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import { PreviewComponent } from './preview/preview.component';
-import { PreserveComponent } from './preserve/preserve.component';
+import { AccessorComponent } from './accessor/accessor.component';
 import { DevelopComponent } from './develop/develop.component';
-import { LibsComponent } from './preserve/libs/libs.component';
+import { LibsComponent } from './accessor/libs/libs.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatIconModule} from '@angular/material/icon';
@@ -29,7 +29,7 @@ import {MatInputModule} from '@angular/material/input';
     AppComponent,
     SideNavComponent,
     PreviewComponent,
-    PreserveComponent,
+    AccessorComponent,
     DevelopComponent,
     LibsComponent
   ],

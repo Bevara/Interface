@@ -1,14 +1,18 @@
 <div style="text-align:center;padding-top: 50px;" #content>
     <mat-list class="divider-option">
-        <mat-list-item>HTML code</mat-list-item>
+        <mat-list-item>Integration code</mat-list-item>
         <div style="text-align:left;padding-top: 10px;">
             <textarea readonly="readonly" id="clipboard-example-textarea" cols="30" rows="10" [(ngModel)]="accessorsService.html_preview"></textarea><br>
 
         </div>
         <br>
         <app-libs></app-libs>
-        <button mat-button [cdkCopyToClipboard]="accessorsService.html_preview">Copy code to clipboard</button>
-        <button mat-button>Download required libraries</button>
+        <div class="example-button-row">
+            <button mat-flat-button [cdkCopyToClipboard]="accessorsService.html_preview">Copy code to clipboard</button>
+            <button mat-flat-button>Download required libraries</button>
+            <button mat-flat-button>Preserve your file</button>
+        </div>
+        <br>
         <br>
         <mat-divider></mat-divider>
         <mat-list-item>Integration option</mat-list-item>

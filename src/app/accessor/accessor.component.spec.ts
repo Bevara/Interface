@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PreserveComponent } from './preserve.component';
+import { AccessorComponent } from './accessor.component';
 
-describe('PreserveComponent', () => {
-  let component: PreserveComponent;
-  let fixture: ComponentFixture<PreserveComponent>;
+describe('AccessorComponent', () => {
+  let component: AccessorComponent;
+  let fixture: ComponentFixture<AccessorComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PreserveComponent ]
+      declarations: [ AccessorComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(PreserveComponent);
+    fixture = TestBed.createComponent(AccessorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -3,11 +3,11 @@ import {MatChipEditedEvent, MatChipInputEvent, MatChipsModule} from '@angular/ma
 import { AccessorsService, Library } from '../services/accessors.service';
 
 @Component({
-  selector: 'app-preserve',
-  templateUrl: './preserve.component.html',
-  styleUrls: ['./preserve.component.scss']
+  selector: 'app-accessor',
+  templateUrl: './accessor.component.html',
+  styleUrls: ['./accessor.component.scss']
 })
-export class PreserveComponent implements OnInit {
+export class AccessorComponent implements OnInit {
 
   constructor(public accessorsService : AccessorsService) { }
 

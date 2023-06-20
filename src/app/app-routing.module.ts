@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DevelopComponent } from './develop/develop.component';
-import { PreserveComponent } from './preserve/preserve.component';
+import { AccessorComponent } from './accessor/accessor.component';
 import { PreviewComponent } from './preview/preview.component';
 
 const routes: Routes = [
@@ -14,8 +14,8 @@ const routes: Routes = [
     component: PreviewComponent
   },
   {
-    path: 'access',
-    component: PreserveComponent
+    path: 'accessor',
+    component: AccessorComponent
   },
   {
     path: 'develop',
