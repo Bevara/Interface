@@ -1,28 +1,28 @@
 <div style="text-align:center;padding-top: 50px;" #content>
     <mat-list class="divider-option">
         <mat-list-item>HTML code</mat-list-item>
-        <mat-divider></mat-divider>
         <div style="text-align:left;padding-top: 10px;">
             <textarea readonly="readonly" id="clipboard-example-textarea" cols="30" rows="10" [(ngModel)]="accessorsService.html_preview"></textarea><br>
             <button mat-button [cdkCopyToClipboard]="accessorsService.html_preview">Copy to clipboard</button>
         </div>
         <app-libs></app-libs>
+        <mat-divider></mat-divider>
         <mat-list-item>Integration option</mat-list-item>
         <mat-divider></mat-divider>
         <mat-chip-listbox [multiple]="false" aria-label="Integration selection">
             <mat-chip-option color="accent" selected>Universal tags</mat-chip-option>
             <mat-chip-option color="accent">Script</mat-chip-option>
         </mat-chip-listbox>
-        <mat-list-item>Tag</mat-list-item>
         <mat-divider></mat-divider>
+        <mat-list-item>Tag</mat-list-item>
         <mat-chip-listbox [multiple]="false" aria-label="Integration selection">
             <mat-chip-option color="accent" selected>img</mat-chip-option>
             <mat-chip-option color="accent">audio</mat-chip-option>
             <mat-chip-option color="accent">video</mat-chip-option>
             <mat-chip-option color="accent">canvas</mat-chip-option>
         </mat-chip-listbox>
-        <mat-list-item>Options</mat-list-item>
         <mat-divider></mat-divider>
+        <mat-list-item>Options</mat-list-item>
         <mat-chip-listbox [multiple]="true" aria-label="Integration selection">
             <mat-chip-option color="accent" selected>Use cache</mat-chip-option>
             <mat-chip-option color="accent">Use workers</mat-chip-option>
