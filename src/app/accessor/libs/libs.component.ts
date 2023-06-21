@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { AccessorsService, Library } from 'src/app/services/accessors.service';
-import {Observable,Subject} from 'rxjs';
+import {Observable} from 'rxjs';
 import { FormControl } from '@angular/forms';
 import {map, startWith} from 'rxjs/operators';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';

@@ -23,6 +23,13 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { AsyncPipe, NgFor } from '@angular/common';
 import {MatInputModule} from '@angular/material/input';
+import { OptionsComponent } from './accessor/options/options.component';
+import { TagsComponent } from './accessor/tags/tags.component';
+import { IntegrationComponent } from './accessor/integration/integration.component';
+import { CodeComponent } from './accessor/code/code.component';
+import { ActionsComponent } from './accessor/actions/actions.component';
+import { SourceComponent } from './accessor/source/source.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -31,7 +38,13 @@ import {MatInputModule} from '@angular/material/input';
     PreviewComponent,
     AccessorComponent,
     DevelopComponent,
-    LibsComponent
+    LibsComponent,
+    OptionsComponent,
+    TagsComponent,
+    IntegrationComponent,
+    CodeComponent,
+    ActionsComponent,
+    SourceComponent
   ],
   imports: [
     BrowserModule,
@@ -54,6 +67,7 @@ import {MatInputModule} from '@angular/material/input';
     ReactiveFormsModule,
     NgFor,
     AsyncPipe,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

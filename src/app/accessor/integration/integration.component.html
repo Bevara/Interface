@@ -1,0 +1,25 @@
+<mat-divider></mat-divider>
+<mat-list-item>Integration option</mat-list-item>
+<mat-chip-listbox [multiple]="false" aria-label="Integration option">
+    <mat-chip-option 
+    color="accent" 
+    [selected]="accessorsService.integration == 'Universal tags'"
+    (click)="accessorsService.integration = 'Universal tags'"
+    >
+    Universal tags
+</mat-chip-option>
+
+<mat-chip-option 
+color="accent" 
+[selected]="accessorsService.integration == 'Script'"
+(click)="accessorsService.integration = 'Script'"
+>
+Script
+</mat-chip-option>
+    <mat-chip-option 
+    *ngIf="accessorsService.tag == 'canvas' || accessorsService.tag == 'video'" 
+    [selected]="accessorsService.integration == 'ArtPlayer'" 
+    (click)="accessorsService.integration = 'ArtPlayer'"
+    color="accent">ArtPlayer
+</mat-chip-option>
+</mat-chip-listbox>

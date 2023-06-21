@@ -1,0 +1,7 @@
+<mat-divider></mat-divider>
+<mat-list-item>Options</mat-list-item>
+<mat-chip-listbox [multiple]="true" aria-label="Integration option">
+    <mat-chip-option color="accent" (click)="accessorsService.toogleOption('use-cache')" [selected]="accessorsService.options.includes('use-cache')">Use cache</mat-chip-option>
+    <mat-chip-option color="accent" (click)="accessorsService.toogleOption('use-workers')" [selected]="accessorsService.options.includes('use-workers')">Use workers</mat-chip-option>
+    <mat-chip-option color="accent" (click)="accessorsService.toogleOption('use-webcodecs')" [selected]="accessorsService.options.includes('use-webcodecs')">Use webcodecs</mat-chip-option>
+</mat-chip-listbox>
