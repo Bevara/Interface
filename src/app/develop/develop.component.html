@@ -32,10 +32,16 @@
         </mat-card-content>
         
         <mat-card-actions>
-          <button *ngIf="!accessorsService.hasLibStr(library.name)" mat-button (click)="accessorsService.addLibraryStr(library.name);this.router.navigateByUrl('/access');">Add to library</button>
-          <button *ngIf="accessorsService.hasLibStr(library.name)" mat-button (click)="accessorsService.removeLibStr(library.name);this.router.navigateByUrl('/access');">Remove from library</button>
-          <button mat-button>Edit</button>
+          <button *ngIf="!accessorsService.hasLibStr(library.name)" mat-button (click)="accessorsService.addLibraryStr(library.name);this.router.navigateByUrl('/accessor');">Add to library</button>
+          <button *ngIf="accessorsService.hasLibStr(library.name)" mat-button (click)="accessorsService.removeLibStr(library.name);this.router.navigateByUrl('/accessor');">Remove from library</button>
+          <button mat-button (click)="showModal = true">Edit</button>
         </mat-card-actions>
       </mat-card>
 </div>
 
+<app-modal
+  *ngIf="showModal"
+  (clickOnClose)="showModal = false"
+>
+    This functionality is only availale in the full version!
+</app-modal>

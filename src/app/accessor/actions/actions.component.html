@@ -1,8 +1,15 @@
 <div class="example-button-row">
     <button mat-flat-button [cdkCopyToClipboard]="accessorsService.html_preview">Copy code to clipboard</button>
     <button mat-flat-button (click)="zip_libraries()">Download required libraries</button>
-    <button mat-flat-button>Preserve your file</button>
+    <button mat-flat-button (click)="showModal = true">Preserve your file</button>
 </div>
 <div class="hide">
     <a href="" id="exportLink"></a>
 </div>
+
+<app-modal
+  *ngIf="showModal"
+  (clickOnClose)="showModal = false"
+>
+    This functionality is only availale in the full version!
+</app-modal>

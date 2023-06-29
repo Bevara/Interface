@@ -11,6 +11,8 @@ import * as JSZip from 'jszip';
   styleUrls: ['./actions.component.scss']
 })
 export class ActionsComponent {
+  showModal = false;
+
   constructor(public accessorsService : AccessorsService,
     private http: HttpClient) { }
 

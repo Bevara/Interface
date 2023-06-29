@@ -18,7 +18,7 @@ export interface Library {
   url:string;
 }
 
-const libs: Library[] = [{ name: 'avidmx.wasm', description: 'AVI demultiplexer', help: 'This filter demultiplexes AVI files to produce media PIDs and frames.', support: ["video", "audio"], url:"https://bevara.ddns.net/accessors/avidmx.wasm" },
+const libs: Library[] = [{ name: 'avidmx', description: 'AVI demultiplexer', help: 'This filter demultiplexes AVI files to produce media PIDs and frames.', support: ["video", "audio"], url:"https://bevara.ddns.net/accessors/avidmx.wasm" },
 { name: 'xvid', description: 'XVid decoder', help: 'This filter decodes MPEG-4 part 2 (and DivX) through libxvidcore library.', support: ["video"], url:"https://bevara.ddns.net/accessors/xviddec.wasm" },
 { name: 'libmad', description: '"MAD decoder', help: 'This filter decodes MPEG 1/2 audio streams through libmad library.', support: ["audio"], url:"https://bevara.ddns.net/accessors/libmad.wasm" },
 { name: 'rfmpgvid', description: 'M1V/M2V/M4V reframer', help: 'This filter parses MPEG-1/2 and MPEG-4 part 2 video files/data and outputs corresponding video PID and frames.\nNote: The filter uses negative CTS offsets: CTS is correct, but some frames may have DTS greater than CTS.', support: ["video", "audio"], url:"https://bevara.ddns.net/accessors/rfmpgvid.wasm" },

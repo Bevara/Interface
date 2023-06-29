@@ -8,7 +8,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./develop.component.scss']
 })
 export class DevelopComponent implements OnInit {
-
+  showModal : boolean = false;
+  
   constructor(public accessorsService : AccessorsService,
     public router: Router) { }
 

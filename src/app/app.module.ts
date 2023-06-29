@@ -30,6 +30,7 @@ import { CodeComponent } from './accessor/code/code.component';
 import { ActionsComponent } from './accessor/actions/actions.component';
 import { SourceComponent } from './accessor/source/source.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ModalComponent } from './accessor/modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { HttpClientModule } from '@angular/common/http';
     IntegrationComponent,
     CodeComponent,
     ActionsComponent,
-    SourceComponent
+    SourceComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
