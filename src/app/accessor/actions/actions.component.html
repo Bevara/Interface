@@ -1,5 +1,8 @@
 <div class="example-button-row">
     <button mat-flat-button [cdkCopyToClipboard]="accessorsService.html_preview">Copy code to clipboard</button>
-    <button mat-flat-button (click)="downloaderService.zip_libraries">Download required libraries</button>
+    <button mat-flat-button (click)="zip_libraries()">Download required libraries</button>
     <button mat-flat-button>Preserve your file</button>
+</div>
+<div class="hide">
+    <a href="" id="exportLink"></a>
 </div>
