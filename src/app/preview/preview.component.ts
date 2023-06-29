@@ -17,10 +17,17 @@ export class PreviewComponent implements OnInit, AfterViewInit  {
   
   ngAfterViewInit(): void {
     if(this.content){     
-      var player= document.createElement("script");
-      player.innerHTML=this.accessorsService.html_code;
-    
-      this.renderer.appendChild(this.content.nativeElement, player);
+      if (this.accessorsService.isScript){
+        const player= document.createElement("script");
+        player.innerHTML=this.accessorsService.html_code;
+      
+        this.renderer.appendChild(this.content.nativeElement, player);
+      }else{
+        const player= document.createElement("div");
+        player.innerHTML=this.accessorsService.html_code;
+      
+        this.renderer.appendChild(this.content.nativeElement, player);
+      }
     }
   }
   

@@ -4,7 +4,7 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { inject } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
-export type Option = 'use-cache' | 'use-workers' | 'use-webcodecs' | 'data-autoplay';
+export type Option = 'use-cache' | 'use-workers' | 'use-webcodecs' | 'data-autoplay' | 'scriptDirectory';
 export type Tag = 'img' | 'audio' | 'video' | 'canvas';
 export type Integration = 'Universal tags' | 'Script' | 'ArtPlayer';
 export type Is = 'universal-canvas' | 'universal-img' | 'universal-audio' | 'universal-video';
@@ -46,7 +46,8 @@ export class AccessorsService {
 
   private _slctLibs: Library[] = Object.assign([], libs);
   private _allLibs: Library[] = Object.assign([], libs);
-  private _options: Option[] = ['use-cache'];
+  private _options: Option[] = ['use-cache','scriptDirectory'];
+  private _scriptDirectoryUrl: String = "https://bevara.ddns.net/accessors/";
   private _tag: Tag = 'canvas';
   private _tags: Tag[] = [];
   private _integration: Integration = 'Universal tags';
@@ -129,6 +130,10 @@ export class AccessorsService {
     return this._options;
   }
 
+  get optionsStr() : string{
+    return this._options.map(x=> x == 'scriptDirectory'? 'scriptDirectory="'+this._scriptDirectoryUrl+"\"" :x ).join(" ");
+  }
+
   get libraries() {
     return this._slctLibs;
   }
@@ -198,6 +203,14 @@ export class AccessorsService {
     this._integration = value;
   }
 
+  get scriptDirectoryUrl() {
+    return this._scriptDirectoryUrl;
+  }
+
+  set scriptDirectoryUrl(value: String) {
+    this._scriptDirectoryUrl = value;
+  }
+
   get remain() {
     return this._allLibs.filter(x => !this._slctLibs.includes(x));
   }
@@ -233,7 +246,7 @@ export class AccessorsService {
         ${this._tag == 'canvas'?'UniversalCanvas':'UniversalVideo'}({
           using: "solver",
           with: "${this.with_template}",
-          scriptDirectory: "https://bevara.ddns.net/accessors/"
+          scriptDirectory: "${this._scriptDirectoryUrl}",
         }),
         ],
       });
@@ -241,7 +254,7 @@ export class AccessorsService {
   }
   
   private get universal_template(){
-    return `<${this._tag} is="${this._is}" ${this._tag == 'canvas' ? 'data-url' : 'src'}="${this._src}" using="solver" with="${this.with_template}" ${this._options.join(" ")} data-autoplay=true>`;
+    return `<${this._tag} is="${this._is}" ${this._tag == 'canvas' ? 'data-url' : 'src'}="${this._src}" using="solver" with="${this.with_template}" ${this.optionsStr} data-autoplay=true>`;
   }
   
   private get script_template(){
@@ -271,6 +284,10 @@ export class AccessorsService {
     return template;
   }
 
+  public get isScript() {
+    return true;
+  }
+
   public get html_code() {
     return `
     var art = new Artplayer({
@@ -288,5 +305,7 @@ export class AccessorsService {
       ],
     });
     `;
+
+    //return this.html_preview;
   }
 }
