@@ -4,7 +4,7 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { inject } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
-export type Option = 'use-cache' | 'use-workers' | 'use-webcodecs' | 'data-autoplay' | 'scriptDirectory';
+export type Option = 'use-cache' | 'use-workers' | 'use-webcodecs' | 'data-autoplay' | 'script-directory';
 export type Tag = 'img' | 'audio' | 'video' | 'canvas';
 export type Integration = 'Universal tags' | 'Script' | 'ArtPlayer';
 export type Is = 'universal-canvas' | 'universal-img' | 'universal-audio' | 'universal-video';
@@ -46,7 +46,7 @@ export class AccessorsService {
 
   private _slctLibs: Library[] = Object.assign([], libs);
   private _allLibs: Library[] = Object.assign([], libs);
-  private _options: Option[] = ['use-cache','scriptDirectory'];
+  private _options: Option[] = ['use-cache','script-directory'];
   private _scriptDirectoryUrl: String = "https://bevara.ddns.net/accessors/";
   private _tag: Tag = 'canvas';
   private _tags: Tag[] = [];
@@ -131,7 +131,7 @@ export class AccessorsService {
   }
 
   get optionsStr() : string{
-    return this._options.map(x=> x == 'scriptDirectory'? 'scriptDirectory="'+this._scriptDirectoryUrl+"\"" :x ).join(" ");
+    return this._options.map(x=> x == 'script-directory'? 'script-directory="'+this._scriptDirectoryUrl+"\"" :x ).join(" ");
   }
 
   get libraries() {
@@ -285,11 +285,11 @@ export class AccessorsService {
   }
 
   public get isScript() {
-    return true;
+    return false;
   }
 
   public get html_code() {
-    return `
+   /* return `
     var art = new Artplayer({
       container: '.artplayer-app',
       url: 'https://bevara.ddns.net/test-signals/mpeg1/medical_demo.ts',
@@ -304,8 +304,8 @@ export class AccessorsService {
         }),
       ],
     });
-    `;
+    `;*/
 
-    //return this.html_preview;
+    return this.html_preview;
   }
 }

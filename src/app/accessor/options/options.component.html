@@ -4,10 +4,10 @@
     <mat-chip-option color="accent" (click)="accessorsService.toogleOption('use-cache')" [selected]="accessorsService.options.includes('use-cache')">Use cache</mat-chip-option>
     <mat-chip-option color="accent" (click)="accessorsService.toogleOption('use-workers')" [selected]="accessorsService.options.includes('use-workers')">Use workers</mat-chip-option>
     <mat-chip-option color="accent" (click)="accessorsService.toogleOption('use-webcodecs')" [selected]="accessorsService.options.includes('use-webcodecs')">Use webcodecs</mat-chip-option>
-    <mat-chip-option color="accent" (click)="accessorsService.toogleOption('scriptDirectory')" [selected]="accessorsService.options.includes('scriptDirectory')">Set scripts directory</mat-chip-option>
+    <mat-chip-option color="accent" (click)="accessorsService.toogleOption('script-directory')" [selected]="accessorsService.options.includes('script-directory')">Set scripts directory</mat-chip-option>
 </mat-chip-listbox>
 
-<div *ngIf="accessorsService.options.includes('scriptDirectory')">
+<div *ngIf="accessorsService.options.includes('script-directory')">
     <br>
     <form class="example-form">
         <mat-form-field class="example-full-width">
