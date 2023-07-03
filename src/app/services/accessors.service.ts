@@ -19,7 +19,7 @@ export interface Library {
 }
 
 const libs: Library[] = [{ name: 'avidmx', description: 'AVI demultiplexer', help: 'This filter demultiplexes AVI files to produce media PIDs and frames.', support: ["video", "audio"], url:"https://bevara.ddns.net/accessors/avidmx.wasm" },
-{ name: 'xvid', description: 'XVid decoder', help: 'This filter decodes MPEG-4 part 2 (and DivX) through libxvidcore library.', support: ["video"], url:"https://bevara.ddns.net/accessors/xviddec.wasm" },
+{ name: 'xviddec', description: 'XVid decoder', help: 'This filter decodes MPEG-4 part 2 (and DivX) through libxvidcore library.', support: ["video"], url:"https://bevara.ddns.net/accessors/xviddec.wasm" },
 { name: 'libmad', description: '"MAD decoder', help: 'This filter decodes MPEG 1/2 audio streams through libmad library.', support: ["audio"], url:"https://bevara.ddns.net/accessors/libmad.wasm" },
 { name: 'rfmpgvid', description: 'M1V/M2V/M4V reframer', help: 'This filter parses MPEG-1/2 and MPEG-4 part 2 video files/data and outputs corresponding video PID and frames.\nNote: The filter uses negative CTS offsets: CTS is correct, but some frames may have DTS greater than CTS.', support: ["video", "audio"], url:"https://bevara.ddns.net/accessors/rfmpgvid.wasm" },
 { name: 'ffmpeg', description: 'FFMPEG decoder', help: 'This filter decodes audio and video streams using FFMPEG.', support: ["image", "video", "audio"], url:"https://bevara.ddns.net/accessors/ffmpeg.wasm" }
@@ -35,7 +35,7 @@ export class AccessorsService {
     description : "",
     help :"",
     support:[],
-    url:"https://bevara.ddns.net/accessors/solver.wasm",
+    url:"https://bevara.ddns.net/accessors/solver_1.0.wasm",
   },{
     name: "solver.wasm",
     description : "",
@@ -285,11 +285,11 @@ export class AccessorsService {
   }
 
   public get isScript() {
-    return false;
+    return true;
   }
 
   public get html_code() {
-   /* return `
+    return `
     var art = new Artplayer({
       container: '.artplayer-app',
       url: 'https://bevara.ddns.net/test-signals/mpeg1/medical_demo.ts',
@@ -298,14 +298,14 @@ export class AccessorsService {
       fullscreenWeb: true,
       plugins: [
         UniversalCanvas({
-          using: "solver",
-          with: "m2psdmx;rfmpgvid;ffmpeg;mp4mx;rfnalu",
+          using: "solver_1",
+          with: "m2psdmx_1;rfmpgvid_1;ffmpeg_1;mp4mx_1;rfnalu_1",
           scriptDirectory: "https://bevara.ddns.net/accessors/"
         }),
       ],
     });
-    `;*/
+    `;
 
-    return this.html_preview;
+    //return this.html_preview;
   }
 }
