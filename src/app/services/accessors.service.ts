@@ -3,12 +3,15 @@ import { MatChipEditedEvent, MatChipInputEvent, MatChipsModule } from '@angular/
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { inject } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { HttpClient } from '@angular/common/http';
 
 export type Option = 'use-cache' | 'use-workers' | 'use-webcodecs' | 'data-autoplay' | 'script-directory';
 export type Tag = 'img' | 'audio' | 'video' | 'canvas';
 export type Integration = 'Universal tags' | 'Script' | 'ArtPlayer';
 export type Is = 'universal-canvas' | 'universal-img' | 'universal-audio' | 'universal-video';
 export type MediaSupport = 'image' | 'audio' | 'video';
+
+const server_url = "https://bevara.ddns.net/accessors/";
 
 export interface Library {
   name: string;
@@ -17,13 +20,9 @@ export interface Library {
   support: MediaSupport[];
   url:string;
 }
-
-const libs: Library[] = [{ name: 'avidmx', description: 'AVI demultiplexer', help: 'This filter demultiplexes AVI files to produce media PIDs and frames.', support: ["video", "audio"], url:"https://bevara.ddns.net/accessors/avidmx_1.wasm" },
-{ name: 'xviddec', description: 'XVid decoder', help: 'This filter decodes MPEG-4 part 2 (and DivX) through libxvidcore library.', support: ["video"], url:"https://bevara.ddns.net/accessors/xviddec_1.wasm" },
-{ name: 'libmad', description: '"MAD decoder', help: 'This filter decodes MPEG 1/2 audio streams through libmad library.', support: ["audio"], url:"https://bevara.ddns.net/accessors/libmad_1.wasm" },
-{ name: 'rfmpgvid', description: 'M1V/M2V/M4V reframer', help: 'This filter parses MPEG-1/2 and MPEG-4 part 2 video files/data and outputs corresponding video PID and frames.\nNote: The filter uses negative CTS offsets: CTS is correct, but some frames may have DTS greater than CTS.', support: ["video", "audio"], url:"https://bevara.ddns.net/accessors/rfmpgvid_1.wasm" },
-{ name: 'ffmpeg', description: 'FFMPEG decoder', help: 'This filter decodes audio and video streams using FFMPEG.', support: ["image", "video", "audio"], url:"https://bevara.ddns.net/accessors/ffmpeg_1.wasm" }
-]
+export interface JSON_Libraries {
+  [index: string]: Library;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -44,8 +43,8 @@ export class AccessorsService {
     url:"https://bevara.ddns.net/accessors/solver_1.js",
   }];
 
-  private _slctLibs: Library[] = Object.assign([], libs);
-  private _allLibs: Library[] = Object.assign([], libs);
+  private _slctLibs: Library[] = [];
+  private _allLibs: Library[] = [];
   private _options: Option[] = ['use-cache','script-directory'];
   private _scriptDirectoryUrl: String = "https://bevara.ddns.net/accessors/";
   private _tag: Tag = 'canvas';
@@ -57,7 +56,25 @@ export class AccessorsService {
 
   announcer = inject(LiveAnnouncer);
 
-  constructor() { }
+  constructor(
+    private http: HttpClient
+  ) { 
+    this.http.get<JSON_Libraries>(server_url+"filter_list.json")
+    .subscribe(libs => {
+      for (const filename in libs) {
+        const lib =  libs[filename];
+        lib.url = server_url+filename;
+        this._allLibs.push(lib);
+      }
+
+      //Default libs
+      this._slctLibs.push(libs["avidmx_1.wasm"]);
+      this._slctLibs.push(libs["xviddec_1.wasm"]);
+      this._slctLibs.push(libs["libmad_1.wasm"]);
+      this._slctLibs.push(libs["rfmpgvid_1.wasm"]);
+      this._slctLibs.push(libs["ffmpeg_1.wasm"]);
+    });
+  }
 
   addLibraryStr(value: string): void {
     if (value && !this.hasLibStr(value)) {
