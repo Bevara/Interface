@@ -16,7 +16,7 @@ export class PreviewComponent implements OnInit, AfterViewInit  {
   constructor(private renderer: Renderer2,
     private accessorsService : AccessorsService) { }
   
-  ngAfterViewInit(): void {
+  updateView(){
     if(this.contentScript){     
       if (this.accessorsService.isScript){
         const player= document.createElement("script");
@@ -29,6 +29,14 @@ export class PreviewComponent implements OnInit, AfterViewInit  {
       
         this.renderer.appendChild(this.contentTag.nativeElement, player);
       }
+    }
+  }
+
+  ngAfterViewInit(): void {
+    if (this.accessorsService.isReady){
+      this.updateView();
+    }else{
+      this.accessorsService.readyEvent.subscribe(event => this.updateView());
     }
   }
   

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { MatChipEditedEvent, MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { inject } from '@angular/core';
@@ -58,7 +58,8 @@ export class AccessorsService {
   private _integration: Integration = 'ArtPlayer';
   private _is: Is = 'universal-canvas';
   private _src: string = 'https://bevara.ddns.net/test-signals/mpeg1/medical_demo.ts';
-
+  public readyEvent = new EventEmitter();
+  public isReady = false;
 
   announcer = inject(LiveAnnouncer);
 
@@ -76,6 +77,8 @@ export class AccessorsService {
 
       //Default libs
       this.setRecommended();
+      this.isReady = true;
+      this.readyEvent.emit();
     });
   }
 
