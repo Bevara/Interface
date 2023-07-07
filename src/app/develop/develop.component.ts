@@ -19,6 +19,11 @@ export class DevelopComponent implements OnInit {
 
   constructor(public accessorsService: AccessorsService,
     public router: Router) {
+
+    if (!accessorsService.isReady){
+      accessorsService.readyEvent.subscribe(event => this.search.setValue(""))
+    }
+
     this.filteredLibs = this.search.valueChanges.pipe(
       startWith(""),
       map(lib => this._filterLibs(lib)),

@@ -23,4 +23,7 @@ export class SideNavComponent implements OnInit {
     }, 10);
   }
 
+  goToLink(url: string){
+    window.open(url, "_blank");
+  }
 }

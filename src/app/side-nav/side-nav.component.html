@@ -27,21 +27,11 @@
                     </li>
                 </mat-list-item>
                 <mat-divider></mat-divider>
-                <mat-list-item>
-                    <a
-                    target="_blank"
-                    href="https://bevara.com/documentation/"
-                    >
+                <mat-list-item (click)="goToLink('https://bevara.com/documentation/')">
                     <mat-icon mat-list-icon>help</mat-icon>
-                    </a>
-                    <a
-                    target="_blank"
-                    href="https://bevara.com/documentation/"
-                    >
                     <li class="nav-item px-xl-3">
                         <span class="nav-link text-uppercase is-active">Help</span>
                     </li>
-                    </a>
                 </mat-list-item>
                 <mat-list-item class="clearfix nav navbar-nav" [routerLink]="['/develop']">
                     <mat-icon mat-list-icon>build</mat-icon>
