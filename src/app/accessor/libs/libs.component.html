@@ -1,5 +1,16 @@
 <mat-form-field class="example-chip-list">
     <mat-label>Required libaries</mat-label>
+    <div class="example-flex-container">
+      <button mat-icon-button (click)="accessorsService.setRecommended()" class="icon-action" aria-label="Get recommended accessors">
+        <mat-icon>image_search</mat-icon>
+      </button>
+      <button mat-icon-button (click)="accessorsService.removeAll()" class="icon-action" aria-label="Remove all accessors">
+        <mat-icon>remove_circle</mat-icon>
+      </button>
+      <button mat-icon-button (click)="accessorsService.addAll()" class="icon-action" aria-label="Add all accessors">
+        <mat-icon>add_circle</mat-icon>
+      </button>
+    </div>
     <mat-chip-grid class="example-chip" cdkDropList cdkDropListOrientation="horizontal"
         (cdkDropListDropped)="accessorsService.dropLibrary($event)" #chipGrid aria-label="Enter libraries">
         <mat-chip-row class="example-box" cdkDrag *ngFor="let library of accessorsService.libraries" (removed)="accessorsService.removeLibrary(library)"

@@ -4,6 +4,7 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { inject } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { HttpClient } from '@angular/common/http';
+import { recommended } from './recommended';
 
 export type Option = 'use-cache' | 'use-workers' | 'use-webcodecs' | 'data-autoplay' | 'script-directory';
 export type Tag = 'img' | 'audio' | 'video' | 'canvas';
@@ -13,7 +14,10 @@ export type MediaSupport = 'image' | 'audio' | 'video';
 
 const server_url = "https://bevara.ddns.net/accessors/";
 
+
+
 export interface Library {
+  id:string;
   name: string;
   description: string;
   help: string;
@@ -30,12 +34,14 @@ export interface JSON_Libraries {
 
 export class AccessorsService {
   public using :Library[] = [{
+    id:"solver_1",
     name: "solver.js",
     description : "",
     help :"",
     support:[],
     url:"https://bevara.ddns.net/accessors/solver_1.wasm",
   },{
+    id:"solver_1",
     name: "solver.wasm",
     description : "",
     help :"",
@@ -78,7 +84,7 @@ export class AccessorsService {
 
   addLibraryStr(value: string): void {
     if (value && !this.hasLibStr(value)) {
-      this._slctLibs.push({ name: value, description: '', help: '', support: [], url:"" });
+      this._slctLibs.push({ id:"",name: value, description: '', help: '', support: [], url:"" });
     }
   }
 
@@ -159,6 +165,22 @@ export class AccessorsService {
     return this._allLibs;
   }
 
+  addAll(){
+    this._slctLibs = [...this._allLibs];
+  }
+
+  removeAll(){
+    this._slctLibs = [];
+  }
+
+  setRecommended(){
+    const fileExt = this._src.split('.').pop();
+    if (fileExt){
+      const recommended_list = recommended[fileExt];
+      this._slctLibs = this._allLibs.filter( x => recommended_list.includes(x.name));
+    }
+  }
+  
   get tag() {
     return this._tag;
   }
