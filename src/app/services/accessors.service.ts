@@ -6,7 +6,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { HttpClient } from '@angular/common/http';
 import { recommended } from './recommended';
 
-export type Option = 'use-cache' | 'use-workers' | 'use-webcodecs' | 'data-autoplay' | 'script-directory';
+export type Option = 'use-cache' | 'use-workers' | 'use-webcodecs' | 'data-autoplay' | 'script-directory' | 'controls';
 export type Tag = 'img' | 'audio' | 'video' | 'canvas';
 export type Integration = 'Universal tags' | 'Script' | 'ArtPlayer';
 export type Is = 'universal-canvas' | 'universal-img' | 'universal-audio' | 'universal-video';
@@ -51,13 +51,13 @@ export class AccessorsService {
 
   private _slctLibs: Library[] = [];
   private _allLibs: Library[] = [];
-  private _options: Option[] = ['use-cache','script-directory'];
+  private _options: Option[] = ['script-directory'];
   private _scriptDirectoryUrl: String = "https://bevara.ddns.net/accessors/";
   private _tag: Tag = 'canvas';
   private _tags: Tag[] = [];
-  private _integration: Integration = 'Universal tags';
+  private _integration: Integration = 'ArtPlayer';
   private _is: Is = 'universal-canvas';
-  private _src: string = 'https://bevara.ddns.net/test-signals/mpeg2/video_mpeg2.mp4';
+  private _src: string = 'https://bevara.ddns.net/test-signals/mpeg1/medical_demo.ts';
 
 
   announcer = inject(LiveAnnouncer);
@@ -70,15 +70,12 @@ export class AccessorsService {
       for (const filename in libs) {
         const lib =  libs[filename];
         lib.url = server_url+filename;
+        lib.id = filename.replace('.wasm','');
         this._allLibs.push(lib);
       }
 
       //Default libs
-      this._slctLibs.push(libs["avidmx_1.wasm"]);
-      this._slctLibs.push(libs["xviddec_1.wasm"]);
-      this._slctLibs.push(libs["libmad_1.wasm"]);
-      this._slctLibs.push(libs["rfmpgvid_1.wasm"]);
-      this._slctLibs.push(libs["ffmpeg_1.wasm"]);
+      this.setRecommended();
     });
   }
 
@@ -139,12 +136,38 @@ export class AccessorsService {
     this._options = options;
   }
 
+  hasOption(option: Option) {
+    return this._options.indexOf(option) !== -1;
+  }
+
   toogleOption(option: Option) {
     var index = this._options.indexOf(option);
 
     if (index === -1) {
       this._options.push(option);
     } else {
+      this._options.splice(index, 1);
+    }
+  }
+
+  addOptions(options: Option[]) {
+    options.forEach(option => this.addOption(option));
+  }
+
+  addOption(option: Option) {
+    if (!this.hasOption(option)){
+      this._options.push(option);
+    }
+  }
+
+  removeOptions(options: Option[]) {
+    options.forEach(option => this.removeOption(option));
+  }
+
+  removeOption(option: Option) {
+    var index = this._options.indexOf(option);
+
+    if (index !== -1) {
       this._options.splice(index, 1);
     }
   }
@@ -177,7 +200,12 @@ export class AccessorsService {
     const fileExt = this._src.split('.').pop();
     if (fileExt){
       const recommended_list = recommended[fileExt];
-      this._slctLibs = this._allLibs.filter( x => recommended_list.includes(x.name));
+      if (recommended_list){
+        this._slctLibs = this._allLibs.filter( x => recommended_list.includes(x.name));
+      }else{
+
+      }
+      
     }
   }
   
@@ -191,15 +219,19 @@ export class AccessorsService {
     switch (value) {
       case "audio":
         this._is = "universal-audio"
+        this.addOptions(['controls']);
         break;
       case "img":
         this._is = "universal-img"
+        this.removeOptions(['controls']);
         break;
       case "video":
         this._is = "universal-video"
+        this.addOptions(['controls']);
         break;
       case "canvas":
         this._is = "universal-canvas"
+        this.removeOptions(['use-cache','use-workers','controls'])
         break;
     }
 
@@ -272,7 +304,7 @@ export class AccessorsService {
   }
 
   private get with_template(){
-    return this._slctLibs.map(x => x.name).join(";");
+    return this._slctLibs.map(x => x.id).join(";");
   }
 
   private get artplayer_template(){
@@ -283,7 +315,7 @@ export class AccessorsService {
       url: '${this._src}',
       plugins: [
         ${this._tag == 'canvas'?'UniversalCanvas':'UniversalVideo'}({
-          using: "solver",
+          using: "solver_1",
           with: "${this.with_template}",
           scriptDirectory: "${this._scriptDirectoryUrl}",
         }),
@@ -293,7 +325,7 @@ export class AccessorsService {
   }
   
   private get universal_template(){
-    return `<${this._tag} is="${this._is}" ${this._tag == 'canvas' ? 'data-url' : 'src'}="${this._src}" using="solver" with="${this.with_template}" ${this.optionsStr} data-autoplay=true>`;
+    return `<${this._tag} is="${this._is}" ${this._tag == 'canvas' ? 'data-url' : 'src'}="${this._src}" using="solver_1" with="${this.with_template}" ${this.optionsStr}>`;
   }
   
   private get script_template(){
@@ -324,27 +356,10 @@ export class AccessorsService {
   }
 
   public get isScript() {
-    return true;
+    return this._integration != 'Universal tags';
   }
 
   public get html_code() {
-    return `
-    var art = new Artplayer({
-      container: '.artplayer-app',
-      url: 'https://bevara.ddns.net/test-signals/mpeg1/medical_demo.ts',
-      autoSize: true,
-      fullscreen: true,
-      fullscreenWeb: true,
-      plugins: [
-        UniversalCanvas({
-          using: "solver_1",
-          with: "m2psdmx_1;rfmpgvid_1;ffmpeg_1;mp4mx_1;rfnalu_1",
-          scriptDirectory: "https://bevara.ddns.net/accessors/"
-        }),
-      ],
-    });
-    `;
-
-    //return this.html_preview;
+    return this.html_preview;
   }
 }

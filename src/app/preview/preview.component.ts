@@ -10,23 +10,24 @@ export class PreviewComponent implements OnInit, AfterViewInit  {
   
   html:string ='<video src="https://bevara.ddns.net/test-signals/ogv/Big_Buck_Bunny_Trailer_400p.ogv" controls></video>';
 
-  @ViewChild('content') content: ElementRef | undefined;
+  @ViewChild('contentScript') contentScript: ElementRef | undefined;
+  @ViewChild('contentTag') contentTag: ElementRef | undefined;
   
   constructor(private renderer: Renderer2,
     private accessorsService : AccessorsService) { }
   
   ngAfterViewInit(): void {
-    if(this.content){     
+    if(this.contentScript){     
       if (this.accessorsService.isScript){
         const player= document.createElement("script");
         player.innerHTML=this.accessorsService.html_code;
       
-        this.renderer.appendChild(this.content.nativeElement, player);
-      }else{
+        this.renderer.appendChild(this.contentScript.nativeElement, player);
+      }else if(this.contentTag){
         const player= document.createElement("div");
         player.innerHTML=this.accessorsService.html_code;
       
-        this.renderer.appendChild(this.content.nativeElement, player);
+        this.renderer.appendChild(this.contentTag.nativeElement, player);
       }
     }
   }

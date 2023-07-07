@@ -1,8 +1,9 @@
 <mat-divider></mat-divider>
 <mat-list-item>Options</mat-list-item>
 <mat-chip-listbox [multiple]="true" aria-label="Integration option">
-    <mat-chip-option color="accent" (click)="accessorsService.toogleOption('use-cache')" [selected]="accessorsService.options.includes('use-cache')">Use cache</mat-chip-option>
-    <mat-chip-option color="accent" (click)="accessorsService.toogleOption('use-workers')" [selected]="accessorsService.options.includes('use-workers')">Use workers</mat-chip-option>
+    <mat-chip-option *ngIf="accessorsService.tag == 'audio' || accessorsService.tag == 'video'" color="accent" (click)="accessorsService.toogleOption('controls')" [selected]="accessorsService.options.includes('controls')">Controls</mat-chip-option>
+    <mat-chip-option *ngIf="accessorsService.tag != 'canvas'" color="accent" (click)="accessorsService.toogleOption('use-cache')" [selected]="accessorsService.options.includes('use-cache')">Use cache</mat-chip-option>
+    <mat-chip-option *ngIf="accessorsService.tag != 'canvas'" color="accent" (click)="accessorsService.toogleOption('use-workers')" [selected]="accessorsService.options.includes('use-workers')">Use workers</mat-chip-option>
     <mat-chip-option color="accent" (click)="accessorsService.toogleOption('use-webcodecs')" [selected]="accessorsService.options.includes('use-webcodecs')">Use webcodecs</mat-chip-option>
     <mat-chip-option color="accent" (click)="accessorsService.toogleOption('script-directory')" [selected]="accessorsService.options.includes('script-directory')">Set scripts directory</mat-chip-option>
 </mat-chip-listbox>
