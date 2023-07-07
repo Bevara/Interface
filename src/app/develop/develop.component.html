@@ -3,7 +3,7 @@
         <mat-form-field class="example-form-field">
             <mat-label>Find a library</mat-label>
             <input matInput type="text" [formControl]="search" >
-            <button *ngIf="searchStr != '' else searchOut" matSuffix mat-icon-button aria-label="Clear" (click)="searchStr=''">
+            <button *ngIf="search.value != '' else searchOut" matSuffix mat-icon-button aria-label="Clear" (click)="search.setValue('')">
                 <mat-icon>close</mat-icon>
             </button>
             

@@ -1,0 +1,8 @@
+echo "Downloading and building dependencies"
+npm install
+
+echo "Downloading and building ArtPlayer"
+git submodule update --init --recursive
+cd ArtPlayer
+npm install
+npm run build:all

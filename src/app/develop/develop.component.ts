@@ -12,10 +12,9 @@ import { map, startWith } from 'rxjs/operators';
 })
 export class DevelopComponent implements OnInit {
   search = new FormControl();
-  searchStr:string="";
   filteredLibs: Observable<Library[]>;
 
-  showModal: boolean = false;
+  showModal = false;
 
   constructor(public accessorsService: AccessorsService,
     public router: Router) {
