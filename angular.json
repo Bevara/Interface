@@ -34,7 +34,8 @@
             "scripts": [
               "ArtPlayer/docs/compiled/artplayer.js",
               "ArtPlayer/docs/compiled/universal-video.js",
-              "ArtPlayer/docs/compiled/universal-canvas.js"
+              "ArtPlayer/docs/compiled/universal-canvas.js",
+              "player/build/dist/universal-tags.js"
             ]
           },
           "configurations": {

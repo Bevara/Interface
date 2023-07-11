@@ -1,8 +1,16 @@
-echo "Downloading and building dependencies"
+echo "Downloading dependencies"
 npm install
-
-echo "Downloading and building ArtPlayer"
 git submodule update --init --recursive
+
+echo "Building ArtPlayer"
 cd ArtPlayer
 npm install
 npm run build:all
+
+echo "Building Bevara player"
+cd ../player
+mkdir -p build
+cd build
+../configure
+make
+make dist
