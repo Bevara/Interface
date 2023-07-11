@@ -1,14 +1,9 @@
 echo "Downloading dependencies"
 npm install
-git submodule update --init --recursive
-
-echo "Building ArtPlayer"
-cd ArtPlayer
-npm install
-npm run build:all
 
 echo "Building Bevara player"
-cd ../player
+git submodule update --init --recursive
+cd player
 mkdir -p build
 cd build
 ../configure
