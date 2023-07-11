@@ -1,6 +1,3 @@
-[submodule "ArtPlayer"]
-	path = ArtPlayer
-	url = https://github.com/Bevara/ArtPlayer.git
 [submodule "player"]
 	path = player
 	url = https://github.com/Bevara/player.git

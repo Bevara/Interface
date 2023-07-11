@@ -32,9 +32,9 @@
               "src/styles.scss"
             ],
             "scripts": [
-              "ArtPlayer/docs/compiled/artplayer.js",
-              "ArtPlayer/docs/compiled/universal-video.js",
-              "ArtPlayer/docs/compiled/universal-canvas.js",
+              "player/build/third_parties/ArtPlayer/artplayer.js",
+              "player/build/third_parties/ArtPlayer/universal-video.js",
+              "player/build/third_parties/ArtPlayer/universal-canvas.js",
               "player/build/dist/universal-tags.js"
             ]
           },
