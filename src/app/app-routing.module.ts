@@ -6,10 +6,6 @@ import { PreviewComponent } from './preview/preview.component';
 
 const routes: Routes = [
   {
-    path: '',
-    component: PreviewComponent
-  },
-  {
     path: 'preview',
     component: PreviewComponent
   },
@@ -20,7 +16,13 @@ const routes: Routes = [
   {
     path: 'develop',
     component: DevelopComponent
+  },
+  {
+    path: '**',
+    redirectTo: '/preview', 
+    pathMatch: 'full'
   }
+
 ];
 
 @NgModule({

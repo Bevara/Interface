@@ -8,4 +8,4 @@ mkdir -p build
 cd build
 ../configure
 make
-make dist
+make release
