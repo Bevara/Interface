@@ -54,11 +54,11 @@
         </mat-card-content>
 
         <mat-card-actions>
-            <button *ngIf="!accessorsService.hasLibStr(library.name)" mat-button
-                (click)="accessorsService.addLibraryStr(library.name);this.router.navigateByUrl('/accessor');">Add to
+            <button *ngIf="!accessorsService.libs.hasLibStr(library.name)" mat-button
+                (click)="accessorsService.libs.addLibraryStr(library.name);this.router.navigateByUrl('/accessor');">Add to
                 library</button>
-            <button *ngIf="accessorsService.hasLibStr(library.name)" mat-button
-                (click)="accessorsService.removeLibStr(library.name);this.router.navigateByUrl('/accessor');">Remove
+            <button *ngIf="accessorsService.libs.hasLibStr(library.name)" mat-button
+                (click)="accessorsService.libs.removeLibStr(library.name);this.router.navigateByUrl('/accessor');">Remove
                 from library</button>
             <button mat-button (click)="showModal = true">Edit</button>
         </mat-card-actions>

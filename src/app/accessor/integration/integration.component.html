@@ -3,23 +3,23 @@
 <mat-chip-listbox [multiple]="false" aria-label="Integration option">
     <mat-chip-option 
     color="accent" 
-    [selected]="accessorsService.integration == 'Universal tags'"
-    (click)="accessorsService.integration = 'Universal tags'"
+    [selected]="accessorsService.tags.integration == 'Universal tags'"
+    (click)="accessorsService.tags.integration = 'Universal tags'"
     >
     Universal tags
 </mat-chip-option>
 
 <mat-chip-option 
 color="accent" 
-[selected]="accessorsService.integration == 'Script'"
-(click)="accessorsService.integration = 'Script'"
+[selected]="accessorsService.tags.integration == 'Script'"
+(click)="accessorsService.tags.integration = 'Script'"
 >
 Script
 </mat-chip-option>
     <mat-chip-option 
     *ngIf="accessorsService.tag == 'canvas' || accessorsService.tag == 'video'" 
-    [selected]="accessorsService.integration == 'ArtPlayer'" 
-    (click)="accessorsService.integration = 'ArtPlayer'"
+    [selected]="accessorsService.tags.integration == 'ArtPlayer'" 
+    (click)="accessorsService.tags.integration = 'ArtPlayer'"
     color="accent">ArtPlayer
 </mat-chip-option>
 </mat-chip-listbox>

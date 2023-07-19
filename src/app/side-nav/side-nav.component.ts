@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { enableRipple } from '@syncfusion/ej2-base';
-import { FieldSettingsModel } from '@syncfusion/ej2-navigations';
+import {environment} from '../../environments/environment';
+import { vscode } from "../utilities/vscode";
 
 @Component({
   selector: 'app-side-nav',
@@ -24,6 +24,10 @@ export class SideNavComponent implements OnInit {
   }
 
   goToLink(url: string){
-    window.open(url, "_blank");
+    if(environment.vscode){
+      vscode.postMessage({ type: 'open_link', url: url});
+    }else{
+      window.open(url, "_blank");
+    }
   }
 }

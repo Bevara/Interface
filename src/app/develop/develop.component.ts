@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AccessorsService, Library } from '../services/accessors.service';
+import { AccessorsService } from '../services/accessors.service';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { Library } from '../services/libraries.service';
 
 @Component({
   selector: 'app-develop',
@@ -32,7 +33,7 @@ export class DevelopComponent implements OnInit {
   private _filterLibs(value: string): Library[] {
     const filterValue = value.toLowerCase();
 
-    return this.accessorsService.all.filter(lib => lib.name.toLowerCase().includes(filterValue));
+    return this.accessorsService.libs.all.filter(lib => lib.name.toLowerCase().includes(filterValue));
   }
 
   ngOnInit(): void {

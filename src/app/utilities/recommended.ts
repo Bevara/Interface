@@ -1,10 +1,9 @@
 
+import {Tag} from '../services/tags.service';
+
 interface Recommended<TValue> {
     [id: string]: TValue;
 }
-
-
-export type Tag = 'img' | 'audio' | 'video' | 'canvas';
 
 export const recommendedFilters : Recommended<string[]> = {
     "amr": [
@@ -31,6 +30,11 @@ export const recommendedFilters : Recommended<string[]> = {
         "ffmpeg"
     ],
     "jp2":[
+        "pngenc",
+        "rfimg",
+        "j2kdec"
+    ],
+    "j2k":[
         "pngenc",
         "rfimg",
         "j2kdec"
@@ -64,6 +68,14 @@ export const recommendedFilters : Recommended<string[]> = {
         "xiph",
         "ffmpeg"
     ],
+    "opus": [
+        "xiph",
+        "ffmpeg"
+    ],
+    "tif": [
+        "ffmpeg",
+        "pngenc"
+    ],
     "ts": [
         "m2psdmx",
         "rfmpgvid",
@@ -83,12 +95,15 @@ export const recommendedTag : Recommended<Tag> = {
     "avi": "canvas",
     "flac": "audio",
     "jp2":"img",
+    "j2k":"img",
     "jxl":"img",
     "mp3": "audio",
     "mp4": "canvas",
     "mpg": "canvas",
     "ogg": "audio",
+    "opus": "audio",
     "ogv": "canvas",
+    "tif": "img",
     "ts": "canvas",
     "wma": "audio"
 };

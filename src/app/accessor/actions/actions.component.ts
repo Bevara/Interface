@@ -17,7 +17,7 @@ export class ActionsComponent {
     private http: HttpClient) { }
 
     private download_libs(){
-      const all_libs = this.accessorsService.libraries.concat(this.accessorsService.using);
+      const all_libs = this.accessorsService.libs.libraries.concat(this.accessorsService.libs.using);
       return all_libs.map(lib => 
         ({name:lib.url.substring(lib.url.lastIndexOf('/')+1), blob:this.http.get(lib.url, {
           responseType: 'blob'

@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import {MatChipEditedEvent, MatChipInputEvent, MatChipsModule} from '@angular/material/chips';
-import { AccessorsService, Library } from '../services/accessors.service';
+import { AccessorsService} from '../services/accessors.service';
 import { environment } from './../../environments/environment';
 
 @Component({
