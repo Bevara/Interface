@@ -8,7 +8,7 @@ import { AccessorsService } from '../services/accessors.service';
 })
 export class PreviewComponent implements OnInit, AfterViewInit  {
   
-  html:string ='<video src="https://bevara.ddns.net/test-signals/ogv/Big_Buck_Bunny_Trailer_400p.ogv" controls></video>';
+  html ='';
 
   @ViewChild('contentScript') contentScript: ElementRef | undefined;
   @ViewChild('contentTag') contentTag: ElementRef | undefined;

@@ -1,9 +1,12 @@
+
 interface Recommended<TValue> {
     [id: string]: TValue;
 }
 
 
-export const recommended : Recommended<string[]> = {
+export type Tag = 'img' | 'audio' | 'video' | 'canvas';
+
+export const recommendedFilters : Recommended<string[]> = {
     "amr": [
         "rfamr",
         "ffmpeg"
@@ -71,4 +74,21 @@ export const recommended : Recommended<string[]> = {
     "wma": [
         "ffmpeg"
     ]
-}
+};
+
+export const recommendedTag : Recommended<Tag> = {
+    "amr": "audio",
+    "aac": "audio",
+    "ac3": "audio",
+    "avi": "canvas",
+    "flac": "audio",
+    "jp2":"img",
+    "jxl":"img",
+    "mp3": "audio",
+    "mp4": "canvas",
+    "mpg": "canvas",
+    "ogg": "audio",
+    "ogv": "canvas",
+    "ts": "canvas",
+    "wma": "audio"
+};

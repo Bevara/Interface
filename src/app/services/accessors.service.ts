@@ -4,25 +4,22 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { inject } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { HttpClient } from '@angular/common/http';
-import { recommended } from './recommended';
+import { recommendedFilters, recommendedTag, Tag } from './recommended';
+import { vscode } from "./vscode";
+import { environment } from './../../environments/environment';
 
 export type Option = 'use-cache' | 'use-workers' | 'use-webcodecs' | 'data-autoplay' | 'script-directory' | 'controls';
-export type Tag = 'img' | 'audio' | 'video' | 'canvas';
 export type Integration = 'Universal tags' | 'Script' | 'ArtPlayer';
 export type Is = 'universal-canvas' | 'universal-img' | 'universal-audio' | 'universal-video';
 export type MediaSupport = 'image' | 'audio' | 'video';
 
-const server_url = "https://bevara.ddns.net/accessors/";
-
-
-
 export interface Library {
-  id:string;
+  id: string;
   name: string;
   description: string;
   help: string;
   support: MediaSupport[];
-  url:string;
+  url: string;
 }
 export interface JSON_Libraries {
   [index: string]: Library;
@@ -33,31 +30,32 @@ export interface JSON_Libraries {
 })
 
 export class AccessorsService {
-  public using :Library[] = [{
-    id:"solver_1",
+  public using: Library[] = [{
+    id: "solver_1",
     name: "solver.js",
-    description : "",
-    help :"",
-    support:[],
-    url:"https://bevara.ddns.net/accessors/solver_1.wasm",
-  },{
-    id:"solver_1",
+    description: "",
+    help: "",
+    support: [],
+    url: "https://bevara.ddns.net/accessors/solver_1.wasm",
+  }, {
+    id: "solver_1",
     name: "solver.wasm",
-    description : "",
-    help :"",
-    support:[],
-    url:"https://bevara.ddns.net/accessors/solver_1.js",
+    description: "",
+    help: "",
+    support: [],
+    url: "https://bevara.ddns.net/accessors/solver_1.js",
   }];
 
   private _slctLibs: Library[] = [];
   private _allLibs: Library[] = [];
   private _options: Option[] = ['script-directory'];
-  private _scriptDirectoryUrl: String = "https://bevara.ddns.net/accessors/";
+  private _scriptDirectoryUrl: string = "https://bevara.ddns.net/accessors/";
   private _tag: Tag = 'canvas';
   private _tags: Tag[] = [];
   private _integration: Integration = 'ArtPlayer';
   private _is: Is = 'universal-canvas';
-  private _src: string = 'https://bevara.ddns.net/test-signals/mpeg1/medical_demo.ts';
+  private _src = 'https://bevara.ddns.net/test-signals/mpeg1/medical_demo.ts';
+  private _dataUrl :string | null = null;
   public readyEvent = new EventEmitter();
   public isReady = false;
 
@@ -65,26 +63,70 @@ export class AccessorsService {
 
   constructor(
     private http: HttpClient
-  ) { 
-    this.http.get<JSON_Libraries>(server_url+"filter_list.json")
-    .subscribe(libs => {
-      for (const filename in libs) {
-        const lib =  libs[filename];
-        lib.url = server_url+filename;
-        lib.id = filename.replace('.wasm','');
-        this._allLibs.push(lib);
-      }
+  ) {
 
-      //Default libs
-      this.setRecommended();
-      this.isReady = true;
-      this.readyEvent.emit();
+    // Handle messages from the extension
+    window.addEventListener('message', async e => {
+      const { type, body, requestId } = e.data;
+      switch (type) {
+        case 'init':
+          {
+            if (body.untitled) {
+              console.log("todo : init untitled");
+              //editor.initUntitled();
+            } else {
+              //await editor.setData(body.uri.path, body.value, body.scripts, body.scriptsDirectory);
+              this._src = body.uri.path;
+              this.setRecommended();
+
+              if(this._dataUrl){
+                URL.revokeObjectURL(this._dataUrl);
+                this._dataUrl = null;
+              }
+
+              const blob = new Blob([body.value]);
+              this._dataUrl = URL.createObjectURL(blob);
+            }
+            this.initFilterList();
+            return;
+          }
+        case 'getFileData':
+          {
+            //const bevaraData = await editor.getBevaraData();
+            //vscode.postMessage({ type: 'response', requestId, body: bevaraData });
+            console.log("getFileData()");
+            return;
+          }
+      }
     });
+
+    if (environment.vscode){
+      vscode.postMessage({ type: 'ready' });
+    }else{
+      this.initFilterList();
+    }
+  }
+
+  private initFilterList(){
+    this.http.get<JSON_Libraries>(environment.server_url + "filter_list.json")
+      .subscribe(libs => {
+        for (const filename in libs) {
+          const lib = libs[filename];
+          lib.url = environment.server_url + filename;
+          lib.id = filename.replace('.wasm', '');
+          this._allLibs.push(lib);
+        }
+
+        //Default libs
+        this.setRecommended();
+        this.isReady = true;
+        this.readyEvent.emit();
+      });
   }
 
   addLibraryStr(value: string): void {
     if (value && !this.hasLibStr(value)) {
-      this._slctLibs.push({ id:"",name: value, description: '', help: '', support: [], url:"" });
+      this._slctLibs.push({ id: "", name: value, description: '', help: '', support: [], url: "" });
     }
   }
 
@@ -104,7 +146,7 @@ export class AccessorsService {
       return this._slctLibs.map(x => x.name).includes(value);
     }
 
-    return false
+    return false;
   }
 
   removeLibrary(library: Library): void {
@@ -139,12 +181,16 @@ export class AccessorsService {
     this._options = options;
   }
 
+  get options() {
+    return this._options;
+  }
+
   hasOption(option: Option) {
     return this._options.indexOf(option) !== -1;
   }
 
   toogleOption(option: Option) {
-    var index = this._options.indexOf(option);
+    const index = this._options.indexOf(option);
 
     if (index === -1) {
       this._options.push(option);
@@ -158,7 +204,7 @@ export class AccessorsService {
   }
 
   addOption(option: Option) {
-    if (!this.hasOption(option)){
+    if (!this.hasOption(option)) {
       this._options.push(option);
     }
   }
@@ -168,19 +214,15 @@ export class AccessorsService {
   }
 
   removeOption(option: Option) {
-    var index = this._options.indexOf(option);
+    const index = this._options.indexOf(option);
 
     if (index !== -1) {
       this._options.splice(index, 1);
     }
   }
 
-  get options() {
-    return this._options;
-  }
-
-  get optionsStr() : string{
-    return this._options.map(x=> x == 'script-directory'? 'script-directory="'+this._scriptDirectoryUrl+"\"" :x ).join(" ");
+  get optionsStr(): string {
+    return this._options.map(x => x == 'script-directory' ? 'script-directory="' + this._scriptDirectoryUrl + "\"" : x).join(" ");
   }
 
   get libraries() {
@@ -191,27 +233,31 @@ export class AccessorsService {
     return this._allLibs;
   }
 
-  addAll(){
+  addAll() {
     this._slctLibs = [...this._allLibs];
   }
 
-  removeAll(){
+  removeAll() {
     this._slctLibs = [];
   }
 
-  setRecommended(){
+  setRecommended() {
     const fileExt = this._src.split('.').pop();
-    if (fileExt){
-      const recommended_list = recommended[fileExt];
-      if (recommended_list){
-        this._slctLibs = this._allLibs.filter( x => recommended_list.includes(x.name));
-      }else{
+    if (fileExt) {
 
+      const recommended_list = recommendedFilters[fileExt];
+      if (recommended_list) {
+        this._slctLibs = this._allLibs.filter(x => recommended_list.includes(x.name));
       }
-      
+
+      const recommended_tag = recommendedTag[fileExt];
+      if (recommended_tag) {
+        this.tag = recommended_tag;
+        this.integration = "Universal tags";
+      }
     }
   }
-  
+
   get tag() {
     return this._tag;
   }
@@ -221,20 +267,20 @@ export class AccessorsService {
 
     switch (value) {
       case "audio":
-        this._is = "universal-audio"
+        this._is = "universal-audio";
         this.addOptions(['controls']);
         break;
       case "img":
-        this._is = "universal-img"
+        this._is = "universal-img";
         this.removeOptions(['controls']);
         break;
       case "video":
-        this._is = "universal-video"
+        this._is = "universal-video";
         this.addOptions(['controls']);
         break;
       case "canvas":
-        this._is = "universal-canvas"
-        this.removeOptions(['use-cache','use-workers','controls'])
+        this._is = "universal-canvas";
+        this.removeOptions(['use-cache', 'use-workers', 'controls'])
         break;
     }
 
@@ -247,8 +293,8 @@ export class AccessorsService {
     }
   }
 
-  toogleTags(tag : Tag){
-    var index = this._tags.indexOf(tag);
+  toogleTags(tag: Tag) {
+    const index = this._tags.indexOf(tag);
 
     if (index === -1) {
       this._tags.push(tag);
@@ -257,7 +303,7 @@ export class AccessorsService {
     }
   }
 
-  includeTags(tag : Tag){
+  includeTags(tag: Tag) {
     return this._tags.indexOf(tag) !== -1;
   }
 
@@ -281,7 +327,7 @@ export class AccessorsService {
     return this._scriptDirectoryUrl;
   }
 
-  set scriptDirectoryUrl(value: String) {
+  set scriptDirectoryUrl(value: string) {
     this._scriptDirectoryUrl = value;
   }
 
@@ -306,18 +352,18 @@ export class AccessorsService {
 
   }
 
-  private get with_template(){
+  private get with_template() {
     return this._slctLibs.map(x => x.id).join(";");
   }
 
-  private get artplayer_template(){
+  private get artplayer_template() {
     const with_value = this._slctLibs.map(x => x.name).join(";");
 
     return `var art = new Artplayer({
       container: '.artplayer-app',
       url: '${this._src}',
       plugins: [
-        ${this._tag == 'canvas'?'UniversalCanvas':'UniversalVideo'}({
+        ${this._tag == 'canvas' ? 'UniversalCanvas' : 'UniversalVideo'}({
           using: "solver_1",
           with: "${this.with_template}",
           scriptDirectory: "${this._scriptDirectoryUrl}",
@@ -326,34 +372,34 @@ export class AccessorsService {
       });
     `;
   }
-  
-  private get universal_template(){
+
+  private get universal_template() {
     return `<${this._tag} is="${this._is}" ${this._tag == 'canvas' ? 'data-url' : 'src'}="${this._src}" using="solver_1" with="${this.with_template}" ${this.optionsStr}>`;
   }
-  
-  private get script_template(){
+
+  private get script_template() {
     let template = `new MutationObserver(mutations => mutations.forEach(mutation => mutation.addedNodes.forEach(el => {`;
 
-    if (this.includeTags('img')){
+    if (this.includeTags('img')) {
       template += `
       if (el instanceof HTMLImageElement)
-        el.onerror = () => decode(el, false, false);`
+        el.onerror = () => decode(el, false, false);`;
     }
 
-    if (this.includeTags('audio')){
+    if (this.includeTags('audio')) {
       template += `
       if (el instanceof HTMLAudioElement)
-        el.onerror = () => decode(el, false, false);`
+        el.onerror = () => decode(el, false, false);`;
     }
 
-    if (this.includeTags('video')){
+    if (this.includeTags('video')) {
       template += `
       if (el instanceof HTMLVideoElement)
-        el.onerror = () => decode(el, false, false);`
+        el.onerror = () => decode(el, false, false);`;
     }
 
-    template +=`
-  }))).observe(document.documentElement, {subtree: true, childList: true});`
+    template += `
+  }))).observe(document.documentElement, {subtree: true, childList: true});`;
 
     return template;
   }
@@ -363,6 +409,6 @@ export class AccessorsService {
   }
 
   public get html_code() {
-    return this.html_preview;
+    return `<${this._tag} is="${this._is}" ${this._tag == 'canvas' ? 'data-url' : 'src'}="${environment.vscode? this._dataUrl : this._src}" using="solver_1" with="${this.with_template}" ${this.optionsStr}>`;
   }
 }
