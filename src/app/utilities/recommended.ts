@@ -34,6 +34,11 @@ export const recommendedFilters : Recommended<string[]> = {
         "rfimg",
         "j2kdec"
     ],
+    "jpg":[
+        "pngenc",
+        "rfimg",
+        "imgdec"
+    ],
     "j2k":[
         "pngenc",
         "rfimg",
@@ -94,6 +99,7 @@ export const recommendedTag : Recommended<Tag> = {
     "ac3": "audio",
     "avi": "canvas",
     "flac": "audio",
+    "jpg":"img",
     "jp2":"img",
     "j2k":"img",
     "jxl":"img",
