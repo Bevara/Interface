@@ -46,8 +46,7 @@ export const recommendedFilters : Recommended<string[]> = {
     ],
     "jxl":[
         "pngenc",
-        "rfjxl",
-        "jxldec"
+        "libjxl"
     ],
     "mp3": [
         "libmad"
