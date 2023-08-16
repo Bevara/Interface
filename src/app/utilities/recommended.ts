@@ -41,7 +41,7 @@ export const recommendedFilters : Recommended<string[]> = {
     ],
     "j2k":[
         "pngenc",
-        "rfimg",
+        "ffmpeg",
         "j2kdec"
     ],
     "jxl":[
