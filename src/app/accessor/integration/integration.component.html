@@ -12,7 +12,7 @@
 <mat-chip-option 
 color="accent" 
 [selected]="accessorsService.tags.integration == 'Script'"
-(click)="accessorsService.tags.integration = 'Script'"
+(click)="accessorsService.tags.integration = 'Script'; showModal = true;"
 >
 Script
 </mat-chip-option>
@@ -23,3 +23,11 @@ Script
     color="accent">ArtPlayer
 </mat-chip-option>
 </mat-chip-listbox>
+
+
+<app-modal
+  *ngIf="showModal"
+  (clickOnClose)="showModal = false;accessorsService.tags.integration = 'Universal tags'"
+>
+    This functionality is only available with the Bevara Preserve IDE. <br> Contact <a style="color: #fff;" href="mailto:sales@bevara.com">sales@bevara.com</a> for information.
+</app-modal>

@@ -7,5 +7,8 @@ import { AccessorsService } from 'src/app/services/accessors.service';
   styleUrls: ['./integration.component.scss']
 })
 export class IntegrationComponent {
+  showModal = false;
+
   constructor(public accessorsService : AccessorsService) { }
+  
 }
