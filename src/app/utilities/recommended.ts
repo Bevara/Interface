@@ -25,6 +25,10 @@ export const recommendedFilters : Recommended<string[]> = {
         "rfnalu",
         "ffmpeg"
     ],
+    "bmp": [
+        "bmpfull",
+        "pngenc"
+    ],
     "flac": [
         "rfflac",
         "ffmpeg"
@@ -97,6 +101,7 @@ export const recommendedTag : Recommended<Tag> = {
     "aac": "audio",
     "ac3": "audio",
     "avi": "canvas",
+    "bmp": "img",
     "flac": "audio",
     "jpg":"img",
     "jp2":"img",
