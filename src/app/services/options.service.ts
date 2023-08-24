@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core';
 
 export type Option = 'use-cache' | 'use-workers' | 'use-webcodecs' | 'data-autoplay' | 'script-directory' | 'controls';
 
+const debug = false;
+
 @Injectable({
   providedIn: 'root'
 })
 export class OptionsService {
   private _options: Option[] = ['script-directory'];
-  private _scriptDirectoryUrl = "https://bevara.ddns.net/accessors/";
+  private _scriptDirectoryUrl = debug? "http://localhost:8081/" : "https://bevara.ddns.net/accessors/";
 
   constructor() { }
 
