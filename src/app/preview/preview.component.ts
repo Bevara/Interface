@@ -2,11 +2,6 @@ import { AfterViewInit, Component, ElementRef, OnInit, Renderer2, ViewChild } fr
 import { AccessorsService } from '../services/accessors.service';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 
-declare function show_reports(): void;
-declare function show_graph(): void;
-declare function disable_reports(): void;
-
-
 @Component({
   selector: 'app-preview',
   templateUrl: './preview.component.html',
@@ -18,6 +13,9 @@ export class PreviewComponent implements AfterViewInit {
 
   @ViewChild('contentScript') contentScript: ElementRef | undefined;
   @ViewChild('contentTag') contentTag: ElementRef | undefined;
+  @ViewChild('notConnected') notConnectedTab: ElementRef | undefined;
+  @ViewChild('connected') connectedTab: ElementRef | undefined;
+  @ViewChild('preview_elt') preview_elt: ElementRef | undefined;
 
   constructor(private renderer: Renderer2,
     private accessorsService: AccessorsService) { }
@@ -46,17 +44,27 @@ export class PreviewComponent implements AfterViewInit {
     }
   }
 
+  populateUnused(){
+    if (this.notConnectedTab){
+      const preview_elt = document.getElementById("canvas") as any;
+      if (preview_elt){
+        const props = preview_elt.properties(["registered","connected"]);
+        console.log(props);
+      }
+    }
+  }
+
+  populateConnected(){
+    
+  }
+
   selectTab(changeEvent: MatTabChangeEvent) {
     switch (changeEvent.tab.textLabel) {
-      case "Report":
-        show_reports();
-        break;
       case "Graph":
-        disable_reports();
-        show_graph();
+        this.populateConnected();
         break;
-      default:
-        disable_reports();
+      case "Unused":
+        this.populateUnused();
         break;
     }
   }

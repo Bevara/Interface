@@ -10,10 +10,13 @@
         <textarea id="console" rows="8" readonly></textarea>
     </mat-tab>
     <mat-tab label="Graph">
-        <textarea id="graph" rows="8" readonly></textarea>
+        <textarea #connected id="graph" rows="8" readonly></textarea>
     </mat-tab>
     <mat-tab label="Stats">
         <textarea id="stats" rows="8" readonly></textarea>
+    </mat-tab>
+    <mat-tab label="Unused">
+        <textarea #notConnected id="unused" rows="8" readonly></textarea>
     </mat-tab>
     <mat-tab label="Media info">
         <textarea id="reporting" rows="8" readonly></textarea>
