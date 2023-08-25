@@ -6,6 +6,7 @@ import { TagsService } from './tags.service';
 import { environment } from './../../environments/environment';
 import { OptionsService } from './options.service';
 import { Tag } from './tags.service';
+import { LogsService } from './logs.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,8 @@ export class AccessorsService {
     private http: HttpClient,
     private _libs: LibrariesService,
     private _tags: TagsService,
-    private _options:OptionsService
+    private _options:OptionsService,
+    private _logs:LogsService
   ) {
 
     // Handle messages from the extension
@@ -87,6 +89,10 @@ export class AccessorsService {
 
   get options() {
     return this._options;
+  }
+
+  get logs() {
+    return this._logs;
   }
 
   get scriptDirectoryUrl() {
@@ -174,7 +180,7 @@ export class AccessorsService {
   }
 
   private get universal_template() {
-    return `<${this.tag} is="${this.tags.is}" ${this.tag == 'canvas' ? 'data-url' : 'src'}="${this._src}" using="solver_1" with="${this.with_template}" ${this.options.optionsStr}>`;
+    return `<${this.tag} is="${this.tags.is}" ${this.tag == 'canvas' ? 'data-url' : 'src'}="${this._src}" using="solver_1" with="${this.with_template}" ${this.options.optionsStr} ${this.logs.logsStr}>`;
   }
 
   private get script_template() {
@@ -209,6 +215,6 @@ export class AccessorsService {
   }
 
   public get html_code() {
-    return `<${this.tag} is="${this.tags.is}" ${this.tag == 'canvas' ? 'data-url' : 'src'}="${environment.vscode? this._dataUrl : this._src}" using="solver_1" with="${this.with_template}" ${this.options.optionsStr} print="status" printErr="status">`;
+    return `<${this.tag} is="${this.tags.is}" ${this.tag == 'canvas' ? 'data-url' : 'src'}="${environment.vscode? this._dataUrl : this._src}" using="solver_1" with="${this.with_template}" ${this.options.optionsStr} ${this.logs.logsStr} print="console" printErr="console">`;
   }
 }

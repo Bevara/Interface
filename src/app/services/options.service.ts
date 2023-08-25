@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
+import {debug} from '../utilities/debug';
 
 export type Option = 'use-cache' | 'use-workers' | 'use-webcodecs' | 'data-autoplay' | 'script-directory' | 'controls';
-
-const debug = false;
 
 @Injectable({
   providedIn: 'root'

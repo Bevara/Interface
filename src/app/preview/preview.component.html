@@ -5,17 +5,17 @@
 
 
 
-<mat-tab-group color="accent" mat-stretch-tabs="true">
-    <mat-tab label="Status">
-        <textarea id="status" rows="8" readonly></textarea>
+<mat-tab-group color="accent" mat-stretch-tabs="true" (selectedTabChange)="selectTab($event)">
+    <mat-tab label="Console">
+        <textarea id="console" rows="8" readonly></textarea>
     </mat-tab>
     <mat-tab label="Graph">
-        Graph
-    </mat-tab>
-    <mat-tab label="Report">
-        Report
+        <textarea id="graph" rows="8" readonly></textarea>
     </mat-tab>
     <mat-tab label="Stats">
-        Stats
+        <textarea id="stats" rows="8" readonly></textarea>
+    </mat-tab>
+    <mat-tab label="Media info">
+        <textarea id="reporting" rows="8" readonly></textarea>
     </mat-tab>
 </mat-tab-group>

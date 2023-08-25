@@ -13,6 +13,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatIconModule} from '@angular/material/icon';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatChipsModule} from '@angular/material/chips';
+import {MatRadioModule} from '@angular/material/radio';
 import {MatLegacyListModule as MatListModule} from '@angular/material/legacy-list';
 import {CdkDrag, CdkDropList} from '@angular/cdk/drag-drop';
 import {MatButtonModule} from '@angular/material/button';
@@ -31,6 +32,7 @@ import { ActionsComponent } from './accessor/actions/actions.component';
 import { SourceComponent } from './accessor/source/source.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ModalComponent } from './accessor/modal/modal.component';
+import { LogsComponent } from './accessor/logs/logs.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,8 @@ import { ModalComponent } from './accessor/modal/modal.component';
     CodeComponent,
     ActionsComponent,
     SourceComponent,
-    ModalComponent
+    ModalComponent,
+    LogsComponent
   ],
   imports: [
     BrowserModule,
@@ -54,6 +57,7 @@ import { ModalComponent } from './accessor/modal/modal.component';
     BrowserAnimationsModule,
     MatSidenavModule,
     MatListModule,
+    MatRadioModule,
     MatIconModule,
     MatFormFieldModule,
     MatChipsModule,

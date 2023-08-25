@@ -1,0 +1,20 @@
+<mat-divider></mat-divider>
+<mat-list-item>Logs</mat-list-item>
+<mat-chip-listbox [multiple]="true" aria-label="Integration option">
+    <mat-chip-option (click)="accessorsService.logs.toogleLog('graph')" [selected]="accessorsService.logs.hasLog('graph')">Show graph</mat-chip-option>
+    <mat-chip-option (click)="accessorsService.logs.toogleLog('stats')" [selected]="accessorsService.logs.hasLog('stats')">Show stats</mat-chip-option>
+    <mat-chip-option (click)="accessorsService.logs.toogleLog('report')" [selected]="accessorsService.logs.hasLog('report')">Show reports</mat-chip-option>
+	<mat-chip-option (click)="accessorsService.logs.toogleLog('logs')" [selected]="accessorsService.logs.hasLog('logs')">Show logs</mat-chip-option>
+</mat-chip-listbox>
+
+<div *ngIf="accessorsService.logs.hasLog('logs')">
+    <br>
+	<mat-radio-group 
+	aria-label="Select a log level"
+	class="example-radio-group"
+	[(ngModel)]="accessorsService.logs.logLevel">
+	<mat-radio-button class="example-radio-button" *ngFor="let loglevel of accessorsService.logs.allLogLevel" [value]="loglevel">
+		{{loglevel}}
+	  </mat-radio-button>
+	</mat-radio-group>  
+</div>
