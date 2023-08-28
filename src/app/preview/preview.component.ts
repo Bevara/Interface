@@ -1,6 +1,8 @@
 import { AfterViewInit, Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { AccessorsService } from '../services/accessors.service';
 import { MatTabChangeEvent } from '@angular/material/tabs';
+import { Library } from '../services/libraries.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-preview',
@@ -13,12 +15,13 @@ export class PreviewComponent implements AfterViewInit {
 
   @ViewChild('contentScript') contentScript: ElementRef | undefined;
   @ViewChild('contentTag') contentTag: ElementRef | undefined;
-  @ViewChild('notConnected') notConnectedTab: ElementRef | undefined;
   @ViewChild('connected') connectedTab: ElementRef | undefined;
   @ViewChild('preview_elt') preview_elt: ElementRef | undefined;
+  unused: Library[] = [];
 
   constructor(private renderer: Renderer2,
-    private accessorsService: AccessorsService) { }
+    public router: Router,
+    public accessorsService: AccessorsService) { }
 
   updateView() {
     if (this.contentScript) {
@@ -44,18 +47,19 @@ export class PreviewComponent implements AfterViewInit {
     }
   }
 
-  populateUnused(){
-    if (this.notConnectedTab){
-      const preview_elt = document.getElementById("canvas") as any;
-      if (preview_elt){
-        const props = preview_elt.properties(["registered","connected"]);
-        console.log(props);
+  populateUnused() {
+    const preview_elt = document.getElementById("canvas") as any;
+    if (preview_elt) {
+      const props = preview_elt.properties(["connected"]);
+
+      if ( props && props["connected"]) {
+        this.unused = this.accessorsService.libs.getUnusedFromConnectedList(props["connected"]);
       }
     }
   }
 
-  populateConnected(){
-    
+  populateConnected() {
+
   }
 
   selectTab(changeEvent: MatTabChangeEvent) {

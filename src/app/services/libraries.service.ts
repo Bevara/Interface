@@ -13,6 +13,7 @@ export interface Library {
   id: string;
   name: string;
   description: string;
+  filters: string[],
   help: string;
   support: MediaSupport[];
   url: string;
@@ -29,6 +30,7 @@ export class LibrariesService {
   public using: Library[] = [{
     id: "solver_1",
     name: "solver.js",
+    filters: [],
     description: "",
     help: "",
     support: [],
@@ -36,6 +38,7 @@ export class LibrariesService {
   }, {
     id: "solver_1",
     name: "solver.wasm",
+    filters: [],
     description: "",
     help: "",
     support: [],
@@ -124,7 +127,7 @@ export class LibrariesService {
     this._slctLibs = [];
   }
 
-  setRecommended(src:string) {
+  setRecommended(src: string) {
     let fileExt = src.split('.').pop();
     if (fileExt) {
       fileExt = fileExt.toLowerCase();
@@ -138,4 +141,29 @@ export class LibrariesService {
   get remain() {
     return this._allLibs.filter(x => !this._slctLibs.includes(x));
   }
+
+  getUnusedFromConnectedList(connected: string[]): Library[] {
+    const reg_names = connected.map(x => x.split(":")[0]);
+    const unused_filters = [...this._slctLibs];
+
+    for (const reg of reg_names) {
+      for (const unused of this._slctLibs) {
+        if (unused.filters &&
+          unused.filters.length > 0 &&
+          unused.filters.includes(reg) &&
+          unused_filters.includes(unused)
+        ) {
+          const index = unused_filters.indexOf(unused);
+          const x = unused_filters.splice(index, 1);
+        } else if (unused.name === reg &&
+          unused_filters.includes(unused)) {
+          const index = unused_filters.indexOf(unused);
+          const x = unused_filters.splice(index, 1);
+        }
+      }
+    }
+
+    return unused_filters;
+  }
+
 }

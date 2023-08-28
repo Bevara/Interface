@@ -115,7 +115,6 @@ export class AccessorsService {
     this.tags.setRecommended(this._src);
   }
 
-
   public initFilterList(){
     this.http.get<JSON_Libraries>(environment.server_url + "filter_list.json")
       .subscribe(libs => {
