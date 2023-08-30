@@ -1,3 +1,7 @@
+<!-- <app-graph
+[tabEvent]="tabEvent"
+></app-graph>   -->
+
 <div style="text-align:center;padding-top: 50px;" #contentScript id="contentScript">
     <div class="artplayer-app" id="contentTag" #contentTag style="width:852px;height: 480px;margin-left: auto;
     margin-right: auto;"></div>
@@ -10,13 +14,21 @@
         <textarea id="console" rows="8" readonly></textarea>
     </mat-tab>
     <mat-tab label="Graph">
-        <app-graph></app-graph>   
+        <app-graph
+        [tabEvent]="tabEvent"
+        [universal_elt]="'canvas'"
+        ></app-graph> 
     </mat-tab>
     <mat-tab label="Stats">
-        <textarea id="stats" rows="8" readonly></textarea>
+        <app-stats 
+        [tabEvent]="tabEvent"
+        [universal_elt]="'canvas'"
+        ></app-stats>
     </mat-tab>
     <mat-tab label="Unused">
-        <app-unused [tabEvent]="tabEvent"
+        <app-unused 
+        [tabEvent]="tabEvent"
+        [universal_elt]="'canvas'"
         ></app-unused>
     </mat-tab>
     <mat-tab label="Media info">

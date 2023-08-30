@@ -35,6 +35,8 @@ import { ModalComponent } from './accessor/modal/modal.component';
 import { LogsComponent } from './accessor/logs/logs.component';
 import { UnusedComponent } from './preview/unused/unused.component';
 import { GraphComponent } from './preview/graph/graph.component';
+import { StatsComponent } from './preview/stats/stats.component';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -53,7 +55,8 @@ import { GraphComponent } from './preview/graph/graph.component';
     ModalComponent,
     LogsComponent,
     UnusedComponent,
-    GraphComponent
+    GraphComponent,
+    StatsComponent
   ],
   imports: [
     BrowserModule,
@@ -65,6 +68,7 @@ import { GraphComponent } from './preview/graph/graph.component';
     MatIconModule,
     MatFormFieldModule,
     MatChipsModule,
+    MatExpansionModule,
     CdkDropList, 
     CdkDrag,
     MatCardModule, 

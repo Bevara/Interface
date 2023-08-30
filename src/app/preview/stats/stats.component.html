@@ -1,0 +1,14 @@
+<mat-accordion>
+	<mat-expansion-panel 
+	(opened)="onOpen(filter)" 
+	(closed)="onClose(filter)"
+	*ngFor="let filter of connected"
+	>
+		<mat-expansion-panel-header>
+			<mat-panel-title>
+				{{filter}}
+			</mat-panel-title>
+		</mat-expansion-panel-header>
+		{{filters_contents[filter]}}
+	</mat-expansion-panel>
+</mat-accordion>

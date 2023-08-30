@@ -11,6 +11,8 @@ import { Library } from 'src/app/services/libraries.service';
 })
 export class UnusedComponent implements OnInit  {
   @Input() tabEvent: EventEmitter<MatTabChangeEvent> | null = null;
+  @Input() universal_elt = "";
+
   unused: Library[] = [];
   
   constructor(
@@ -30,7 +32,7 @@ export class UnusedComponent implements OnInit  {
   }
     
     populateUnused() {
-      const preview_elt = document.getElementById("canvas") as any;
+      const preview_elt = document.getElementById(this.universal_elt) as any;
       if (preview_elt) {
         const props = preview_elt.properties(["connected"]);
   
