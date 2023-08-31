@@ -21,7 +21,7 @@ export class PreviewComponent implements AfterViewInit {
   tabEvent: EventEmitter<MatTabChangeEvent> = new EventEmitter<MatTabChangeEvent>();
 
   constructor(private renderer: Renderer2,
-    private accessorsService: AccessorsService) { }
+    public accessorsService: AccessorsService) { }
 
   updateView() {
     if (this.contentScript) {

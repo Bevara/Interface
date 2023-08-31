@@ -16,19 +16,19 @@
     <mat-tab label="Graph">
         <app-graph
         [tabEvent]="tabEvent"
-        [universal_elt]="'canvas'"
+        [universal_elt]="accessorsService.id"
         ></app-graph> 
     </mat-tab>
     <mat-tab label="Stats">
         <app-stats 
         [tabEvent]="tabEvent"
-        [universal_elt]="'canvas'"
+        [universal_elt]="accessorsService.id"
         ></app-stats>
     </mat-tab>
     <mat-tab label="Unused">
         <app-unused 
         [tabEvent]="tabEvent"
-        [universal_elt]="'canvas'"
+        [universal_elt]="accessorsService.id"
         ></app-unused>
     </mat-tab>
     <mat-tab label="Media info">
