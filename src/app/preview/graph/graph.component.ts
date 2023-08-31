@@ -92,7 +92,7 @@ export class GraphComponent implements OnInit {
     
     const svg = d3.select('#graph_placeholder')
     .append('svg')
-    .attr('viewBox', '0 0 500 500');
+    .attr('viewBox', '100 100 800 800');
 
     if (!div) return;
 
