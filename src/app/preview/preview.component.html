@@ -32,6 +32,9 @@
         ></app-unused>
     </mat-tab>
     <mat-tab label="Media info">
-        <textarea id="reporting" rows="8" readonly></textarea>
+        <app-info
+        [tabEvent]="tabEvent"
+        >
+        </app-info>
     </mat-tab>
 </mat-tab-group>

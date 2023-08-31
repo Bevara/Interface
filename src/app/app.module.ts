@@ -37,6 +37,7 @@ import { UnusedComponent } from './preview/unused/unused.component';
 import { GraphComponent } from './preview/graph/graph.component';
 import { StatsComponent } from './preview/stats/stats.component';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { InfoComponent } from './preview/info/info.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     LogsComponent,
     UnusedComponent,
     GraphComponent,
-    StatsComponent
+    StatsComponent,
+    InfoComponent
   ],
   imports: [
     BrowserModule,

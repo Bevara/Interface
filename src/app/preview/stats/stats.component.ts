@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 
 interface FilterStats {
@@ -11,7 +11,7 @@ interface FilterStats {
   styleUrls: ['./stats.component.scss']
 })
 
-export class StatsComponent  {
+export class StatsComponent implements OnInit {
   @Input() tabEvent: EventEmitter<MatTabChangeEvent> | null = null;
   @Input() universal_elt = "";
 
