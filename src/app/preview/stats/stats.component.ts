@@ -34,6 +34,8 @@ export class StatsComponent  {
   populateStats() {
     const preview_elt = document.getElementById(this.universal_elt) as any;
     if (preview_elt) {
+      preview_elt.enable_reporting = true;
+
       const props = preview_elt.properties(["connected"]);
 
       if (props && props["connected"]) {
@@ -51,6 +53,11 @@ export class StatsComponent  {
   }
 
   clearStats() {
+    const preview_elt = document.getElementById(this.universal_elt) as any;
+    if (preview_elt) {
+      preview_elt.enable_reporting = false;
+    }
+    
     clearInterval(this.interval);
   }
 }
