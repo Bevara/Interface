@@ -95,7 +95,6 @@ export class GraphComponent implements OnInit {
     .attr('viewBox', '0 0 500 500');
 
     if (!div) return;
-    console.log(div.clientWidth);
 
     svg
       .append('defs')

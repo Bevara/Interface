@@ -49,6 +49,9 @@ export class StatsComponent  {
     if (!this.interval && preview_elt){
       this.interval = setInterval(() => {
         const props = preview_elt.properties([{"stats":this.to_refresh}]);
+        if (props && props["stats"]) {
+          this.filters_contents = props["stats"];
+        }
       }, 1000);
     }
   }
