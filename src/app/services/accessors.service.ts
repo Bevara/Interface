@@ -7,13 +7,14 @@ import { environment } from './../../environments/environment';
 import { OptionsService } from './options.service';
 import { Tag } from './tags.service';
 import { LogsService } from './logs.service';
+import { MediainfoService } from './mediainfo.service';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class AccessorsService {
-  private _src = 'https://bevara.ddns.net/test-signals/mpeg1/medical_demo.ts';
+  private _src = 'https://bevara.ddns.net/test-signals/ogv/Big_Buck_Bunny_Trailer_400p.ogv';
   private _dataUrl :string | null = null;
   public readyEvent = new EventEmitter();
   public isReady = false;
@@ -23,7 +24,8 @@ export class AccessorsService {
     private _libs: LibrariesService,
     private _tags: TagsService,
     private _options:OptionsService,
-    private _logs:LogsService
+    private _logs:LogsService,
+    private _mediainfo:MediainfoService
   ) {
 
     // Handle messages from the extension
@@ -46,6 +48,7 @@ export class AccessorsService {
 
               const blob = new Blob([body.value]);
               this._dataUrl = URL.createObjectURL(blob);
+              this._mediainfo.initInfo(this._dataUrl);
             }
             this.initFilterList();
             return;
@@ -64,6 +67,7 @@ export class AccessorsService {
       vscode.postMessage({ type: 'ready' });
     }else{
       this.initFilterList();
+      this._mediainfo.initInfo(this._src);
     }
   }
 
@@ -219,6 +223,10 @@ export class AccessorsService {
 
   public get id() {
     return this.tag == 'canvas'? "canvas" : "preview_tag";
+  }
+
+  public get info() {
+    return this._mediainfo.info;
   }
 
 }

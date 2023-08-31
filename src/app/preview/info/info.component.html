@@ -1,1 +1,12 @@
-<p>info works!</p>
+<mat-accordion>
+	<mat-expansion-panel 
+	*ngFor="let info of mediaInfo"
+	>
+		<mat-expansion-panel-header>
+			<mat-panel-title>
+				{{info["@type"]}}
+			</mat-panel-title>
+		</mat-expansion-panel-header>
+		{{info}}
+	</mat-expansion-panel>
+</mat-accordion>
