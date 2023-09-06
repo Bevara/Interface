@@ -5,7 +5,8 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build --output-hashing=none",
-    "build:vscode": "ng build --output-hashing=none --configuration vscode-prod && cd player/build && make release",
+    "build:components": "cd player/build && make release",
+    "build:vscode": "ng build --output-hashing=none --configuration vscode-prod",
     "build:vscode-debug": "ng build --output-hashing=none --configuration vscode",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
