@@ -1,8 +1,6 @@
 import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { AccessorsService } from 'src/app/services/accessors.service';
-import MediaInfoFactory from 'mediainfo.js';
-import type { ReadChunkFunc } from 'mediainfo.js';
 
 @Component({
   selector: 'app-info',
@@ -10,7 +8,10 @@ import type { ReadChunkFunc } from 'mediainfo.js';
   styleUrls: ['./info.component.scss']
 })
 export class InfoComponent implements OnInit {
-  mediaInfo = [];
+  tracks:string[] = [];
+  trackInfo : { [key: string]: any } = {};
+
+  displayedColumns: string[] = ["type","desc"];
 
   @Input() tabEvent: EventEmitter<MatTabChangeEvent> | null = null;
 
@@ -30,6 +31,21 @@ export class InfoComponent implements OnInit {
   }
 
   async populateInfos() {
-    this.mediaInfo = this.accessorsService.info;
+    const info = this.accessorsService.info;
+    this.tracks = [];
+    this.trackInfo = {};
+
+    for(const track of info){
+      const type = track["@type"];
+      this.tracks.push(type);
+      this.trackInfo[type] = Object.entries(track)
+      .filter(x => x[0] != "@type")
+      .filter(x => x[0] != "VideoCount")
+      .filter(x => x[0] != "AudioCount")
+      .filter(x => x[0] != "ID")
+      .map(o => {
+        return { type: o[0], desc: o[1] };
+    });
+    }
   }
 }

@@ -14,6 +14,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatRadioModule} from '@angular/material/radio';
+import {MatTableModule} from '@angular/material/table';
 import {MatLegacyListModule as MatListModule} from '@angular/material/legacy-list';
 import {CdkDrag, CdkDropList} from '@angular/cdk/drag-drop';
 import {MatButtonModule} from '@angular/material/button';
@@ -71,6 +72,7 @@ import { InfoComponent } from './preview/info/info.component';
     MatFormFieldModule,
     MatChipsModule,
     MatExpansionModule,
+    MatTableModule,
     CdkDropList, 
     CdkDrag,
     MatCardModule, 
