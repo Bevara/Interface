@@ -218,7 +218,7 @@ export class AccessorsService {
   }
 
   public get html_code() {
-    return `<${this.tag} is="${this.tags.is}" ${this.tag != 'canvas'? "id=preview_tag":"" } ${this.tag == 'canvas' ? 'data-url' : 'src'}="${environment.vscode? this._dataUrl : this._src}" using="solver_1" with="${this.with_template}" ${this.options.optionsStr} ${this.logs.logsStr} print="console" printErr="console">`;
+    return `<${this.tag} is="${this.tags.is}" ${this.tag != 'canvas'? "id=preview_tag":"" } ${this.tag == 'canvas' ? 'data-url' : 'src'}="${environment.vscode? this._dataUrl : this._src}" using="solver_1" with="${this.with_template}" ${this.options.optionsStr} ${this.logs.logsStr} print="console" printErr="console" noCleanupOnExit=true >`;
   }
 
   public get id() {
