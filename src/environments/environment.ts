@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   vscode:false,
-  server_url : "https://bevara.ddns.net/accessors/"
+  server_url : "https://bevara.ddns.net"
 };
 
 /*

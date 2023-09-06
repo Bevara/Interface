@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import MediaInfoFactory from 'mediainfo.js';
 import type { MediaInfo, ReadChunkFunc } from 'mediainfo.js';
-
+import { environment } from './../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +12,15 @@ export class MediainfoService {
   json_info : any = {};
 
   async initInfo(src:string){
+
+    function defaultLocateFile(path:string, prefix:string) {
+      return `${environment.server_url}/mediainfo/${path}`;
+    }
+
     const response = await fetch(src);
     const blob = await response.blob();
     if (!this.mi){
-      this.mi = await MediaInfoFactory({ format: 'JSON' });
+      this.mi = await MediaInfoFactory({ format: 'JSON',locateFile: defaultLocateFile});
     }
     
     const getSize = () => blob.size;

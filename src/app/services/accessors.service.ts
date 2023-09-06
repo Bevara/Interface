@@ -14,7 +14,7 @@ import { MediainfoService } from './mediainfo.service';
 })
 
 export class AccessorsService {
-  private _src = 'https://bevara.ddns.net/test-signals/ogv/Big_Buck_Bunny_Trailer_400p.ogv';
+  private _src = 'https://bevara.ddns.net/test-signals/mpeg1/medical_demo.mpg';
   private _dataUrl :string | null = null;
   public readyEvent = new EventEmitter();
   public isReady = false;
@@ -120,11 +120,11 @@ export class AccessorsService {
   }
 
   public initFilterList(){
-    this.http.get<JSON_Libraries>(environment.server_url + "filter_list.json")
+    this.http.get<JSON_Libraries>(environment.server_url + "/accessors/" + "filter_list.json")
       .subscribe(libs => {
         for (const filename in libs) {
           const lib = libs[filename];
-          lib.url = environment.server_url + filename;
+          lib.url = environment.server_url + "/accessors/" + filename;
           lib.id = filename.replace('.wasm', '');
           this.libs._allLibs.push(lib);
         }
