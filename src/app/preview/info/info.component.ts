@@ -42,6 +42,7 @@ export class InfoComponent implements OnInit {
       .filter(x => x[0] != "@type")
       .filter(x => x[0] != "VideoCount")
       .filter(x => x[0] != "AudioCount")
+      .filter(x => x[0] != "ImageCount")
       .filter(x => x[0] != "ID")
       .map(o => {
         return { type: o[0], desc: o[1] };
