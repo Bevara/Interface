@@ -14,7 +14,7 @@ import { MediainfoService } from './mediainfo.service';
 })
 
 export class AccessorsService {
-  private _src = 'https://bevara.ddns.net/test-signals/ogv/Big_Buck_Bunny_Trailer_400p.ogv';
+  private _src = 'https://bevara.ddns.net/test-signals/mpeg1/medical_demo.mpg';
   private _dataUrl :string | null = null;
   public readyEvent = new EventEmitter();
   public isReady = false;

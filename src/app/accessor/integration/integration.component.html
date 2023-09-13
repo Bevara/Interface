@@ -1,33 +1,25 @@
 <mat-divider></mat-divider>
 <mat-list-item>Integration option</mat-list-item>
 <mat-chip-listbox [multiple]="false" aria-label="Integration option">
-    <mat-chip-option 
-    color="accent" 
-    [selected]="accessorsService.tags.integration == 'Universal tags'"
-    (click)="accessorsService.tags.integration = 'Universal tags'"
-    >
+  <mat-chip-option color="accent" [selected]="accessorsService.tags.integration == 'Universal tags'"
+    (click)="accessorsService.tags.integration = 'Universal tags'">
     Universal tags
-</mat-chip-option>
+  </mat-chip-option>
 
-<mat-chip-option 
-color="accent" 
-[selected]="accessorsService.tags.integration == 'Script'"
-(click)="accessorsService.tags.integration = 'Script'; showModal = true;"
->
-Script
-</mat-chip-option>
-    <mat-chip-option 
-    *ngIf="accessorsService.tag == 'canvas' || accessorsService.tag == 'video'" 
-    [selected]="accessorsService.tags.integration == 'ArtPlayer'" 
-    (click)="accessorsService.tags.integration = 'ArtPlayer'"
-    color="accent">ArtPlayer
-</mat-chip-option>
+  <!-- <mat-chip-option color="accent" [selected]="accessorsService.tags.integration == 'Script'"
+    (click)="accessorsService.tags.integration = 'Script'; showModal = true;">
+    Script
+  </mat-chip-option>
+
+  <mat-chip-option *ngIf="accessorsService.tag == 'canvas' || accessorsService.tag == 'video'"
+    [selected]="accessorsService.tags.integration == 'ArtPlayer'"
+    (click)="accessorsService.tags.integration = 'ArtPlayer'" color="accent">ArtPlayer
+  </mat-chip-option> -->
+
 </mat-chip-listbox>
 
 
-<app-modal
-  *ngIf="showModal"
-  (clickOnClose)="showModal = false;accessorsService.tags.integration = 'Universal tags'"
->
-This feature is only available with the Bevara Premium IDE. <br> Contact <a style="color: #fff;" href="mailto:sales@bevara.com">sales@bevara.com</a> for information.
+<app-modal *ngIf="showModal" (clickOnClose)="showModal = false;accessorsService.tags.integration = 'Universal tags'">
+  This feature is only available with the Bevara Preserve IDE. <br> Contact <a style="color: #fff;"
+    href="mailto:sales@bevara.com">sales@bevara.com</a> for information.
 </app-modal>

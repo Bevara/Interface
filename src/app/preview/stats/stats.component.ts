@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 
 interface FilterStats {
-  [key: string]: string;
+  [key: string]: any;
 }
 
 @Component({
@@ -15,16 +15,17 @@ export class StatsComponent implements OnInit {
   @Input() tabEvent: EventEmitter<MatTabChangeEvent> | null = null;
   @Input() universal_elt = "";
 
-  interval : string | number | NodeJS.Timeout | undefined = undefined;
+  interval: string | number | NodeJS.Timeout | undefined = undefined;
   connected: string[] = [];
   filters_contents: FilterStats = {};
+  displayedColumns: string[] = ["type", "desc"];
 
   ngOnInit(): void {
     if (this.tabEvent) {
       this.tabEvent.subscribe(changeEvent => {
         if (changeEvent.tab.textLabel == "Stats") {
           this.populateStats();
-        }else{
+        } else {
           this.clearStats();
         }
       });
@@ -42,11 +43,19 @@ export class StatsComponent implements OnInit {
         this.connected = props["connected"];
       }
     }
-    
+
     this.interval = setInterval(() => {
       const props = preview_elt.properties(["stats"]);
       if (props && props["stats"]) {
-        this.filters_contents = props["stats"];
+        const stats = props["stats"];
+        for (const k in stats) {
+          const stat = stats[k];
+          this.filters_contents[k] = Object.entries(stat)
+            .map((o: any) => {
+              return { type: o[0], desc: o[1] };
+            });
+        }
+
       }
     }, 1000);
 
@@ -57,7 +66,7 @@ export class StatsComponent implements OnInit {
     if (preview_elt) {
       preview_elt.enable_reporting = false;
     }
-    
+
     clearInterval(this.interval);
   }
 }
