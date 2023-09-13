@@ -35,7 +35,19 @@ export class PreviewComponent implements AfterViewInit {
         player.innerHTML = this.accessorsService.html_code;
 
         this.renderer.appendChild(this.contentTag.nativeElement, player);
+        /*setTimeout(() => {
+          this.waitForEnd();
+        }, 5000);*/
       }
+    }
+  }
+
+  async waitForEnd(){
+    const preview_elt = document.getElementById(this.accessorsService.id) as any;
+
+    if (preview_elt) {
+      const decoding_promise = await preview_elt.decodingPromise;
+      console.log(decoding_promise);
     }
   }
 
