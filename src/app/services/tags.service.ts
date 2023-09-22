@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { recommendedFilters, recommendedTag } from '../utilities/recommended';
 import { OptionsService } from './options.service';
 
 export type Tag = 'img' | 'audio' | 'video' | 'canvas';
@@ -19,16 +18,27 @@ export class TagsService {
    private options: OptionsService 
   ) { }
 
-  setRecommended(src:string) {
-    let fileExt = src.split('.').pop();
-    if (fileExt) {
-      fileExt = fileExt.toLowerCase();
+  setRecommended(info:any) {
+    this.integration = "Universal tags";
 
-      const recommended_tag = recommendedTag[fileExt];
-      if (recommended_tag) {
-        this.tag = recommended_tag;
-        this.integration = "Universal tags";
-      }
+    const video = info.filter((x :any) => x["@type"] == "Video");
+    if(video.length > 0) {
+      this.tag = "canvas";
+      return;
+    }
+
+    const img = info.filter((x :any) => x["@type"] == "Image");
+
+    if(img.length > 0) {
+      this.tag = "img";
+      return;
+    }
+
+    const audio = info.filter((x :any) => x["@type"] == "Audio");
+
+    if(audio.length > 0) {
+      this.tag = "audio";
+      return;
     }
   }
 

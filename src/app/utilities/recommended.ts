@@ -1,21 +1,27 @@
 
 import {Tag} from '../services/tags.service';
 
+interface Identifier {
+    [id: string]: string[];
+}
+
 interface Recommended<TValue> {
     [id: string]: TValue;
 }
 
-export const recommendedFilters : Recommended<string[]> = {
-    "amr": [
-        "rfamr",
-        "ffmpeg"
-    ],
-    "aac": [
-        "libfaad"
-    ],
-    "ac3": [
-        "liba52"
-    ],
+export const recommendedFilters : Recommended<Identifier> = {
+    "libfaad":{
+        "Format" : ["AAC"] 
+    },
+    "rfamr":{
+        "Format" : ["AMR"] 
+    },
+    "ffmpeg":{
+        "Format" : ["AMR"]
+    },
+    "liba52": {
+        "Format" : ["AC-3"]
+    }/*,
     "avi": [
         "mp4mx",
         "avidmx",
@@ -93,27 +99,5 @@ export const recommendedFilters : Recommended<string[]> = {
     ],
     "wma": [
         "ffmpeg"
-    ]
-};
-
-export const recommendedTag : Recommended<Tag> = {
-    "amr": "audio",
-    "aac": "audio",
-    "ac3": "audio",
-    "avi": "canvas",
-    "bmp": "img",
-    "flac": "audio",
-    "jpg":"img",
-    "jp2":"img",
-    "j2k":"img",
-    "jxl":"img",
-    "mp3": "audio",
-    "mp4": "canvas",
-    "mpg": "canvas",
-    "ogg": "audio",
-    "opus": "audio",
-    "ogv": "canvas",
-    "tif": "img",
-    "ts": "canvas",
-    "wma": "audio"
+    ]*/
 };

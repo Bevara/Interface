@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import MediaInfoFactory from 'mediainfo.js';
 import type { MediaInfo, ReadChunkFunc } from 'mediainfo.js';
 import { environment } from './../../environments/environment';
@@ -11,6 +11,8 @@ export class MediainfoService {
   mi : MediaInfo<"JSON"> | null = null;
   json_info : any = {};
 
+  public readyEvent = new EventEmitter();
+  
   async initInfo(src:string){
 
     function defaultLocateFile(path:string, prefix:string) {
@@ -39,6 +41,7 @@ export class MediainfoService {
       });
     });
     this.json_info = JSON.parse(await this.mi.analyzeData(getSize, readChunk));
+    this.readyEvent.emit();
   }
 
   get info(){

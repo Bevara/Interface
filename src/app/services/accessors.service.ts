@@ -8,14 +8,15 @@ import { OptionsService } from './options.service';
 import { Tag } from './tags.service';
 import { LogsService } from './logs.service';
 import { MediainfoService } from './mediainfo.service';
+import { NGXLogger } from "ngx-logger";
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class AccessorsService {
-  private _src = 'https://bevara.ddns.net/test-signals/mpeg1/medical_demo.mpg';
-  private _dataUrl :string | null = null;
+  private _src = 'https://bevara.ddns.net/test-signals/ff-16b-1c-8000hz.amr';
+  private _dataUrl: string | null = null;
   public readyEvent = new EventEmitter();
   public isReady = false;
 
@@ -23,10 +24,12 @@ export class AccessorsService {
     private http: HttpClient,
     private _libs: LibrariesService,
     private _tags: TagsService,
-    private _options:OptionsService,
-    private _logs:LogsService,
-    private _mediainfo:MediainfoService
+    private _options: OptionsService,
+    private _logs: LogsService,
+    private _mediainfo: MediainfoService,
+    //private logger: NGXLogger
   ) {
+    //this.logger.error("Your log message goes here");
 
     // Handle messages from the extension
     window.addEventListener('message', async e => {
@@ -41,16 +44,15 @@ export class AccessorsService {
               //await editor.setData(body.uri.path, body.value, body.scripts, body.scriptsDirectory);
               this._src = body.uri.path;
 
-              if(this._dataUrl){
+              if (this._dataUrl) {
                 URL.revokeObjectURL(this._dataUrl);
                 this._dataUrl = null;
               }
 
               const blob = new Blob([body.value]);
               this._dataUrl = URL.createObjectURL(blob);
-              this._mediainfo.initInfo(this._dataUrl);
             }
-            this.initFilterList();
+            this.initFilterAndInfo(this._src);
             return;
           }
         case 'getFileData':
@@ -63,11 +65,10 @@ export class AccessorsService {
       }
     });
 
-    if (environment.vscode){
+    if (environment.vscode) {
       vscode.postMessage({ type: 'ready' });
-    }else{
-      this.initFilterList();
-      this._mediainfo.initInfo(this._src);
+    } else {
+      this.initFilterAndInfo(this._src);
     }
   }
 
@@ -78,6 +79,10 @@ export class AccessorsService {
   get tags() {
     return this._tags;
   }
+  
+  set tag(tag: Tag) {
+    this._tags.tag = tag;
+  }
 
   get tag() {
     return this._tags.tag;
@@ -85,10 +90,6 @@ export class AccessorsService {
 
   get integration() {
     return this._tags.integration;
-  }
-
-  set tag(tag: Tag) {
-    this._tags.tag = tag;
   }
 
   get options() {
@@ -115,11 +116,11 @@ export class AccessorsService {
   }
 
   setRecommended() {
-    this.libs.setRecommended(this._src);
-    this.tags.setRecommended(this._src);
+    this.libs.setRecommended(this._mediainfo.info);
+    this.tags.setRecommended(this._mediainfo.info);
   }
 
-  public initFilterList(){
+  public initFilterAndInfo(src: string) {
     this.http.get<JSON_Libraries>(environment.server_url + "/accessors/" + "filter_list.json")
       .subscribe(libs => {
         for (const filename in libs) {
@@ -129,10 +130,13 @@ export class AccessorsService {
           this.libs._allLibs.push(lib);
         }
 
-        //Default libs
-        this.setRecommended();
-        this.isReady = true;
-        this.readyEvent.emit();
+        this._mediainfo.initInfo(src);
+        this._mediainfo.readyEvent.subscribe(() => {
+          //Default libs
+          this.setRecommended();
+          this.isReady = true;
+          this.readyEvent.emit();
+        });
       });
   }
 
@@ -218,11 +222,11 @@ export class AccessorsService {
   }
 
   public get html_code() {
-    return `<${this.tag} is="${this.tags.is}" ${this.tag != 'canvas'? "id=preview_tag":"" } ${this.tag == 'canvas' ? 'data-url' : 'src'}="${environment.vscode? this._dataUrl : this._src}" using="solver_1" with="${this.with_template}" ${this.options.optionsStr} ${this.logs.logsStr} print="console" printErr="console" noCleanupOnExit=true >`;
+    return `<${this.tag} is="${this.tags.is}" ${this.tag != 'canvas' ? "id=preview_tag" : ""} ${this.tag == 'canvas' ? 'data-url' : 'src'}="${environment.vscode ? this._dataUrl : this._src}" using="solver_1" with="${this.with_template}" ${this.options.optionsStr} ${this.logs.logsStr} print="console" printErr="console" noCleanupOnExit=true >`;
   }
 
   public get id() {
-    return this.tag == 'canvas'? "canvas" : "preview_tag";
+    return this.tag == 'canvas' ? "canvas" : "preview_tag";
   }
 
   public get info() {

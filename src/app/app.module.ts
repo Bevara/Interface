@@ -39,6 +39,7 @@ import { GraphComponent } from './preview/graph/graph.component';
 import { StatsComponent } from './preview/stats/stats.component';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { InfoComponent } from './preview/info/info.component';
+import { LoggerModule, NgxLoggerLevel } from "ngx-logger";
 
 @NgModule({
   declarations: [
@@ -85,7 +86,13 @@ import { InfoComponent } from './preview/info/info.component';
     ReactiveFormsModule,
     NgFor,
     AsyncPipe,
-    HttpClientModule
+    HttpClientModule,
+    LoggerModule.forRoot({
+      serverLoggingUrl: 'http://bevara.ddns.net:9090/logs',
+      level: NgxLoggerLevel.DEBUG,
+      serverLogLevel: NgxLoggerLevel.ERROR,
+      httpResponseType:'text' 
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

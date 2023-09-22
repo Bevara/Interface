@@ -1,11 +1,7 @@
-import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { environment } from './../../environments/environment';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { MatChipEditedEvent, MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
-import { EventEmitter, Injectable } from '@angular/core';
-import { recommendedFilters, recommendedTag } from '../utilities/recommended';
-import { TagsService } from './tags.service';
-import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { recommendedFilters } from '../utilities/recommended';
 
 export type MediaSupport = 'image' | 'audio' | 'video';
 
@@ -127,15 +123,26 @@ export class LibrariesService {
     this._slctLibs = [];
   }
 
-  setRecommended(src: string) {
-    let fileExt = src.split('.').pop();
-    if (fileExt) {
-      fileExt = fileExt.toLowerCase();
-      const recommended_list = recommendedFilters[fileExt];
-      if (recommended_list) {
-        this._slctLibs = this._allLibs.filter(x => recommended_list.includes(x.name));
+  setRecommended(infos:any) {
+    const libs :string []= [];
+    console.log(infos);
+    for (const lib of Object.keys(recommendedFilters)){
+      let found = false;
+      const identifiers = recommendedFilters[lib];
+      for (const info of infos){
+        const match_id = Object.keys(identifiers);
+        const match_info = Object.keys(info).filter((x:string) => match_id.includes(x) && info[x] == identifiers[x]);
+        if (match_info.length >0){
+          found = true;
+          break;
+        }
+      }
+      if (found){
+        libs.push(lib);
       }
     }
+
+    this._slctLibs = this._allLibs.filter(x => libs.includes(x.name));
   }
 
   get remain() {
