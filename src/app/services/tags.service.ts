@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { OptionsService } from './options.service';
+import {recommendedExt } from '../utilities/recommended';
 
 export type Tag = 'img' | 'audio' | 'video' | 'canvas';
 export type Integration = 'Universal tags' | 'Script' | 'ArtPlayer';
@@ -18,7 +19,13 @@ export class TagsService {
    private options: OptionsService 
   ) { }
 
-  setRecommended(info:any) {
+  setRecommendedFromExt(ext:string) {
+    if (ext in recommendedExt){
+      this.tag = recommendedExt[ext].tag;
+    }
+  }
+
+  setRecommendedFromInfo(info:any) {
     this.integration = "Universal tags";
 
     const video = info.filter((x :any) => x["@type"] == "Video");

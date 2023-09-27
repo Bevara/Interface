@@ -2,13 +2,31 @@
     <div class="artplayer-app" id="contentTag" #contentTag></div>
 </div>
 
+<app-modal *ngIf="decoding" [hideClose]="true">
+    Your file is currently decoding. Please wait until finished...
+    <br>
+    <mat-spinner style="margin:0 auto;" [color]="spinner_color"></mat-spinner>
+    
+</app-modal>
+
+<app-modal *ngIf="error" (clickOnClose)="error = false">
+    The combination of accessors used failed at decoding the current files.  
+    <br> You can try another combination of accessors or used the <a>recommmed ones</a>. You can also contact <a style="color: #fff;" href="mailto:sales@bevara.com">sales@bevara.com</a> for information. 
+</app-modal>
+
+<app-modal *ngIf="accessorsService.not_supported" (clickOnClose)="accessorsService.not_supported = false">
+    This format has yet no supported accessors.  <br>
+     Please contact <a style="color: #fff;" href="mailto:sales@bevara.com">sales@bevara.com</a> to get support. 
+</app-modal>
+
 
 
 <mat-tab-group color="accent" mat-stretch-tabs="true" (selectedTabChange)="selectTab($event)">
     <mat-tab label="Console">
         <textarea id="console" rows="8" readonly></textarea>
     </mat-tab>
-    <mat-tab label="Media info">
+    <mat-tab label="Media info"
+    *ngIf="infoService.supported_format">
         <app-info
         [tabEvent]="tabEvent"
         >

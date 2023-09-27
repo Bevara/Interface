@@ -10,37 +10,48 @@ export class MediainfoService {
 
   mi : MediaInfo<"JSON"> | null = null;
   json_info : any = {};
+  supported_format = false;
 
   public readyEvent = new EventEmitter();
   
   async initInfo(src:string){
-
     function defaultLocateFile(path:string, prefix:string) {
       return `${environment.server_url}/mediainfo/${path}`;
     }
 
-    const response = await fetch(src);
-    const blob = await response.blob();
-    if (!this.mi){
-      this.mi = await MediaInfoFactory({ format: 'JSON',locateFile: defaultLocateFile});
+    try{
+      const response = await fetch(src);
+      const blob = await response.blob();
+      if (!this.mi){
+        this.mi = await MediaInfoFactory({ format: 'JSON',locateFile: defaultLocateFile});
+      }
+      
+      const getSize = () => blob.size;
+      const readChunk: ReadChunkFunc = ((chunkSize, offset) =>{
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = (event: ProgressEvent<FileReader>) => {
+            if (event.target) {
+              if (event.target.error){
+                reject(event.target.error);
+              }
+              resolve(new Uint8Array(event.target.result as ArrayBuffer));
+            }
+          };
+          reader.readAsArrayBuffer(blob.slice(offset, offset + chunkSize));
+        });
+      });
+      this.json_info = JSON.parse(await this.mi.analyzeData(getSize, readChunk));
+    }
+    catch(e){
+      console.log("Info failed at parsing file :"+src);
     }
     
-    const getSize = () => blob.size;
-    const readChunk: ReadChunkFunc = ((chunkSize, offset) =>{
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = (event: ProgressEvent<FileReader>) => {
-          if (event.target) {
-            if (event.target.error){
-              reject(event.target.error);
-            }
-            resolve(new Uint8Array(event.target.result as ArrayBuffer));
-          }
-        };
-        reader.readAsArrayBuffer(blob.slice(offset, offset + chunkSize));
-      });
-    });
-    this.json_info = JSON.parse(await this.mi.analyzeData(getSize, readChunk));
+
+    if (this.json_info.media && this.json_info.media.track.length != 1){
+      // Information surely not revelant
+      this.supported_format = true;
+    }
     this.readyEvent.emit();
   }
 

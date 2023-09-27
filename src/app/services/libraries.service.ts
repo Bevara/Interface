@@ -1,7 +1,7 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { MatChipEditedEvent, MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
 import { Injectable } from '@angular/core';
-import { recommendedFilters } from '../utilities/recommended';
+import { recommendedFilters, recommendedExt } from '../utilities/recommended';
 
 export type MediaSupport = 'image' | 'audio' | 'video';
 
@@ -123,7 +123,14 @@ export class LibrariesService {
     this._slctLibs = [];
   }
 
-  setRecommended(infos:any) {
+  setRecommendedFromExt(ext:string) {
+    if (ext in recommendedExt){
+      const libs = recommendedExt[ext].accessors;
+      this._slctLibs = this._allLibs.filter(x => libs.includes(x.name));
+    }
+  }
+
+  setRecommendedFromInfo(infos:any) {
     const libs :string []= [];
     console.log(infos);
     for (const lib of Object.keys(recommendedFilters)){

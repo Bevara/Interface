@@ -8,6 +8,12 @@ interface Identifier {
 interface Recommended<TValue> {
     [id: string]: TValue;
 }
+export const recommendedExt : Recommended<any> = {
+    "jxl":{
+        accessors:["libjxl"],
+        tag:"img"
+    }
+};
 
 export const recommendedFilters : Recommended<Identifier> = {
     "libfaad":{

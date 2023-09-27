@@ -3,6 +3,7 @@ import { AccessorsService } from '../services/accessors.service';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { Library } from '../services/libraries.service';
 import { Router } from '@angular/router';
+import { MediainfoService } from '../services/mediainfo.service';
 
 @Component({
   selector: 'app-preview',
@@ -10,7 +11,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./preview.component.scss']
 })
 export class PreviewComponent implements AfterViewInit {
-
+  decoding = false;
+  error = false;
+  spinner_color = "accent";
   html = '';
 
   @ViewChild('contentScript') contentScript: ElementRef | undefined;
@@ -21,7 +24,9 @@ export class PreviewComponent implements AfterViewInit {
   tabEvent: EventEmitter<MatTabChangeEvent> = new EventEmitter<MatTabChangeEvent>();
 
   constructor(private renderer: Renderer2,
-    public accessorsService: AccessorsService) { }
+    public accessorsService: AccessorsService,
+    public infoService : MediainfoService
+    ) { }
 
   updateView() {
     if (this.contentScript) {
@@ -35,19 +40,15 @@ export class PreviewComponent implements AfterViewInit {
         player.innerHTML = this.accessorsService.html_code;
 
         this.renderer.appendChild(this.contentTag.nativeElement, player);
-        /*setTimeout(() => {
-          this.waitForEnd();
-        }, 5000);*/
+        const preview_elt = document.getElementById(this.accessorsService.id) as any;
+        this.decoding = true;
+        preview_elt.decodingPromise.then((src:any) => {
+          this.decoding = false;
+          if(!src){
+            this.error =true;
+          }
+        });
       }
-    }
-  }
-
-  async waitForEnd(){
-    const preview_elt = document.getElementById(this.accessorsService.id) as any;
-
-    if (preview_elt) {
-      const decoding_promise = await preview_elt.decodingPromise;
-      console.log(decoding_promise);
     }
   }
 

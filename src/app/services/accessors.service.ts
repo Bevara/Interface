@@ -15,9 +15,10 @@ import { NGXLogger } from "ngx-logger";
 })
 
 export class AccessorsService {
-  private _src = 'https://bevara.ddns.net/test-signals/ff-16b-1c-8000hz.amr';
+  private _src = 'https://bevara.ddns.net/test-signals/JXL/test.jxl';
   private _dataUrl: string | null = null;
   public readyEvent = new EventEmitter();
+  public not_supported = false;
   public isReady = false;
 
   constructor(
@@ -116,8 +117,20 @@ export class AccessorsService {
   }
 
   setRecommended() {
-    this.libs.setRecommended(this._mediainfo.info);
-    this.tags.setRecommended(this._mediainfo.info);
+    if (this._mediainfo.supported_format){
+      this.libs.setRecommendedFromInfo(this._mediainfo.info);
+      this.tags.setRecommendedFromInfo(this._mediainfo.info);
+    }else{
+      const ext = this._src.split('.').pop();
+      if (ext){
+        this.libs.setRecommendedFromExt(ext.toLowerCase());
+        this.tags.setRecommendedFromExt(ext.toLowerCase());
+      }
+    }
+
+    if (this.libs._slctLibs.length == 0){
+      this.not_supported = true;
+    }
   }
 
   public initFilterAndInfo(src: string) {

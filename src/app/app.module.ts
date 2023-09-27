@@ -40,6 +40,7 @@ import { StatsComponent } from './preview/stats/stats.component';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { InfoComponent } from './preview/info/info.component';
 import { LoggerModule, NgxLoggerLevel } from "ngx-logger";
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -87,6 +88,7 @@ import { LoggerModule, NgxLoggerLevel } from "ngx-logger";
     NgFor,
     AsyncPipe,
     HttpClientModule,
+    MatProgressSpinnerModule,
     LoggerModule.forRoot({
       serverLoggingUrl: 'http://bevara.ddns.net:9090/logs',
       level: NgxLoggerLevel.DEBUG,

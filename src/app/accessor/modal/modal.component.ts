@@ -7,4 +7,5 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class ModalComponent {
   @Output() clickOnClose = new EventEmitter();
+  @Input() hideClose = false;
 }
