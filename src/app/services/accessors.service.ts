@@ -53,7 +53,12 @@ export class AccessorsService {
               const blob = new Blob([body.value]);
               this._dataUrl = URL.createObjectURL(blob);
             }
-            this.initFilterAndInfo(this._src);
+            if (this._dataUrl){
+              this.initFilterAndInfo(this._dataUrl);
+            }else{
+              this.initFilterAndInfo(this._src);
+            }
+            
             return;
           }
         case 'getFileData':
