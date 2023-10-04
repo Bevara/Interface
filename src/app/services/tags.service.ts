@@ -76,6 +76,7 @@ export class TagsService {
       case "audio":
         this._is = "universal-audio";
         this.options.addOptions(['controls']);
+        this.options.removeOptions(['out']);
         break;
       case "img":
         this._is = "universal-img";
@@ -84,10 +85,11 @@ export class TagsService {
       case "video":
         this._is = "universal-video";
         this.options.addOptions(['controls']);
+        this.options.removeOptions(['out']);
         break;
       case "canvas":
         this._is = "universal-canvas";
-        this.options.removeOptions(['use-cache', 'use-workers', 'controls'])
+        this.options.removeOptions(['use-cache', 'use-workers', 'controls', 'out']);
         break;
     }
 

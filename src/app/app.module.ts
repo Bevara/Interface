@@ -41,6 +41,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import { InfoComponent } from './preview/info/info.component';
 import { LoggerModule, NgxLoggerLevel } from "ngx-logger";
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -84,6 +85,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     MatTabsModule,
     MatAutocompleteModule,
     MatInputModule,
+    MatSelectModule,
     ReactiveFormsModule,
     NgFor,
     AsyncPipe,

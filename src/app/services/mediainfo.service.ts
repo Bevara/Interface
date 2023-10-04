@@ -62,4 +62,18 @@ export class MediainfoService {
 
     return {};
   }
+
+  get isJpeg(){
+    const info = this.info;
+    const img = info.filter((x :any) => x["@type"] == "Image");
+
+    return img.length == 1 && "Format" in img[0] && img[0]["Format"] == "JPEG";
+  }
+
+  get isPng(){
+    const info = this.info;
+    const img = info.filter((x :any) => x["@type"] == "Image");
+
+    return img.length == 1 && "Format" in img[0] && img[0]["Format"] == "PNG";
+  }
 }

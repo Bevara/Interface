@@ -6,14 +6,29 @@
     <mat-chip-option *ngIf="accessorsService.tag != 'canvas'" color="accent" (click)="accessorsService.options.toogleOption('use-workers')" [selected]="accessorsService.options.includes('use-workers')">Use workers</mat-chip-option>
     <mat-chip-option color="accent" (click)="accessorsService.options.toogleOption('use-webcodecs')" [selected]="accessorsService.options.includes('use-webcodecs')">Use webcodecs</mat-chip-option>
     <mat-chip-option color="accent" (click)="accessorsService.options.toogleOption('script-directory')" [selected]="accessorsService.options.includes('script-directory')">Set scripts directory</mat-chip-option>
+    <mat-chip-option *ngIf="accessorsService.tag == 'img'" color="accent" (click)="accessorsService.options.toogleOption('out')" [selected]="accessorsService.options.includes('out')">Force output</mat-chip-option>
 </mat-chip-listbox>
 
 <div *ngIf="accessorsService.options.includes('script-directory')">
     <br>
-    <form class="example-form">
-        <mat-form-field class="example-full-width">
+    <form class="accessor-form">
+        <mat-form-field class="accessor-full-width">
             <mat-label>Script directory</mat-label>
             <input matInput [(ngModel)]="accessorsService.scriptDirectoryUrl" [ngModelOptions]="{standalone: true}" placeholder="{{accessorsService.scriptDirectoryUrl}}" type="url" />
+        </mat-form-field>
+    </form>
+</div>
+
+<div *ngIf="accessorsService.options.includes('out')">
+    <br>
+    <form class="accessor-form">
+        <mat-form-field class="accessor-full-width">
+            <mat-label>Output format</mat-label>
+            <mat-select [(value)]="accessorsService.options.output">
+                <mat-option *ngFor="let output of accessorsService.options.availableOutputs" [value]="output">
+                  {{output}}
+                </mat-option>
+            </mat-select>  
         </mat-form-field>
     </form>
 </div>

@@ -14,9 +14,9 @@
     <br> You can try another combination of accessors or used the <a>recommmended ones</a>. You can also contact <a style="color: #fff;" href="mailto:sales@bevara.com">sales@bevara.com</a> for information. 
 </app-modal>
 
-<app-modal *ngIf="accessorsService.not_supported" (clickOnClose)="accessorsService.not_supported = false">
-    This format has yet no supported accessors.  <br>
-     Please contact <a style="color: #fff;" href="mailto:sales@bevara.com">sales@bevara.com</a> to get support. 
+<app-modal *ngIf="accessorsService.not_supported" [hideClose]="true">
+    This format is not supported by the Bevara Access IDE. 
+    <br> <br> Please contact <a style="color: #fff;" href="mailto:sales@bevara.com">support@bevara.com</a> to inquire about support options.
 </app-modal>
 
 

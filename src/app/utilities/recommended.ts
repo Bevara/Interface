@@ -27,7 +27,14 @@ export const recommendedFilters : Recommended<Identifier> = {
     },
     "liba52": {
         "Format" : ["AC-3"]
-    }/*,
+    },
+    "libjpeg": {
+        "Format" : ["JPEG"]
+    },
+    "libpng": {
+        "Format" : ["PNG"]
+    }
+    /*,
     "avi": [
         "mp4mx",
         "avidmx",

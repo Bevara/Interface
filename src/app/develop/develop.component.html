@@ -1,5 +1,5 @@
 <div style="padding-top: 50px;" class="content" #content>
-    <mat-card class="example-card">
+    <mat-card class="develop-card">
         <mat-form-field class="example-form-field">
             <mat-label>Find a library</mat-label>
             <input matInput type="text" [formControl]="search" >
@@ -17,7 +17,7 @@
 
     </mat-card>
 
-    <mat-card class="example-card" (click)="showModal = true">
+    <mat-card class="develop-card" (click)="showModal = true">
         <mat-card-header>
 
             <mat-card-title-group>
@@ -33,7 +33,7 @@
     </mat-card>
 
 
-    <mat-card class="example-card" *ngFor="let library of filteredLibs | async">
+    <mat-card class="develop-card" *ngFor="let library of filteredLibs | async">
         <mat-card-header>
             <mat-card-title-group>
                 <mat-card-title>
