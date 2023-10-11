@@ -12,10 +12,6 @@ export const recommendedExt : Recommended<any> = {
     "jxl":{
         accessors:["libjxl"],
         tag:"img"
-    },
-    "bmp":{
-        accessors:["qdbmp"],
-        tag:"img"
     }
 };
 
@@ -40,6 +36,9 @@ export const recommendedFilters : Recommended<Identifier> = {
     },
     "openjpeg": {
         "Format" : ["JPEG 2000"]
+    },
+    "qdbmp": {
+        "Format" : ["RGB"]
     }
     /*,
     "avi": [
