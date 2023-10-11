@@ -12,6 +12,10 @@ export const recommendedExt : Recommended<any> = {
     "jxl":{
         accessors:["libjxl"],
         tag:"img"
+    },
+    "bmp":{
+        accessors:["qdbmp"],
+        tag:"img"
     }
 };
 
