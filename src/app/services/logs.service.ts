@@ -2,14 +2,18 @@ import { Injectable } from '@angular/core';
 
 export type Log = 'graph' | 'stats' | 'report' | 'logs';
 export type LogLevel = 'quiet' | 'error' | 'warning' | 'info'| 'debug';
+export type LogTool = 'all' | 'codec' | 'container' | 'filter'| 'core';
 export const AllLogLevel: LogLevel[] = ['quiet' , 'error' , 'warning' , 'info', 'debug'];
+export const AllLogTool: LogTool[] = ['all' , 'codec' , 'container' , 'filter', 'core'];
 
 @Injectable({
   providedIn: 'root'
 })
 export class LogsService {
   private _logs: Log[] = [];
-  private _logLevel: LogLevel = 'warning';
+  private _logLevel: LogLevel = 'debug';
+  private _logTool: LogTool = 'filter';
+
   constructor() { }
 
   hasLog(log: Log) {
@@ -38,11 +42,23 @@ export class LogsService {
     this._logLevel = level;
   }
 
+  get logTool() {
+    return this._logTool;
+  }
+  
+  set logTool(tool: LogTool) {
+    this._logTool = tool;
+  }
+
   get allLogLevel() : LogLevel[] {
     return AllLogLevel;
   }
 
+  get allLogTool() : LogTool[] {
+    return AllLogTool;
+  }
+
   get logsStr(): string {
-    return this._logs.map(x => x == 'logs' ? 'logs="all@' + this._logLevel + "\"" : x).join(" ");
+    return this._logs.map(x => x == 'logs' ? 'logs="'+this._logTool+'@' + this._logLevel + "\"" : x).join(" ");
   }
 }

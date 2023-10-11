@@ -3,7 +3,7 @@ import {debug} from '../debug';
 import { LibrariesService } from './libraries.service';
 import { MediainfoService } from './mediainfo.service';
 
-export type Option = 'use-cache' | 'use-workers' | 'use-webcodecs' | 'data-autoplay' | 'script-directory' | 'controls' | 'out';
+export type Option = 'use-cache' | 'use-workers' | 'use-webcodecs' | 'data-autoplay' | 'script-directory' | 'controls' | 'out' | 'logs';
 
 @Injectable({
   providedIn: 'root'
@@ -91,7 +91,7 @@ export class OptionsService {
   }
 
   get availableOutputs(){
-    const defaultOut = ["rgba", "rgb"];
+    const defaultOut = ["rgb", "rgba"];
 
     if (!this.mediaInfoService.isJpeg){
       defaultOut.push("jpeg");

@@ -33,6 +33,9 @@ export const recommendedFilters : Recommended<Identifier> = {
     },
     "libpng": {
         "Format" : ["PNG"]
+    },
+    "openjpeg": {
+        "Format" : ["JPEG 2000"]
     }
     /*,
     "avi": [

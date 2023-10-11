@@ -3,7 +3,7 @@
 </div>
 
 <app-modal *ngIf="decoding" [hideClose]="true">
-    Your file is currently decoding. Please wait until finished...
+    Your file is currently being analyzed. Please wait...
     <br>
     <mat-spinner style="margin:0 auto;" [color]="spinner_color"></mat-spinner>
     
@@ -16,7 +16,7 @@
 
 <app-modal *ngIf="accessorsService.not_supported" [hideClose]="true">
     This format is not supported by the Bevara Access IDE. 
-    <br> <br> Please contact <a style="color: #fff;" href="mailto:sales@bevara.com">support@bevara.com</a> to inquire about support options.
+    <br> <br> Please contact <a style="color: #fff;" href="mailto:sales@bevara.com">support@bevara.com</a> to inquire <br> about support options.
 </app-modal>
 
 
