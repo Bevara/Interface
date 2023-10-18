@@ -205,7 +205,9 @@ export class AccessorsService {
   }
 
   private get universal_template() {
-    return `<${this.tag} is="${this.tags.is}" ${this.tag == 'canvas' ? 'data-url' : 'src'}="${this._src}" using="solver_1" with="${this.with_template}" ${this.options.optionsStr} ${this.logs.logsStr}>`;
+    return `<${this.tag} is="${this.tags.is}" ${this.tag == 'canvas' ? 'data-url' : 'src'}="${this._src}" using="solver_1" with="${this.with_template}" ${this.options.optionsStr} ${this.logs.logsStr}>
+<script src="${this.tags.tagScripts}"></script>
+    `;
   }
 
   private get script_template() {

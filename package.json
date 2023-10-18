@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "npm run build:components && ng serve",
     "build": "ng build --output-hashing=none",
     "build:components": "cd player/build && make release",
     "build:vscode": "ng build --output-hashing=none --configuration vscode-prod",
