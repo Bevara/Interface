@@ -118,6 +118,6 @@ export class TagsService {
   }
   
   public get tagScripts(){
-    return  environment.server_url +"/accessors/universal-"+this._tag+".v"+environment.tags_version+".js";
+    return  environment.server_url +"/accessors/universal-"+this._tag+"_"+environment.tags_version+".js";
   }
 }

@@ -32,7 +32,7 @@
               "src/styles.scss"
             ],
             "scripts": [
-              "player/build/dist/universal-tags.v1.js"
+              "player/build/dist/universal-tags_1.js"
             ]
           },
           "configurations": {
