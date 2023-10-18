@@ -5,14 +5,14 @@ import { environment } from 'src/environments/environment';
 
 export type Tag = 'img' | 'audio' | 'video' | 'canvas';
 export type Integration = 'Universal tags' | 'Script' | 'ArtPlayer';
-export type Is = 'universal-canvas' | 'universal-img' | 'universal-audio' | 'universal-video';
+export type Is = 'universal-canvas_1' | 'universal-img_1' | 'universal-audio_1' | 'universal-video_1';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TagsService {
   private _tag: Tag = 'canvas';
-  private _is: Is = 'universal-canvas';
+  private _is: Is = 'universal-canvas_1';
   private _tags: Tag[] = [];
   private _integration: Integration = 'ArtPlayer';
 
@@ -75,21 +75,21 @@ export class TagsService {
 
     switch (value) {
       case "audio":
-        this._is = "universal-audio";
+        this._is = "universal-audio_1";
         this.options.addOptions(['controls']);
         this.options.removeOptions(['out']);
         break;
       case "img":
-        this._is = "universal-img";
+        this._is = "universal-img_1";
         this.options.removeOptions(['controls']);
         break;
       case "video":
-        this._is = "universal-video";
+        this._is = "universal-video_1";
         this.options.addOptions(['controls']);
         this.options.removeOptions(['out']);
         break;
       case "canvas":
-        this._is = "universal-canvas";
+        this._is = "universal-canvas_1";
         this.options.removeOptions(['use-cache', 'use-workers', 'controls', 'out']);
         break;
     }

@@ -45,6 +45,13 @@ export class PreviewComponent implements AfterViewInit {
         if (this.accessorsService.not_supported) return;
 
         this.decoding = true;
+
+        if (!preview_elt.decodingPromise){
+          this.decoding = false;
+          this.error =true;
+          return;
+        }
+        
         preview_elt.decodingPromise.then((src:any) => {
           this.decoding = false;
           if(!src){
