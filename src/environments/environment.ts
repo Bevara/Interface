@@ -2,10 +2,13 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+const version = require("../../player/version.js").version;
+
 export const environment = {
   production: false,
   vscode:false,
-  server_url : "https://bevara.ddns.net"
+  server_url : "https://bevara.ddns.net",
+  tags_version : version
 };
 
 /*

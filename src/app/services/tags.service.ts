@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { OptionsService } from './options.service';
 import {recommendedExt } from '../utilities/recommended';
+import { environment } from 'src/environments/environment';
 
 export type Tag = 'img' | 'audio' | 'video' | 'canvas';
 export type Integration = 'Universal tags' | 'Script' | 'ArtPlayer';
@@ -114,5 +115,9 @@ export class TagsService {
 
   includeTags(tag: Tag) {
     return this._tags.indexOf(tag) !== -1;
+  }
+  
+  public get tagScripts(){
+    return  environment.server_url +"/accessors/universal-"+this._tag+".v"+environment.tags_version+".js";
   }
 }

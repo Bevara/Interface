@@ -24,6 +24,13 @@ export class ActionsComponent {
         })}));
     }
 
+    private download_scripts(){
+      const all_scripts = this.accessorsService.tags.tagScripts;
+      return {name:all_scripts.substring(all_scripts.lastIndexOf('/')+1), blob:this.http.get(all_scripts, {
+          responseType: 'blob'
+        })};
+    }
+
     private send_zip(content:Blob){
       const a = document.getElementById('exportLink');
       if (a) {
@@ -43,12 +50,14 @@ export class ActionsComponent {
       const zip = new JSZip();
   
       const all_libs = this.download_libs();
+      const all_scripts = this.download_scripts();
+      const all_downloads = all_libs.concat(all_scripts);
   
         return forkJoin(
-          all_libs.map(x => x.blob)
+          all_downloads.map(x => x.blob)
         ).subscribe(
-          wasms=>{
-            all_libs.forEach((lib,i)=> zip.file(lib.name, wasms[i]));
+          blob_contents=>{
+            all_downloads.forEach((lib,i)=> zip.file(lib.name, blob_contents[i]));
             zip.generateAsync({type:"blob"}).then(content =>{
               this.send_zip(content);
             }

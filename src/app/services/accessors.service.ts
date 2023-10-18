@@ -15,7 +15,7 @@ import { NGXLogger } from "ngx-logger";
 })
 
 export class AccessorsService {
-  private _src = 'https://bevara.ddns.net/test-signals/DSCN0157.bmp';
+  private _src = 'https://bevara.ddns.net/test-signals/JXL/red-room.jxl';
   private _dataUrl: string | null = null;
   public readyEvent = new EventEmitter();
   public not_supported = false;
@@ -250,5 +250,4 @@ export class AccessorsService {
   public get info() {
     return this._mediainfo.info;
   }
-
 }
