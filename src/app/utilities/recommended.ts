@@ -22,9 +22,6 @@ export const recommendedFilters : Recommended<Identifier> = {
     "rfamr":{
         "Format" : ["AMR"] 
     },
-    "ffmpeg":{
-        "Format" : ["AMR"]
-    },
     "liba52": {
         "Format" : ["AC-3"]
     },
@@ -39,6 +36,12 @@ export const recommendedFilters : Recommended<Identifier> = {
     },
     "qdbmp": {
         "Format" : ["RGB"]
+    },
+    "ffmpeg": {
+        "Format" : ["MPEG Video","FLAC"]
+    },
+    "rfpcm": {
+        "Format" : ["PCM"]
     }
     /*,
     "avi": [

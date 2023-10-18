@@ -42,7 +42,7 @@ export class PreviewComponent implements AfterViewInit {
         this.renderer.appendChild(this.contentTag.nativeElement, player);
         const preview_elt = document.getElementById(this.accessorsService.id) as any;
         
-        if (this.accessorsService.not_supported) return;
+        if (this.accessorsService.tag == "canvas" || this.accessorsService.not_supported) return;
 
         this.decoding = true;
 

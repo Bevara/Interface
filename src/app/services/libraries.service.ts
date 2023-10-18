@@ -138,7 +138,7 @@ export class LibrariesService {
       const identifiers = recommendedFilters[lib];
       for (const info of infos){
         const match_id = Object.keys(identifiers);
-        const match_info = Object.keys(info).filter((x:string) => match_id.includes(x) && info[x] == identifiers[x]);
+        const match_info = Object.keys(info).filter((x:string) => match_id.includes(x) &&  identifiers[x].includes(info[x]));
         if (match_info.length >0){
           found = true;
           break;
