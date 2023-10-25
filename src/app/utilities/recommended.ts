@@ -12,6 +12,14 @@ export const recommendedExt : Recommended<any> = {
     "jxl":{
         accessors:["libjxl"],
         tag:"img"
+    },
+    "wav":{
+        accessors:["rfpcm"],
+        tag:"audio"
+    },
+    "mpg":{
+        accessors:["ffmpeg"],
+        tag:"canvas"
     }
 };
 
