@@ -18,7 +18,7 @@ export const recommendedExt : Recommended<any> = {
         tag:"audio"
     },
     "mpg":{
-        accessors:["ffmpeg"],
+        accessors:["ffmpeg-mpeg1"],
         tag:"canvas"
     }
 };
@@ -45,8 +45,11 @@ export const recommendedFilters : Recommended<Identifier> = {
     "qdbmp": {
         "Format" : ["RGB"]
     },
-    "ffmpeg": {
-        "Format" : ["MPEG Video","FLAC"]
+    "ffmpeg-mpeg1": {
+        "Format" : ["MPEG Video", "MPEG-PS"]
+    },
+    "ffmpeg-flac": {
+        "Format" : ["FLAC"]
     },
     "rfpcm": {
         "Format" : ["PCM"]
