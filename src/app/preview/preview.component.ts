@@ -44,7 +44,7 @@ export class PreviewComponent implements AfterViewInit {
         
         if (this.accessorsService.tag == "canvas" || this.accessorsService.not_supported) return;
 
-        this.decoding = true;
+        //this.decoding = true;
 
         if (!preview_elt.decodingPromise){
           this.decoding = false;
@@ -52,12 +52,12 @@ export class PreviewComponent implements AfterViewInit {
           return;
         }
         
-        preview_elt.decodingPromise.then((src:any) => {
-          this.decoding = false;
-          if(!src){
-            this.error =true;
-          }
-        });
+        // preview_elt.decodingPromise.then((src:any) => {
+        //   this.decoding = false;
+        //   if(!src){
+        //     this.error =true;
+        //   }
+        // });
       }
     }
   }
