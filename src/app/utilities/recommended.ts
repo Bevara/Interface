@@ -17,6 +17,10 @@ export const recommendedExt : Recommended<any> = {
         accessors:["rfpcm"],
         tag:"audio"
     },
+    "ac3":{
+        accessors:["liba52"],
+        tag:"audio"
+    },
     "mpg":{
         accessors:["ffmpeg-mpeg1"],
         tag:"canvas"
