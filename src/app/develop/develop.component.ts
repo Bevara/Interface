@@ -53,7 +53,7 @@ export class DevelopComponent {
 
   addToExplorer(lib : Library){
     if(environment.vscode){
-      vscode.postMessage({ type: 'explore', url: "https://bevara.ddns.net/sources/libjxl.accessor"});
+      vscode.postMessage({ type: 'explore', url: lib.sources});
     }
   }
 }

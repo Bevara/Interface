@@ -13,6 +13,7 @@ export interface Library {
   help: string;
   support: MediaSupport[];
   url: string;
+  sources: string;
 }
 export interface JSON_Libraries {
   [index: string]: Library;
@@ -31,6 +32,8 @@ export class LibrariesService {
     help: "",
     support: [],
     url: "https://bevara.ddns.net/accessors/solver_1.wasm",
+    sources:"https://bevara.ddns.net/sources/solver.accessor"
+    
   }, {
     id: "solver_1",
     name: "solver.wasm",
@@ -39,6 +42,7 @@ export class LibrariesService {
     help: "",
     support: [],
     url: "https://bevara.ddns.net/accessors/solver_1.js",
+    sources:"https://bevara.ddns.net/sources/solver.accessor"
   }];
 
   public _slctLibs: Library[] = [];
