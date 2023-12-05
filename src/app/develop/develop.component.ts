@@ -1,17 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component} from '@angular/core';
 import { AccessorsService } from '../services/accessors.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { Library } from '../services/libraries.service';
+import {environment} from '../../environments/environment';
+import { vscode } from "../utilities/vscode";
 
 @Component({
   selector: 'app-develop',
   templateUrl: './develop.component.html',
   styleUrls: ['./develop.component.scss']
 })
-export class DevelopComponent implements OnInit {
+export class DevelopComponent {
   search = new FormControl();
   filteredLibs: Observable<Library[]>;
   initialSearch = "";
@@ -49,9 +51,9 @@ export class DevelopComponent implements OnInit {
     return this.accessorsService.libs.all.filter(lib => lib.name.toLowerCase().includes(filterValue));
   }
 
-  ngOnInit(): void {
-
+  addToExplorer(lib : Library){
+    if(environment.vscode){
+      vscode.postMessage({ type: 'explore', url: "https://bevara.ddns.net/sources/libjxl.accessor"});
+    }
   }
-
-
 }
