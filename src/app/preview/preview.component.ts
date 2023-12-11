@@ -15,6 +15,8 @@ export class PreviewComponent implements AfterViewInit {
   error = false;
   spinner_color = "accent";
   html = '';
+  tabIndex = 0;
+  open_stat = "fin";
 
   @ViewChild('contentScript') contentScript: ElementRef | undefined;
   @ViewChild('contentTag') contentTag: ElementRef | undefined;
@@ -72,5 +74,10 @@ export class PreviewComponent implements AfterViewInit {
 
   selectTab(changeEvent: MatTabChangeEvent) {
     this.tabEvent.emit(changeEvent);
+  }
+
+  changeTab(event:any){
+    this.tabIndex = event.tabIndex;
+    this.open_stat = event.key;
   }
 }

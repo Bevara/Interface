@@ -14,6 +14,7 @@ export interface Library {
   support: MediaSupport[];
   url: string;
   sources: string;
+  filter_source : { [key: string]: string; };
 }
 export interface JSON_Libraries {
   [index: string]: Library;
@@ -32,17 +33,33 @@ export class LibrariesService {
     help: "",
     support: [],
     url: "https://bevara.ddns.net/accessors/solver_1.wasm",
-    sources:"https://bevara.ddns.net/sources/solver.accessor"
+    sources:"https://bevara.ddns.net/sources/solver.accessor",
+    filter_source : {}
     
   }, {
     id: "solver_1",
     name: "solver.wasm",
-    filters: [],
+    filters: ["vout","aout","fout","fin","httpin","writeuf","writegen","wcdec","wcenc","webgrab","resample","reframer","compositor"],
     description: "",
     help: "",
     support: [],
     url: "https://bevara.ddns.net/accessors/solver_1.js",
-    sources:"https://bevara.ddns.net/sources/solver.accessor"
+    sources:"https://bevara.ddns.net/sources/solver.accessor",
+    filter_source:{
+        "vout" : "out_video.c",
+        "aout" : "out_audio.c",
+        "fout" : "out_file.c",
+        "fin" : "in_file.c",
+        "httpin" : "in_http.c",
+        "writeuf" : "write_generic.c",
+        "writegen" : "write_generic.c",
+        "wcdec" : "dec_webcodec.c",
+        "wcenc" : "enc_webcodec.c",
+        "webgrab" : "avin_web.c",
+        "resample" : "resample_audio.c",
+        "reframer" : "reframer.c",
+        "compositor" : "compositor.c"
+    }
   }];
 
   public _slctLibs: Library[] = [];
@@ -182,6 +199,20 @@ export class LibrariesService {
     }
 
     return unused_filters;
+  }
+  
+  filter_source(filter : string):any{
+    let accessor = this._allLibs.find(x => x.filter_source && filter in x.filter_source);
+
+    if (!accessor){
+      accessor = this.using.find(x => x.filter_source && filter in x.filter_source);
+    }
+
+    if (!accessor){
+      return null;
+    }
+    
+    return {accessor_url: accessor.sources, filter:accessor.filter_source[filter]};
   }
 
 }

@@ -21,7 +21,7 @@
 
 
 
-<mat-tab-group color="accent" mat-stretch-tabs="true" (selectedTabChange)="selectTab($event)">
+<mat-tab-group color="accent" mat-stretch-tabs="true" [(selectedIndex)]="tabIndex" (selectedTabChange)="selectTab($event)">
     <mat-tab label="Console">
         <textarea id="console" rows="8" readonly></textarea>
     </mat-tab>
@@ -36,12 +36,14 @@
         <app-graph
         [tabEvent]="tabEvent"
         [universal_elt]="accessorsService.id"
+        (changeTab) = "changeTab($event)"
         ></app-graph> 
     </mat-tab>
     <mat-tab label="Stats">
         <app-stats 
         [tabEvent]="tabEvent"
         [universal_elt]="accessorsService.id"
+        [open_stat]="open_stat"
         ></app-stats>
     </mat-tab>
     <mat-tab label="Unused">

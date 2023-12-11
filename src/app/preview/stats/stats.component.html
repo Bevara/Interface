@@ -1,5 +1,5 @@
 <mat-accordion>
-	<mat-expansion-panel *ngFor="let filter of connected">
+	<mat-expansion-panel *ngFor="let filter of connected" [expanded]="filter == open_stat">
 		<mat-expansion-panel-header>
 			<mat-panel-title>
 				{{filter}}

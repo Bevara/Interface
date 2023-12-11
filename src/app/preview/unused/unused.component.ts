@@ -31,10 +31,10 @@ export class UnusedComponent implements OnInit  {
     }
   }
     
-    populateUnused() {
+    async populateUnused() {
       const preview_elt = document.getElementById(this.universal_elt) as any;
       if (preview_elt) {
-        const props = preview_elt.properties(["connected"]);
+        const props = await preview_elt.properties(["connected"]);
   
         if ( props && props["connected"]) {
           this.unused = this.accessorsService.libs.getUnusedFromConnectedList(props["connected"]);

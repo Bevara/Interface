@@ -14,7 +14,8 @@ interface FilterStats {
 export class StatsComponent implements OnInit {
   @Input() tabEvent: EventEmitter<MatTabChangeEvent> | null = null;
   @Input() universal_elt = "";
-
+  @Input() open_stat = "fin";
+  
   interval: string | number | NodeJS.Timeout | undefined = undefined;
   connected: string[] = [];
   filters_contents: FilterStats = {};
@@ -32,20 +33,20 @@ export class StatsComponent implements OnInit {
     }
   }
 
-  populateStats() {
+  async populateStats() {
     const preview_elt = document.getElementById(this.universal_elt) as any;
     if (preview_elt) {
       preview_elt.enable_reporting = true;
 
-      const props = preview_elt.properties(["connected"]);
+      const props = await preview_elt.properties(["connected"]);
 
       if (props && props["connected"]) {
         this.connected = props["connected"];
       }
     }
 
-    this.interval = setInterval(() => {
-      const props = preview_elt.properties(["stats"]);
+    this.interval = setInterval(async () => {
+      const props = await preview_elt.properties(["stats"]);
       if (props && props["stats"]) {
         const stats = props["stats"];
         for (const k in stats) {
