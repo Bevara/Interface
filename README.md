@@ -1,6 +1,6 @@
 # Interface
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.1.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.1. By using the Bevara Open-Source Developer IDE and/or creating or modifying any source code, you agree to be bound by the Open-Source Developer's EULA as found at: https://bevara.com/terms_of_service/. You further agree to be bound by the underlying licenses as described in LICENSE.
 
 ## Development server
 
