@@ -24,7 +24,11 @@ export const recommendedExt : Recommended<any> = {
     "mpg":{
         accessors:["ffmpeg-mpeg1"],
         tag:"canvas"
-    }
+    },
+    "ogg":{
+        accessors:["vorbis"],
+        tag:"audio"
+    },
 };
 
 export const recommendedFilters : Recommended<Identifier> = {
@@ -57,6 +61,9 @@ export const recommendedFilters : Recommended<Identifier> = {
     },
     "rfpcm": {
         "Format" : ["PCM"]
+    },
+    "vorbis": {
+        "Format" : ["Vorbis"]
     }
     /*,
     "avi": [

@@ -15,7 +15,7 @@ import { NGXLogger } from "ngx-logger";
 })
 
 export class AccessorsService {
-  private _src = 'https://bevara.ddns.net/test-signals/JXL/red-room.jxl';
+  private _src = environment.src;
   private _dataUrl: string | null = null;
   public readyEvent = new EventEmitter();
   public not_supported = false;
