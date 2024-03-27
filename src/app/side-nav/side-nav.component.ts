@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {environment} from '../../environments/environment';
 import { vscode } from "../utilities/vscode";
+import { AccessorsService } from '../services/accessors.service';
 
 @Component({
   selector: 'app-side-nav',
@@ -11,7 +12,10 @@ export class SideNavComponent implements OnInit {
 
   pinned: boolean = true;
 
-  constructor() { }
+  constructor(
+    public accessorsService : AccessorsService
+
+  ) { }
 
   ngOnInit(): void {
   }

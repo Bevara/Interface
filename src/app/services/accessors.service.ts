@@ -20,6 +20,7 @@ export class AccessorsService {
   public readyEvent = new EventEmitter();
   public not_supported = false;
   public isReady = false;
+  public isEmpty = false;
 
   constructor(
     private http: HttpClient,
@@ -41,6 +42,7 @@ export class AccessorsService {
             if (body.untitled) {
               console.log("todo : init untitled");
               //editor.initUntitled();
+              this.isEmpty = true;
             } else {
               //await editor.setData(body.uri.path, body.value, body.scripts, body.scriptsDirectory);
               this._src = body.uri.path;
@@ -58,7 +60,7 @@ export class AccessorsService {
             }else{
               this.initFilterAndInfo(this._src);
             }
-            
+
             return;
           }
         case 'getFileData':
@@ -85,7 +87,7 @@ export class AccessorsService {
   get tags() {
     return this._tags;
   }
-  
+
   set tag(tag: Tag) {
     this._tags.tag = tag;
   }

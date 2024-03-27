@@ -22,15 +22,22 @@ export class PreviewComponent implements AfterViewInit {
   @ViewChild('contentTag') contentTag: ElementRef | undefined;
   @ViewChild('connected') connectedTab: ElementRef | undefined;
   @ViewChild('preview_elt') preview_elt: ElementRef | undefined;
-  
+
   tabEvent: EventEmitter<MatTabChangeEvent> = new EventEmitter<MatTabChangeEvent>();
 
   constructor(private renderer: Renderer2,
     public accessorsService: AccessorsService,
-    public infoService : MediainfoService
+    public infoService : MediainfoService,
+    private router: Router
     ) { }
 
+
   updateView() {
+    if (this.accessorsService.isEmpty){
+      this.router.navigate(["/develop"]);
+      return;
+    }
+
     if (this.contentScript) {
       if (this.accessorsService.isScript) {
         const player = document.createElement("script");
@@ -43,7 +50,7 @@ export class PreviewComponent implements AfterViewInit {
 
         this.renderer.appendChild(this.contentTag.nativeElement, player);
         const preview_elt = document.getElementById(this.accessorsService.id) as any;
-        
+
         if (this.accessorsService.tag == "canvas" || this.accessorsService.not_supported) return;
 
         //this.decoding = true;
@@ -53,7 +60,7 @@ export class PreviewComponent implements AfterViewInit {
           this.error =true;
           return;
         }
-        
+
         // preview_elt.decodingPromise.then((src:any) => {
         //   this.decoding = false;
         //   if(!src){
