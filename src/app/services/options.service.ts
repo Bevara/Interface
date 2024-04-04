@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {debug, version} from '../debug';
 import { LibrariesService } from './libraries.service';
 import { MediainfoService } from './mediainfo.service';
+import { environment } from './../../environments/environment';
 
 export type Option = 'use-cache' | 'use-workers' | 'use-webcodecs' | 'data-autoplay' | 'script-directory' | 'controls' | 'out' | 'logs';
 
@@ -10,7 +11,7 @@ export type Option = 'use-cache' | 'use-workers' | 'use-webcodecs' | 'data-autop
 })
 export class OptionsService {
   private _options: Option[] = ['script-directory'];
-  private _scriptDirectoryUrl = debug? "http://localhost:8081/" : "https://bevara.ddns.net/accessors-build/accessors-"+version+"/";
+  private _scriptDirectoryUrl = debug? "http://localhost:8081/" : environment.server_url +"/accessors-build/accessors-"+version+"/";
   private _out = "rgba";
 
   constructor(
@@ -74,7 +75,7 @@ export class OptionsService {
         default:
           return x;
 
-      }      
+      }
     }).join(" ");
   }
 
@@ -107,7 +108,7 @@ export class OptionsService {
   get output(){
     return this._out;
   }
-  
+
   set output(out : string){
     //Remove previous option
     switch(this._out){

@@ -28,12 +28,12 @@ export class DevelopComponent {
       startWith(""),
       map(lib => this._filterLibs(lib)),
     );
-    
+
     if (!this.accessorsService.isReady) {
       this.accessorsService.readyEvent.subscribe(event => {
         this.search.setValue(this.initialSearch);
       });
-    }      
+    }
 
     activatedRoute.queryParams
       .subscribe(params => {
@@ -53,7 +53,7 @@ export class DevelopComponent {
 
   addToExplorer(lib : Library){
     if(environment.vscode){
-      vscode.postMessage({ type: 'explore', url: lib.sources});
+      vscode.postMessage({ type: 'explore', url: lib.sources, filter:lib.name});
     }
   }
 }
