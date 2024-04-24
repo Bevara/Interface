@@ -8,7 +8,8 @@ export const environment = {
   production: false,
   vscode:false,
   server_url : "https://bevara.ddns.net",
-  src:'https://bevara.ddns.net/test-signals/JXL/red-room.jxl',
+  accessor_version : 541,
+  src:'https://bevara.ddns.net/test-signals/heif/example_flower_hevc.heif',
   tags_version : version
 };
 

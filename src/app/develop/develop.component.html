@@ -6,13 +6,13 @@
             <button *ngIf="search.value != '' else searchOut" matSuffix mat-icon-button aria-label="Clear" (click)="search.setValue('')">
                 <mat-icon>close</mat-icon>
             </button>
-            
+
             <ng-template #searchOut>
                 <button matSuffix mat-icon-button aria-label="Search">
                     <mat-icon>search</mat-icon>
                 </button>
             </ng-template>
-            
+
         </mat-form-field>
 
     </mat-card>
@@ -55,7 +55,7 @@
 
         <mat-card-actions>
             <button *ngIf="!accessorsService.libs.hasLibStr(library.name)" mat-button
-                (click)="accessorsService.libs.addLibraryStr(library.name);this.router.navigateByUrl('/accessor');">Add to
+                (click)="addToLibs(library)">Add to
                 library</button>
             <button *ngIf="accessorsService.libs.hasLibStr(library.name)" mat-button
                 (click)="accessorsService.libs.removeLibStr(library.name);this.router.navigateByUrl('/accessor');">Remove
@@ -68,4 +68,11 @@
 
 <app-modal *ngIf="showModal" (clickOnClose)="showModal = false">
     This feature is only available with the Bevara Premium IDE. <br> Contact <a style="color: #fff;" href="mailto:sales@bevara.com">sales@bevara.com</a> for information.
+</app-modal>
+
+<app-modal
+  *ngIf="showLicenceRequired"
+  (clickOnClose)="showLicenceRequired = false"
+>
+    This content requires obtaining a licence to be used. <br> Contact <a style="color: #fff;" href="mailto:sales@bevara.com">sales@bevara.com</a> for information.
 </app-modal>

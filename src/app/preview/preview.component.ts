@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { AccessorsService } from '../services/accessors.service';
 import { MatTabChangeEvent } from '@angular/material/tabs';
-import { Library } from '../services/libraries.service';
+import { LibrariesService, Library } from '../services/libraries.service';
 import { Router } from '@angular/router';
 import { MediainfoService } from '../services/mediainfo.service';
 
@@ -27,6 +27,7 @@ export class PreviewComponent implements AfterViewInit {
 
   constructor(private renderer: Renderer2,
     public accessorsService: AccessorsService,
+    public librariesService : LibrariesService,
     public infoService : MediainfoService,
     private router: Router
     ) { }

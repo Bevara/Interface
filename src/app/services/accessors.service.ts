@@ -9,6 +9,7 @@ import { Tag } from './tags.service';
 import { LogsService } from './logs.service';
 import { MediainfoService } from './mediainfo.service';
 import { NGXLogger } from "ngx-logger";
+import {debug} from '../debug';
 
 @Injectable({
   providedIn: 'root'
@@ -124,16 +125,9 @@ export class AccessorsService {
   }
 
   setRecommended() {
-    if (this._mediainfo.supported_format){
-      this.libs.setRecommendedFromInfo(this._mediainfo.info);
-      this.tags.setRecommendedFromInfo(this._mediainfo.info);
-    }else{
-      const ext = this._src.split('.').pop();
-      if (ext){
-        this.libs.setRecommendedFromExt(ext.toLowerCase());
-        this.tags.setRecommendedFromExt(ext.toLowerCase());
-      }
-    }
+    const ext = this._src.split('.').pop();
+    this.libs.setRecommended(this._mediainfo.info, ext);
+    this.tags.setRecommended(this._mediainfo.info, ext);
 
     if (this.libs._slctLibs.length == 0){
       this.not_supported = true;
@@ -141,7 +135,7 @@ export class AccessorsService {
   }
 
   public initFilterAndInfo(src: string) {
-    this.http.get<JSON_Libraries>(environment.server_url + "/accessors/" + "filter_list.json")
+    this.http.get<JSON_Libraries>(debug? "http://localhost:8081/" : environment.server_url +"/accessors-build/accessors-"+environment.accessor_version+"/"+ "filter_list.json")
       .subscribe(libs => {
         for (const filename in libs) {
           const lib = libs[filename];

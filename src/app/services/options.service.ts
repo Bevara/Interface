@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {debug, version} from '../debug';
+import {debug} from '../debug';
 import { LibrariesService } from './libraries.service';
 import { MediainfoService } from './mediainfo.service';
 import { environment } from './../../environments/environment';
@@ -11,7 +11,7 @@ export type Option = 'use-cache' | 'use-workers' | 'use-webcodecs' | 'data-autop
 })
 export class OptionsService {
   private _options: Option[] = ['script-directory'];
-  private _scriptDirectoryUrl = debug? "http://localhost:8081/" : environment.server_url +"/accessors-build/accessors-"+version+"/";
+  private _scriptDirectoryUrl = debug? "http://localhost:8081/" : environment.server_url +"/accessors-build/accessors-"+environment.accessor_version+"/";
   private _out = "rgba";
 
   constructor(

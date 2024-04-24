@@ -17,16 +17,11 @@ export class TagsService {
   private _integration: Integration = 'ArtPlayer';
 
   constructor(
-   private options: OptionsService 
+   private options: OptionsService
   ) { }
 
-  setRecommendedFromExt(ext:string) {
-    if (ext in recommendedExt){
-      this.tag = recommendedExt[ext].tag;
-    }
-  }
+  setRecommended(info:any, ext:string | undefined) {
 
-  setRecommendedFromInfo(info:any) {
     this.integration = "Universal tags";
 
     const video = info.filter((x :any) => x["@type"] == "Video");
@@ -48,6 +43,11 @@ export class TagsService {
       this.tag = "audio";
       return;
     }
+
+    if (ext && ext in recommendedExt){
+      this.tag = recommendedExt[ext].tag;
+      return;
+    }
   }
 
   get integration() {
@@ -57,7 +57,7 @@ export class TagsService {
   set integration(value: Integration) {
     this._integration = value;
   }
-  
+
   get is() {
     return this._is;
   }
@@ -116,7 +116,7 @@ export class TagsService {
   includeTags(tag: Tag) {
     return this._tags.indexOf(tag) !== -1;
   }
-  
+
   public get tagScripts(){
     return  environment.server_url +"/accessors/universal-"+this._tag+"_"+environment.tags_version+".js";
   }

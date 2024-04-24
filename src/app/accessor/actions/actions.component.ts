@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { forkJoin,Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import * as JSZip from 'jszip';
+import { LibrariesService } from 'src/app/services/libraries.service';
 
 @Component({
   selector: 'app-actions',
@@ -14,11 +15,12 @@ export class ActionsComponent {
   showModal = false;
 
   constructor(public accessorsService : AccessorsService,
+    public librariesService : LibrariesService,
     private http: HttpClient) { }
 
     private download_libs(){
       const all_libs = this.accessorsService.libs.libraries.concat(this.accessorsService.libs.using);
-      return all_libs.map(lib => 
+      return all_libs.map(lib =>
         ({name:lib.url.substring(lib.url.lastIndexOf('/')+1), blob:this.http.get(lib.url, {
           responseType: 'blob'
         })}));
@@ -45,14 +47,14 @@ export class ActionsComponent {
         a.dispatchEvent(event);
       }
     }
-  
+
     public zip_libraries(){
       const zip = new JSZip();
-  
+
       const all_libs = this.download_libs();
       const all_scripts = this.download_scripts();
       const all_downloads = all_libs.concat(all_scripts);
-  
+
         return forkJoin(
           all_downloads.map(x => x.blob)
         ).subscribe(

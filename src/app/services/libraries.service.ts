@@ -15,7 +15,10 @@ export interface Library {
   url: string;
   sources: string;
   filter_source : { [key: string]: string; };
+  licence_required : boolean;
 }
+
+
 export interface JSON_Libraries {
   [index: string]: Library;
 }
@@ -34,8 +37,8 @@ export class LibrariesService {
     support: [],
     url: "https://bevara.ddns.net/accessors/solver_1.wasm",
     sources:"https://bevara.ddns.net/sources/solver.accessor",
-    filter_source : {}
-    
+    filter_source : {},
+    licence_required : false
   }, {
     id: "solver_1",
     name: "solver.wasm",
@@ -59,11 +62,13 @@ export class LibrariesService {
         "resample" : "resample_audio.c",
         "reframer" : "reframer.c",
         "compositor" : "compositor.c"
-    }
+    },
+    licence_required : false
   }];
 
   public _slctLibs: Library[] = [];
   public _allLibs: Library[] = [];
+  public licence_required = false;
 
   //announcer = inject(LiveAnnouncer);
 
@@ -78,6 +83,12 @@ export class LibrariesService {
       if (newlib)
         this._slctLibs.push(newlib);
     }
+
+    this.updateLicenceRequired();
+  }
+
+  updateLicenceRequired(){
+    this.licence_required = this._slctLibs.some(x => x.licence_required == true);
   }
 
   removeLibStr(value: string): void {
@@ -89,6 +100,7 @@ export class LibrariesService {
 
       //this.announcer.announce(`Removed ${value}`);
     }
+    this.updateLicenceRequired();
   }
 
   hasLibStr(value: string): boolean {
@@ -107,6 +119,7 @@ export class LibrariesService {
 
       //this.announcer.announce(`Removed ${library}`);
     }
+    this.licence_required = this._slctLibs.some(x => x.licence_required == true);
   }
 
   editLibrary(library: Library, event: MatChipEditedEvent) {
@@ -144,15 +157,9 @@ export class LibrariesService {
     this._slctLibs = [];
   }
 
-  setRecommendedFromExt(ext:string) {
-    if (ext in recommendedExt){
-      const libs = recommendedExt[ext].accessors;
-      this._slctLibs = this._allLibs.filter(x => libs.includes(x.name));
-    }
-  }
+  setRecommended(infos:any, ext:string | undefined) {
 
-  setRecommendedFromInfo(infos:any) {
-    const libs :string []= [];
+    const libs = new Set<string>();
     console.log(infos);
     for (const lib of Object.keys(recommendedFilters)){
       let found = false;
@@ -166,11 +173,18 @@ export class LibrariesService {
         }
       }
       if (found){
-        libs.push(lib);
+        libs.add(lib);
       }
     }
 
-    this._slctLibs = this._allLibs.filter(x => libs.includes(x.name));
+    if (ext && ext in recommendedExt){
+      recommendedExt[ext].accessors.forEach((x:string) => libs.add(x));
+    }
+
+
+
+    this._slctLibs = this._allLibs.filter(x => libs.has(x.name));
+    this.updateLicenceRequired();
   }
 
   get remain() {
@@ -200,7 +214,7 @@ export class LibrariesService {
 
     return unused_filters;
   }
-  
+
   filter_source(filter : string):any{
     let accessor = this._allLibs.find(x => x.filter_source && filter in x.filter_source);
 
@@ -211,7 +225,7 @@ export class LibrariesService {
     if (!accessor){
       return null;
     }
-    
+
     return {accessor_url: accessor.sources, filter:accessor.filter_source[filter]};
   }
 

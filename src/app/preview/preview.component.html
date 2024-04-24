@@ -6,16 +6,16 @@
     Your file is currently being analyzed. Please wait...
     <br>
     <mat-spinner style="margin:0 auto;" [color]="spinner_color"></mat-spinner>
-    
+
 </app-modal>
 
 <app-modal *ngIf="error" (clickOnClose)="error = false">
-    The combination of accessors used failed at decoding the current files.  
-    <br> You can try another combination of accessors or used the <a>recommmended ones</a>. You can also contact <a style="color: #fff;" href="mailto:sales@bevara.com">sales@bevara.com</a> for information. 
+    The combination of accessors used failed at decoding the current files.
+    <br> You can try another combination of accessors or used the <a>recommmended ones</a>. You can also contact <a style="color: #fff;" href="mailto:sales@bevara.com">sales@bevara.com</a> for information.
 </app-modal>
 
 <app-modal *ngIf="accessorsService.not_supported" [hideClose]="true">
-    This format is not supported by the Bevara Access IDE. 
+    This format is not supported by the Bevara Access IDE.
     <br> <br> Please contact <a style="color: #fff;" href="mailto:sales@bevara.com">support@bevara.com</a> to inquire <br> about support options.
 </app-modal>
 
@@ -37,20 +37,27 @@
         [tabEvent]="tabEvent"
         [universal_elt]="accessorsService.id"
         (changeTab) = "changeTab($event)"
-        ></app-graph> 
+        ></app-graph>
     </mat-tab>
     <mat-tab label="Stats">
-        <app-stats 
+        <app-stats
         [tabEvent]="tabEvent"
         [universal_elt]="accessorsService.id"
         [open_stat]="open_stat"
         ></app-stats>
     </mat-tab>
     <mat-tab label="Unused">
-        <app-unused 
+        <app-unused
         [tabEvent]="tabEvent"
         [universal_elt]="accessorsService.id"
         ></app-unused>
     </mat-tab>
 
 </mat-tab-group>
+
+<app-modal
+  *ngIf="librariesService.licence_required"
+  [hideClose] = true
+>
+    This content requires obtaining a licence to be used. <br> Contact <a style="color: #fff;" href="mailto:sales@bevara.com">sales@bevara.com</a> for information.
+</app-modal>

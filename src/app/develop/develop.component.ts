@@ -19,6 +19,7 @@ export class DevelopComponent {
   initialSearch = "";
 
   showModal = false;
+  showLicenceRequired = false;
 
   constructor(public accessorsService: AccessorsService,
     public router: Router,
@@ -55,5 +56,14 @@ export class DevelopComponent {
     if(environment.vscode){
       vscode.postMessage({ type: 'explore', url: lib.sources, filter:lib.name});
     }
+  }
+
+  addToLibs(lib : Library){
+    if (lib.licence_required){
+      this.showLicenceRequired = true;
+     }else{
+      this.accessorsService.libs.addLibraryStr(lib.name);
+      this.router.navigateByUrl('/accessor');
+     }
   }
 }

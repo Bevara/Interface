@@ -13,3 +13,10 @@
 >
     This feature is only available with the Bevara Preserve IDE. <br> Contact <a style="color: #fff;" href="mailto:sales@bevara.com">sales@bevara.com</a> for information.
 </app-modal>
+
+<app-modal
+  *ngIf="librariesService.licence_required"
+  [hideClose] = true
+>
+    This content requires obtaining a licence to be used. <br> Contact <a style="color: #fff;" href="mailto:sales@bevara.com">sales@bevara.com</a> for information.
+</app-modal>
