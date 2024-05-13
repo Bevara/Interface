@@ -2,6 +2,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { MatChipEditedEvent, MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
 import { Injectable } from '@angular/core';
 import { recommendedFilters, recommendedExt } from '../utilities/recommended';
+import { HttpClient } from '@angular/common/http';
 
 export type MediaSupport = 'image' | 'audio' | 'video';
 
@@ -16,6 +17,7 @@ export interface Library {
   sources: string;
   filter_source : { [key: string]: string; };
   licence_required : boolean;
+  binaries : string
 }
 
 
@@ -38,7 +40,8 @@ export class LibrariesService {
     url: "https://bevara.ddns.net/accessors/solver_1.wasm",
     sources:"https://bevara.ddns.net/sources/solver.accessor",
     filter_source : {},
-    licence_required : false
+    licence_required : false,
+    binaries:""
   }, {
     id: "solver_1",
     name: "solver.wasm",
@@ -63,16 +66,22 @@ export class LibrariesService {
         "reframer" : "reframer.c",
         "compositor" : "compositor.c"
     },
-    licence_required : false
+    licence_required : false,
+    binaries:""
   }];
 
   public _slctLibs: Library[] = [];
   public _allLibs: Library[] = [];
   public licence_required = false;
 
+  _binaries: {
+    [key:string]: string
+  } = {};
+
   //announcer = inject(LiveAnnouncer);
 
   constructor(
+    private httpClient: HttpClient
   ) {
 
   }
@@ -84,11 +93,20 @@ export class LibrariesService {
         this._slctLibs.push(newlib);
     }
 
-    this.updateLicenceRequired();
+    this.updateService();
   }
 
-  updateLicenceRequired(){
+
+  updateService(){
     this.licence_required = this._slctLibs.some(x => x.licence_required == true);
+
+    const toBeDowload = this._slctLibs.filter(x => x.binaries && !(x.name in this._binaries));
+
+    toBeDowload.forEach(x => {
+      this.httpClient.get(x.binaries, { responseType: 'blob' }).subscribe(blob => {
+        this._binaries[x.name] = URL.createObjectURL(blob);
+      });
+    });
   }
 
   removeLibStr(value: string): void {
@@ -100,7 +118,7 @@ export class LibrariesService {
 
       //this.announcer.announce(`Removed ${value}`);
     }
-    this.updateLicenceRequired();
+    this.updateService();
   }
 
   hasLibStr(value: string): boolean {
@@ -119,7 +137,7 @@ export class LibrariesService {
 
       //this.announcer.announce(`Removed ${library}`);
     }
-    this.licence_required = this._slctLibs.some(x => x.licence_required == true);
+    this.updateService();
   }
 
   editLibrary(library: Library, event: MatChipEditedEvent) {
@@ -184,7 +202,7 @@ export class LibrariesService {
 
 
     this._slctLibs = this._allLibs.filter(x => libs.has(x.name));
-    this.updateLicenceRequired();
+    this.updateService();
   }
 
   get remain() {

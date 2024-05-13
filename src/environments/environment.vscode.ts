@@ -4,7 +4,7 @@ export const environment = {
   production: false,
   vscode:true,
   server_url : "https://bevara.ddns.net",
-  accessor_version : 541,
+  accessor_version : 542,
   src:'',
   tags_version : version
 };
