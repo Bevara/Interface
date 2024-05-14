@@ -3,12 +3,13 @@
 // The list of file replacements can be found in `angular.json`.
 
 const version = require("../../player/version.js").version;
+const build = require("../../player/version.js").build;
 
 export const environment = {
   production: false,
   vscode:false,
   server_url : "https://bevara.ddns.net",
-  accessor_version : 542,
+  accessor_version : build,
   src:'https://bevara.ddns.net/test-signals/heif/example_flower_j2k.heif',
   tags_version : version
 };
