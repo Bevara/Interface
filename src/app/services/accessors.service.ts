@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { vscode } from "../utilities/vscode";
 import { LibrariesService, JSON_Libraries } from './libraries.service';
 import { TagsService } from './tags.service';
@@ -9,7 +9,7 @@ import { Tag } from './tags.service';
 import { LogsService } from './logs.service';
 import { MediainfoService } from './mediainfo.service';
 import { NGXLogger } from "ngx-logger";
-import {debug} from '../debug';
+import { debug } from '../debug';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +22,7 @@ export class AccessorsService {
   public not_supported = false;
   public isReady = false;
   public isEmpty = false;
+  private _solver = "solver_1";
 
   constructor(
     private http: HttpClient,
@@ -52,14 +53,14 @@ export class AccessorsService {
                 URL.revokeObjectURL(this._dataUrl);
                 this._dataUrl = null;
               }
-
+              this.scriptDirectoryUrl = body.scriptsDirectory;
               const blob = new Blob([body.value]);
               this._dataUrl = URL.createObjectURL(blob);
             }
-            if (this._dataUrl){
-              this.initFilterAndInfo(this._dataUrl);
-            }else{
-              this.initFilterAndInfo(this._src);
+            if (this._dataUrl) {
+              this.initFilterAndInfo(this._dataUrl, body.filter_list);
+            } else {
+              this.initFilterAndInfo(this._src, body.filter_list);
             }
 
             return;
@@ -71,13 +72,27 @@ export class AccessorsService {
             console.log("getFileData()");
             return;
           }
+        case 'wasmReady':
+          {
+            // for (const [key, value] of Object.entries(body.wasms) ){
+            //   this.http.get("https://file+.vscode-resource.vscode-cdn.net/Users/jeromegorin/project/Editor/Interface/build/solver_1.js")
+            //    .subscribe(buffer => {
+            //      console.log(buffer);
+            //   });
+            // }
+            return;
+          }
+          break;
       }
     });
 
     if (environment.vscode) {
       vscode.postMessage({ type: 'ready' });
     } else {
-      this.initFilterAndInfo(this._src);
+      this.http.get<JSON_Libraries>(debug ? "http://localhost:8081/" : environment.server_url + "/accessors-build/accessors-" + environment.accessor_version + "/" + "filter_list.json")
+        .subscribe(libs => {
+          this.initFilterAndInfo(this._src, libs);
+        });
     }
   }
 
@@ -129,29 +144,26 @@ export class AccessorsService {
     this.libs.setRecommended(this._mediainfo.info, ext);
     this.tags.setRecommended(this._mediainfo.info, ext);
 
-    if (this.libs._slctLibs.length == 0){
+    if (this.libs._slctLibs.length == 0) {
       this.not_supported = true;
     }
   }
 
-  public initFilterAndInfo(src: string) {
-    this.http.get<JSON_Libraries>(debug? "http://localhost:8081/" : environment.server_url +"/accessors-build/accessors-"+environment.accessor_version+"/"+ "filter_list.json")
-      .subscribe(libs => {
-        for (const filename in libs) {
-          const lib = libs[filename];
-          lib.url = environment.server_url + "/accessors/" + filename;
-          lib.id = filename.replace('.wasm', '');
-          this.libs._allLibs.push(lib);
-        }
+  public initFilterAndInfo(src: string, libs: any) {
+    for (const filename in libs) {
+      const lib = libs[filename];
+      lib.url = environment.server_url + "/accessors/" + filename;
+      lib.id = filename.replace('.wasm', '');
+      this.libs._allLibs.push(lib);
+    }
 
-        this._mediainfo.initInfo(src);
-        this._mediainfo.readyEvent.subscribe(() => {
-          //Default libs
-          this.setRecommended();
-          this.isReady = true;
-          this.readyEvent.emit();
-        });
-      });
+    this._mediainfo.initInfo(src);
+    this._mediainfo.readyEvent.subscribe(() => {
+      //Default libs
+      this.setRecommended();
+      this.isReady = true;
+      this.readyEvent.emit();
+    });
   }
 
   get src() {
@@ -201,7 +213,7 @@ export class AccessorsService {
   }
 
   private get universal_template() {
-    return `<${this.tag} is="${this.tags.is}" ${this.tag == 'canvas' ? 'data-url' : 'src'}="${this._src}" using="solver_1" with="${this.with_template}" ${this.options.optionsStr} ${this.logs.logsStr}>
+    return `<${this.tag} is="${this.tags.is}" ${this.tag == 'canvas' ? 'data-url' : 'src'}="${this._src}" using="${this._solver}" with="${this.with_template}" ${this.options.optionsStr} ${this.logs.logsStr}>
 <script src="${this.tags.tagScripts}"></script>
     `;
   }

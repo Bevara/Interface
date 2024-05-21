@@ -3,7 +3,8 @@ import { MatChipEditedEvent, MatChipInputEvent, MatChipsModule } from '@angular/
 import { Injectable } from '@angular/core';
 import { recommendedFilters, recommendedExt } from '../utilities/recommended';
 import { HttpClient } from '@angular/common/http';
-
+import { environment } from './../../environments/environment';
+import { vscode } from "../utilities/vscode";
 export type MediaSupport = 'image' | 'audio' | 'video';
 
 export interface Library {
@@ -100,13 +101,9 @@ export class LibrariesService {
   updateService(){
     this.licence_required = this._slctLibs.some(x => x.licence_required == true);
 
-    const toBeDowload = this._slctLibs.filter(x => x.binaries && !(x.name in this._binaries));
-
-    toBeDowload.forEach(x => {
-      this.httpClient.get(x.binaries, { responseType: 'blob' }).subscribe(blob => {
-        this._binaries[x.name] = URL.createObjectURL(blob);
-      });
-    });
+    if (environment.vscode) {
+      vscode.postMessage({ type: 'getWasms', libs: this._slctLibs.map(x => x.id)});
+    }
   }
 
   removeLibStr(value: string): void {
