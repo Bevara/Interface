@@ -1,21 +1,50 @@
-<div style="text-align:center;padding-top: 50px;" #content>
-    <mat-list class="divider-option">
-        <mat-divider></mat-divider>
-        <mat-list-item>Integration code</mat-list-item>
-        <app-code></app-code>
-        <br>
-        <app-libs></app-libs>
-        <app-actions></app-actions>
-        <br>
-        <br>
-        <app-source *ngIf="!vscode"></app-source>
-        <app-integration></app-integration>
-        <br>
-        <app-tags></app-tags>
-        <br>
-        <app-options></app-options>
-        <br>
-        <app-logs></app-logs>
-    </mat-list>
 
-</div>
+<mat-accordion multi>
+  <mat-expansion-panel [expanded]="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Integration code
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <app-code></app-code>
+    <app-libs></app-libs>
+    <app-actions></app-actions>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel *ngIf="!vscode">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Source option
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <app-source></app-source>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Integration option
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <app-integration></app-integration>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Tag
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <app-tags></app-tags>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Logs
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <app-logs></app-logs>
+  </mat-expansion-panel>
+
+</mat-accordion>

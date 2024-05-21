@@ -1,6 +1,5 @@
 import { Component} from '@angular/core';
 import { AccessorsService } from '../services/accessors.service';
-import { Router, ActivatedRoute } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -22,8 +21,6 @@ export class DevelopComponent {
   showLicenceRequired = false;
 
   constructor(public accessorsService: AccessorsService,
-    public router: Router,
-    private activatedRoute: ActivatedRoute
   ) {
     this.filteredLibs = this.search.valueChanges.pipe(
       startWith(""),
@@ -35,15 +32,6 @@ export class DevelopComponent {
         this.search.setValue(this.initialSearch);
       });
     }
-
-    activatedRoute.queryParams
-      .subscribe(params => {
-        if ("filter" in params) {
-          this.initialSearch = params["filter"];
-          this.search.setValue(this.initialSearch);
-        }
-      });
-
   }
 
   private _filterLibs(value: string): Library[] {
@@ -63,7 +51,6 @@ export class DevelopComponent {
       this.showLicenceRequired = true;
      }else{
       this.accessorsService.libs.addLibraryStr(lib.name);
-      this.router.navigateByUrl('/accessor');
      }
   }
 }

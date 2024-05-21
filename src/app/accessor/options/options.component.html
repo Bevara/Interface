@@ -1,5 +1,3 @@
-<mat-divider></mat-divider>
-<mat-list-item>Options</mat-list-item>
 <mat-chip-listbox [multiple]="true" aria-label="Integration option">
     <mat-chip-option *ngIf="accessorsService.tag == 'audio' || accessorsService.tag == 'video'" color="accent" (click)="accessorsService.options.toogleOption('controls')" [selected]="accessorsService.options.includes('controls')">Controls</mat-chip-option>
     <mat-chip-option *ngIf="accessorsService.tag != 'canvas'" color="accent" (click)="accessorsService.options.toogleOption('use-cache')" [selected]="accessorsService.options.includes('use-cache')">Use cache</mat-chip-option>
@@ -28,7 +26,7 @@
                 <mat-option *ngFor="let output of accessorsService.options.availableOutputs" [value]="output">
                   {{output}}
                 </mat-option>
-            </mat-select>  
+            </mat-select>
         </mat-form-field>
     </form>
 </div>

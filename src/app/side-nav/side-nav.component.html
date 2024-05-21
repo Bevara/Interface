@@ -1,5 +1,5 @@
 <mat-drawer-container class="example-container mat-typography" hasBackdrop=false autosize>
-  <mat-drawer #drawer mode="side" disableClose="true" opened="true">
+  <mat-drawer #drawer mode="side" disableClose="true" opened="true" position="end">
     <mat-nav-list [ngClass]="{'pinned':pinned,
                                 'unpinned':!pinned}"
       class="fusion-mobile-nav-holder fusion-flyout-menu fusion-flyout-mobile-menu">
@@ -15,34 +15,7 @@
           </ng-template>
         </mat-list-item>
         <mat-divider></mat-divider>
-        <ng-container *ngIf="accessorsService.isEmpty == false">
-          <mat-list-item [routerLink]="['/preview']">
-            <mat-icon mat-list-icon>play_circle_outline</mat-icon>
-            <li class="nav-item px-xl-3 fusion-mobile-nav-item">
-              <span class="nav-link text-uppercase is-active">Preview</span>
-            </li>
-          </mat-list-item>
-          <mat-list-item class="clearfix nav navbar-nav" [routerLink]="['/accessor']">
-            <mat-icon mat-list-icon>lock_open</mat-icon>
-            <li class="nav-item px-xl-3">
-              <span class="nav-link text-uppercase is-active">Accessor</span>
-            </li>
-          </mat-list-item>
-          <mat-divider></mat-divider>
-        </ng-container>
-
-        <mat-list-item (click)="goToLink('https://bevara.com/documentation/')">
-          <mat-icon mat-list-icon>help</mat-icon>
-          <li class="nav-item px-xl-3">
-            <span class="nav-link text-uppercase is-active">Help</span>
-          </li>
-        </mat-list-item>
-        <mat-list-item class="clearfix nav navbar-nav" [routerLink]="['/develop']">
-          <mat-icon mat-list-icon>build</mat-icon>
-          <li class="nav-item px-xl-3">
-            <span class="nav-link text-uppercase is-active">Develop</span>
-          </li>
-        </mat-list-item>
+        <app-develop *ngIf="pinned"></app-develop>
       </ul>
 
     </mat-nav-list>
@@ -50,7 +23,7 @@
   <mat-drawer-content [ngClass]="{'pinned':pinned,
     'unpinned':!pinned}">
     <div class="example-sidenav-content">
-      <router-outlet></router-outlet>
+      <app-preview></app-preview>
     </div>
   </mat-drawer-content>
 

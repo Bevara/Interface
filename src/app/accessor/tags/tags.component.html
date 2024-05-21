@@ -1,7 +1,5 @@
-<mat-divider></mat-divider>
-<mat-list-item>Tag</mat-list-item>
-<mat-chip-listbox *ngIf="accessorsService.integration == 'Script' else scriptTags" 
-[multiple]="true" 
+<mat-chip-listbox *ngIf="accessorsService.integration == 'Script' else scriptTags"
+[multiple]="true"
 aria-label="Integration tag">
     <mat-chip-option color="accent" (click)="accessorsService.toogleTags('img')"
         [selected]="accessorsService.includeTags('img')">img</mat-chip-option>
@@ -9,7 +7,7 @@ aria-label="Integration tag">
         [selected]="accessorsService.includeTags('audio')">audio</mat-chip-option>
     <mat-chip-option color="accent" (click)="accessorsService.toogleTags('video')"
         [selected]="accessorsService.includeTags('video')">video</mat-chip-option>
-    <mat-chip-option 
+    <mat-chip-option
     *ngIf="accessorsService.integration != 'Script'"
     color="accent" (click)="accessorsService.tag = 'canvas'"
         [selected]="accessorsService.tag == 'canvas'">canvas</mat-chip-option>
@@ -23,7 +21,7 @@ aria-label="Integration tag">
             [selected]="accessorsService.tag == 'audio'">audio</mat-chip-option>
         <mat-chip-option color="accent" (click)="accessorsService.tag = 'video'"
             [selected]="accessorsService.tag == 'video'">video</mat-chip-option>
-        <mat-chip-option 
+        <mat-chip-option
         *ngIf="accessorsService.integration != 'Script'"
         color="accent" (click)="accessorsService.tag = 'canvas'"
             [selected]="accessorsService.tag == 'canvas'">canvas</mat-chip-option>

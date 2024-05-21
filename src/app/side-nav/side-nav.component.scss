@@ -3,7 +3,7 @@
 
 .example-container {
     position: absolute;
-    top: 0;
+    top: 60px;
     bottom: 0;
     left: 0;
     right: 0;
@@ -28,7 +28,7 @@ mat-nav-list {
     line-height:26.4px ;
     -webkit-font-smoothing:auto;
     &.pinned {
-        width: 200px;
+        width: 300px;
 
         li {
             opacity: 1;
@@ -45,7 +45,7 @@ mat-nav-list {
 
     &.unpinned {
         width: 60px;
-        overflow: hidden; 
+        overflow: hidden;
         li {
             opacity: 0;
         }

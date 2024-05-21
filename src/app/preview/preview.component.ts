@@ -2,7 +2,6 @@ import { AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Renderer2, 
 import { AccessorsService } from '../services/accessors.service';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { LibrariesService, Library } from '../services/libraries.service';
-import { Router } from '@angular/router';
 import { MediainfoService } from '../services/mediainfo.service';
 
 @Component({
@@ -28,17 +27,11 @@ export class PreviewComponent implements AfterViewInit {
   constructor(private renderer: Renderer2,
     public accessorsService: AccessorsService,
     public librariesService : LibrariesService,
-    public infoService : MediainfoService,
-    private router: Router
+    public infoService : MediainfoService
     ) { }
 
 
   updateView() {
-    if (this.accessorsService.isEmpty){
-      this.router.navigate(["/develop"]);
-      return;
-    }
-
     if (this.contentScript) {
       if (this.accessorsService.isScript) {
         const player = document.createElement("script");

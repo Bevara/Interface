@@ -58,7 +58,7 @@
                 (click)="addToLibs(library)">Add to
                 library</button>
             <button *ngIf="accessorsService.libs.hasLibStr(library.name)" mat-button
-                (click)="accessorsService.libs.removeLibStr(library.name);this.router.navigateByUrl('/accessor');">Remove
+                (click)="accessorsService.libs.removeLibStr(library.name)">Remove
                 from library</button>
             <button mat-button (click)="addToExplorer(library)">View</button>
             <!-- <button mat-button (click)="showModal = true">Edit</button> -->

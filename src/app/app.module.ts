@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import { PreviewComponent } from './preview/preview.component';
@@ -42,6 +41,7 @@ import { InfoComponent } from './preview/info/info.component';
 import { LoggerModule, NgxLoggerLevel } from "ngx-logger";
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSelectModule} from '@angular/material/select';
+import {MatToolbarModule} from '@angular/material/toolbar';
 
 @NgModule({
   declarations: [
@@ -66,7 +66,6 @@ import {MatSelectModule} from '@angular/material/select';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
     MatSidenavModule,
     MatListModule,
@@ -76,16 +75,17 @@ import {MatSelectModule} from '@angular/material/select';
     MatChipsModule,
     MatExpansionModule,
     MatTableModule,
-    CdkDropList, 
+    CdkDropList,
     CdkDrag,
-    MatCardModule, 
+    MatCardModule,
     MatButtonModule,
-    FormsModule, 
+    FormsModule,
     ClipboardModule,
     MatTabsModule,
     MatAutocompleteModule,
     MatInputModule,
     MatSelectModule,
+    MatToolbarModule,
     ReactiveFormsModule,
     NgFor,
     AsyncPipe,
@@ -95,7 +95,7 @@ import {MatSelectModule} from '@angular/material/select';
       serverLoggingUrl: 'http://bevara.ddns.net:9090/logs',
       level: NgxLoggerLevel.DEBUG,
       serverLogLevel: NgxLoggerLevel.ERROR,
-      httpResponseType:'text' 
+      httpResponseType:'text'
     })
   ],
   providers: [],

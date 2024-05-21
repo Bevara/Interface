@@ -11,10 +11,7 @@
 		</mat-card-header>
 		<mat-card-actions>
 			<button mat-button
-				(click)="this.router.navigate(['/develop'], {queryParams: {filter: library.name}});">
-				View</button>
-			<button mat-button
-				(click)="accessorsService.libs.removeLibStr(library.name);this.router.navigateByUrl('/accessor');">Remove
+				(click)="accessorsService.libs.removeLibStr(library.name)">Remove
 				from library</button>
 		</mat-card-actions>
 	</mat-card>
