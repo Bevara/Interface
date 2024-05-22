@@ -23,6 +23,7 @@ export class AccessorsService {
   public isReady = false;
   public isEmpty = false;
   private _solver = "solver_1";
+  private _is_vscode = environment.vscode;
 
   constructor(
     private http: HttpClient,
@@ -53,7 +54,7 @@ export class AccessorsService {
                 URL.revokeObjectURL(this._dataUrl);
                 this._dataUrl = null;
               }
-              this.scriptDirectoryUrl = body.scriptsDirectory;
+              this.options.vsCodeScriptDirectory = body.scriptsDirectory;
               const blob = new Blob([body.value]);
               this._dataUrl = URL.createObjectURL(blob);
             }
@@ -86,7 +87,7 @@ export class AccessorsService {
       }
     });
 
-    if (environment.vscode) {
+    if (this.is_vscode) {
       vscode.postMessage({ type: 'ready' });
     } else {
       this.http.get<JSON_Libraries>(debug ? "http://localhost:8081/" : environment.server_url + "/accessors-build/accessors-" + environment.accessor_version + "/" + "filter_list.json")
@@ -122,6 +123,10 @@ export class AccessorsService {
 
   get logs() {
     return this._logs;
+  }
+
+  get is_vscode() {
+    return this._is_vscode;
   }
 
   get scriptDirectoryUrl() {
@@ -213,9 +218,7 @@ export class AccessorsService {
   }
 
   private get universal_template() {
-    return `<${this.tag} is="${this.tags.is}" ${this.tag == 'canvas' ? 'data-url' : 'src'}="${this._src}" using="${this._solver}" with="${this.with_template}" ${this.options.optionsStr} ${this.logs.logsStr}>
-<script src="${this.tags.tagScripts}"></script>
-    `;
+    return `<${this.tag} is="${this.tags.is}" ${this.tag == 'canvas' ? 'data-url' : 'src'}="${this._src}" using="${this._solver}" with="${this.with_template}" ${this.options.optionsStr} ${this.logs.logsStr}>`;
   }
 
   private get script_template() {
@@ -250,7 +253,7 @@ export class AccessorsService {
   }
 
   public get html_code() {
-    return `<${this.tag} is="${this.tags.is}" ${this.tag != 'canvas' ? "id=preview_tag" : ""} ${this.tag == 'canvas' ? 'data-url' : 'src'}="${environment.vscode ? this._dataUrl : this._src}" using="solver_1" with="${this.with_template}" ${this.options.optionsStr} ${this.logs.logsStr} print="console" printErr="console" noCleanupOnExit=true >`;
+    return `<${this.tag} is="${this.tags.is}" ${this.tag != 'canvas' ? "id=preview_tag" : ""} ${this.tag == 'canvas' ? 'data-url' : 'src'}="${this.is_vscode ? this._dataUrl : this._src}" using="solver_1" with="${this.with_template}" ${this.options.optionsStr} ${this.is_vscode && !this.options.script_directory? 'script-directory="' + this.options.vsCodeScriptDirectory + '"': ''} ${this.logs.logsStr} print="console" printErr="console" noCleanupOnExit=true >`;
   }
 
   public get id() {

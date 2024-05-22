@@ -1,8 +1,10 @@
-<div class="example-button-row">
-    <button mat-flat-button [cdkCopyToClipboard]="accessorsService.html_preview">Copy code to clipboard</button>
-    <button mat-flat-button (click)="zip_libraries()">Download required libraries</button>
-    <button mat-flat-button (click)="showModal = true">Preserve your file</button>
-</div>
+
+
+  <button mat-raised-button [cdkCopyToClipboard]="accessorsService.html_preview">Copy code to clipboard</button>
+  <button mat-raised-button (click)="zip_libraries()">Download required libraries</button>
+  <button mat-raised-button (click)="showModal = true">Preserve your file</button>
+
+
 <div class="hide">
     <a href="" id="exportLink"></a>
 </div>
@@ -12,11 +14,4 @@
   (clickOnClose)="showModal = false"
 >
     This feature is only available with the Bevara Preserve IDE. <br> Contact <a style="color: #fff;" href="mailto:sales@bevara.com">sales&#64;bevara.com</a> for information.
-</app-modal>
-
-<app-modal
-  *ngIf="librariesService.licence_required"
-  [hideClose] = true
->
-    This content requires obtaining a licence to be used. <br> Contact <a style="color: #fff;" href="mailto:sales@bevara.com">sales&#64;bevara.com</a> for information.
 </app-modal>

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 import { MatTabChangeEvent } from '@angular/material/tabs';
+import * as _ from 'lodash';
 import { AccessorsService } from 'src/app/services/accessors.service';
 
 @Component({
@@ -19,7 +20,7 @@ export class InfoComponent implements OnInit {
     private accessorsService: AccessorsService) {
 
   }
-  
+
   ngOnInit(): void {
     if (this.tabEvent) {
       this.tabEvent.subscribe(changeEvent => {
@@ -30,7 +31,7 @@ export class InfoComponent implements OnInit {
     }
   }
 
-  async populateInfos() {
+  populateInfos() {
     const info = this.accessorsService.info;
     this.tracks = [];
     this.trackInfo = {};
@@ -45,7 +46,12 @@ export class InfoComponent implements OnInit {
       .filter(x => x[0] != "ImageCount")
       .filter(x => x[0] != "ID")
       .map(o => {
-        return { type: o[0], desc: o[1] };
+        function isPlain(val : any) {
+          return (typeof val === 'undefined' || typeof val === 'string' || typeof val === 'boolean' || typeof val === 'number' || Array.isArray(val) );
+        }
+        const value = isPlain(o[1]) ? o[1] : JSON.stringify(o[1]);
+
+        return { type: o[0], desc: value };
     });
     }
   }

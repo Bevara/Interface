@@ -1,14 +1,13 @@
 
 <mat-accordion multi>
-  <mat-expansion-panel [expanded]="true">
+
+  <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title>
-        Integration code
+        Libraries
       </mat-panel-title>
     </mat-expansion-panel-header>
-    <app-code></app-code>
     <app-libs></app-libs>
-    <app-actions></app-actions>
   </mat-expansion-panel>
 
   <mat-expansion-panel *ngIf="!vscode">
@@ -20,7 +19,7 @@
     <app-source></app-source>
   </mat-expansion-panel>
 
-  <mat-expansion-panel>
+  <mat-expansion-panel *ngIf="false">
     <mat-expansion-panel-header>
       <mat-panel-title>
         Integration option

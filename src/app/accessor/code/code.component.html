@@ -1,1 +1,13 @@
-<textarea readonly="readonly" id="clipboard-example-textarea" cols="30" rows="10" [(ngModel)]="accessorsService.html_preview"></textarea><br>
+
+<mat-form-field appearance="fill">
+  <mat-label>Code</mat-label>
+  <textarea matInput
+            readonly="readonly"
+            [(ngModel)]="accessorsService.html_preview"
+            id="clipboard-example-textarea"
+            cdkTextareaAutosize
+            #autosize="cdkTextareaAutosize"
+          ></textarea>
+          <app-actions></app-actions>
+</mat-form-field>
+

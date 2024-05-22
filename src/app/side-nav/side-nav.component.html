@@ -1,24 +1,6 @@
 <mat-drawer-container class="example-container mat-typography" hasBackdrop=false autosize>
-  <mat-drawer #drawer mode="side" disableClose="true" opened="true" position="end">
-    <mat-nav-list [ngClass]="{'pinned':pinned,
-                                'unpinned':!pinned}"
-      class="fusion-mobile-nav-holder fusion-flyout-menu fusion-flyout-mobile-menu">
-      <ul class="clearfix nav navbar-nav fusion-menu">
-        <mat-list-item class="clearfix nav navbar-nav" (click)="changePinned()">
-          <h3 *ngIf="pinned else unpinned" mat-subheader>
-            <img src="https://bevara.com/wp-content/uploads/2019/06/Bevara-main_site_logo.jpg" width="110"
-              alt="Bevara Logo" data-retina_logo_url="" class="fusion-standard-logo">
-            <mat-icon style="margin-left: 10px">chevron_left</mat-icon>
-          </h3>
-          <ng-template #unpinned>
-            <mat-icon mat-list-icon>chevron_right</mat-icon>
-          </ng-template>
-        </mat-list-item>
-        <mat-divider></mat-divider>
-        <app-develop *ngIf="pinned"></app-develop>
-      </ul>
-
-    </mat-nav-list>
+  <mat-drawer class="panel" #drawer mode="side" disableClose="true" opened="true" position="end">
+      <app-develop *ngIf="pinned"></app-develop>
   </mat-drawer>
   <mat-drawer-content [ngClass]="{'pinned':pinned,
     'unpinned':!pinned}">

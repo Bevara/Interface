@@ -19,8 +19,18 @@
     <br> <br> Please contact <a style="color: #fff;" href="mailto:sales@bevara.com">support&#64;bevara.com</a> to inquire <br> about support options.
 </app-modal>
 
+<app-modal
+  *ngIf="librariesService.licence_required"
+  [hideClose] = true
+>
+    This content requires obtaining a licence to be used. <br> Contact <a style="color: #fff;" href="mailto:sales@bevara.com">sales&#64;bevara.com</a> for information.
+</app-modal>
+
 <mat-tab-group color="accent" mat-stretch-tabs="true" [(selectedIndex)]="tabIndex" (selectedTabChange)="selectTab($event)">
 
+  <mat-tab label="Integration">
+    <app-code></app-code>
+  </mat-tab>
   <mat-tab label="Options">
     <app-accessor></app-accessor>
   </mat-tab>
