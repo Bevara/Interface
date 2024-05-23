@@ -68,19 +68,13 @@ export class AccessorsService {
           }
         case 'getFileData':
           {
-            //const bevaraData = await editor.getBevaraData();
-            //vscode.postMessage({ type: 'response', requestId, body: bevaraData });
             console.log("getFileData()");
             return;
           }
         case 'wasmReady':
           {
-            // for (const [key, value] of Object.entries(body.wasms) ){
-            //   this.http.get("https://file+.vscode-resource.vscode-cdn.net/Users/jeromegorin/project/Editor/Interface/build/solver_1.js")
-            //    .subscribe(buffer => {
-            //      console.log(buffer);
-            //   });
-            // }
+            this.isReady = true;
+            this.readyEvent.emit();
             return;
           }
           break;
@@ -166,8 +160,16 @@ export class AccessorsService {
     this._mediainfo.readyEvent.subscribe(() => {
       //Default libs
       this.setRecommended();
-      this.isReady = true;
-      this.readyEvent.emit();
+
+      if (!this.is_vscode){
+        this.isReady = true;
+        this.readyEvent.emit();
+      }else{
+        if (environment.vscode) {
+          vscode.postMessage({ type: 'getWasms', libs: this.libs._slctLibs.map(x => x.id)});
+        }
+      }
+
     });
   }
 

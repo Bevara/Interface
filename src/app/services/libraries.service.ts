@@ -2,7 +2,6 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { MatChipEditedEvent, MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
 import { Injectable } from '@angular/core';
 import { recommendedFilters, recommendedExt } from '../utilities/recommended';
-import { HttpClient } from '@angular/common/http';
 import { environment } from './../../environments/environment';
 import { vscode } from "../utilities/vscode";
 export type MediaSupport = 'image' | 'audio' | 'video';
@@ -82,7 +81,7 @@ export class LibrariesService {
   //announcer = inject(LiveAnnouncer);
 
   constructor(
-    private httpClient: HttpClient
+
   ) {
 
   }
@@ -100,10 +99,6 @@ export class LibrariesService {
 
   updateService(){
     this.licence_required = this._slctLibs.some(x => x.licence_required == true);
-
-    if (environment.vscode) {
-      vscode.postMessage({ type: 'getWasms', libs: this._slctLibs.map(x => x.id)});
-    }
   }
 
   removeLibStr(value: string): void {
