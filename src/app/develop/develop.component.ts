@@ -17,8 +17,6 @@ export class DevelopComponent {
   filteredLibs: Observable<Library[]>;
   initialSearch = "";
 
-  showModal = false;
-  showLicenceRequired = false;
 
   constructor(public accessorsService: AccessorsService,
   ) {
@@ -28,7 +26,7 @@ export class DevelopComponent {
     );
 
     if (!this.accessorsService.isReady) {
-      this.accessorsService.readyEvent.subscribe(event => {
+      this.accessorsService.libs.readyEvent.subscribe(event => {
         this.search.setValue(this.initialSearch);
       });
     }
@@ -48,7 +46,7 @@ export class DevelopComponent {
 
   addToLibs(lib : Library){
     if (lib.licence_required){
-      this.showLicenceRequired = true;
+      this.accessorsService.showLicenceRequired = true;
      }else{
       this.accessorsService.libs.addLibraryStr(lib.name);
      }

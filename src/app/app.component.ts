@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AccessorsService } from './services/accessors.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'interface';
+  constructor(public accessorsService : AccessorsService,
+    ) { }
+
 }

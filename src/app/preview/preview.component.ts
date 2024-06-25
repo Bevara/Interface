@@ -16,6 +16,7 @@ export class PreviewComponent implements AfterViewInit {
   html = '';
   tabIndex = 0;
   open_stat = "fin";
+  player : any = null;
 
   @ViewChild('contentScript') contentScript: ElementRef | undefined;
   @ViewChild('contentTag') contentTag: ElementRef | undefined;
@@ -33,16 +34,24 @@ export class PreviewComponent implements AfterViewInit {
 
   updateView() {
     if (this.contentScript) {
+      if (this.player != null){
+        this.renderer.removeChild(this.contentScript.nativeElement, this.player);
+      }
+
       if (this.accessorsService.isScript) {
-        const player = document.createElement("script");
-        player.innerHTML = this.accessorsService.html_code;
+        this.player = document.createElement("script");
+        this.player.innerHTML = this.accessorsService.html_code;
 
-        this.renderer.appendChild(this.contentScript.nativeElement, player);
-      } else if (this.contentTag) {
-        const player = document.createElement("div");
-        player.innerHTML = this.accessorsService.html_code;
+        this.renderer.appendChild(this.contentScript.nativeElement, this.player);
+      } else if (this.accessorsService.isTag && this.contentTag) {
+        if (this.player != null){
+          this.renderer.removeChild(this.contentTag.nativeElement, this.player);
+        }
 
-        this.renderer.appendChild(this.contentTag.nativeElement, player);
+        this.player = document.createElement("div");
+        this.player.innerHTML = this.accessorsService.html_code;
+
+        this.renderer.appendChild(this.contentTag.nativeElement, this.player);
         const preview_elt = document.getElementById(this.accessorsService.id) as any;
 
         if (this.accessorsService.tag == "canvas" || this.accessorsService.not_supported) return;
@@ -69,7 +78,7 @@ export class PreviewComponent implements AfterViewInit {
     if (this.accessorsService.isReady) {
       this.updateView();
     } else {
-      this.accessorsService.readyEvent.subscribe(event => this.updateView());
+      this.accessorsService.libs.readyEvent.subscribe(event => this.updateView());
     }
   }
 

@@ -1,9 +1,10 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { MatChipEditedEvent, MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { recommendedFilters, recommendedExt } from '../utilities/recommended';
 import { environment } from './../../environments/environment';
 import { vscode } from "../utilities/vscode";
+import { AccessorsService } from './accessors.service';
 export type MediaSupport = 'image' | 'audio' | 'video';
 
 export interface Library {
@@ -29,6 +30,8 @@ export interface JSON_Libraries {
   providedIn: 'root'
 })
 export class LibrariesService {
+
+  public readyEvent = new EventEmitter();
 
   public using: Library[] = [{
     id: "solver_1",
@@ -81,7 +84,6 @@ export class LibrariesService {
   //announcer = inject(LiveAnnouncer);
 
   constructor(
-
   ) {
 
   }
@@ -99,6 +101,11 @@ export class LibrariesService {
 
   updateService(){
     this.licence_required = this._slctLibs.some(x => x.licence_required == true);
+    if (environment.vscode) {
+      vscode.postMessage({ type: 'getWasms', libs: this._slctLibs.map(x => x.id)});
+    }else{
+      this.readyEvent.emit();
+    }
   }
 
   removeLibStr(value: string): void {
@@ -161,10 +168,12 @@ export class LibrariesService {
 
   addAll() {
     this._slctLibs = [...this._allLibs];
+    this.updateService();
   }
 
   removeAll() {
     this._slctLibs = [];
+    this.updateService();
   }
 
   setRecommended(infos:any, ext:string | undefined) {

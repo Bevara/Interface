@@ -9,10 +9,10 @@ import { AccessorsService } from 'src/app/services/accessors.service';
   styleUrls: ['./info.component.scss']
 })
 export class InfoComponent implements OnInit {
-  tracks:string[] = [];
-  trackInfo : { [key: string]: any } = {};
+  tracks: string[] = [];
+  trackInfo: { [key: string]: any } = {};
 
-  displayedColumns: string[] = ["type","desc"];
+  displayedColumns: string[] = ["type", "desc"];
 
   @Input() tabEvent: EventEmitter<MatTabChangeEvent> | null = null;
 
@@ -36,23 +36,25 @@ export class InfoComponent implements OnInit {
     this.tracks = [];
     this.trackInfo = {};
 
-    for(const track of info){
+    for (const track of info) {
       const type = track["@type"];
       this.tracks.push(type);
       this.trackInfo[type] = Object.entries(track)
-      .filter(x => x[0] != "@type")
-      .filter(x => x[0] != "VideoCount")
-      .filter(x => x[0] != "AudioCount")
-      .filter(x => x[0] != "ImageCount")
-      .filter(x => x[0] != "ID")
-      .map(o => {
-        function isPlain(val : any) {
-          return (typeof val === 'undefined' || typeof val === 'string' || typeof val === 'boolean' || typeof val === 'number' || Array.isArray(val) );
-        }
-        const value = isPlain(o[1]) ? o[1] : JSON.stringify(o[1]);
+        .filter(x => x[0] != "@type")
+        .filter(x => x[0] != "VideoCount")
+        .filter(x => x[0] != "AudioCount")
+        .filter(x => x[0] != "ImageCount")
+        .filter(x => x[0] != "ID")
+        .map(o => {
+          function isPlain(val: any) {
+            return (typeof val === 'undefined' || typeof val === 'string' || typeof val === 'boolean' || typeof val === 'number' || Array.isArray(val));
+          }
+          const value = isPlain(o[1]) ? o[1] : JSON.stringify(o[1]);
 
-        return { type: o[0], desc: value };
-    });
+          return { type: o[0], desc: value };
+        });
+
+        console.log(this.trackInfo);
     }
   }
 }

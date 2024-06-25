@@ -4,7 +4,7 @@ import {recommendedExt } from '../utilities/recommended';
 import { environment } from 'src/environments/environment';
 
 export type Tag = 'img' | 'audio' | 'video' | 'canvas';
-export type Integration = 'Universal tags' | 'Script' | 'ArtPlayer';
+export type Integration = 'Universal tags' | 'Script' | 'ArtPlayer' | null;
 export type Is = 'universal-canvas_1' | 'universal-img_1' | 'universal-audio_1' | 'universal-video_1';
 
 @Injectable({
@@ -14,7 +14,7 @@ export class TagsService {
   private _tag: Tag = 'canvas';
   private _is: Is = 'universal-canvas_1';
   private _tags: Tag[] = [];
-  private _integration: Integration = 'ArtPlayer';
+  private _integration: Integration = null;
 
   constructor(
    private options: OptionsService

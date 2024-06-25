@@ -1,9 +1,8 @@
 <mat-drawer-container class="example-container mat-typography" hasBackdrop=false autosize>
   <mat-drawer class="panel" #drawer mode="side" disableClose="true" opened="true" position="end">
-      <app-develop *ngIf="pinned"></app-develop>
+      <app-develop></app-develop>
   </mat-drawer>
-  <mat-drawer-content [ngClass]="{'pinned':pinned,
-    'unpinned':!pinned}">
+  <mat-drawer-content class="pinned">
     <div class="example-sidenav-content">
       <app-preview></app-preview>
     </div>

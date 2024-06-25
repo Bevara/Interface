@@ -8,24 +8,14 @@ import { AccessorsService } from '../services/accessors.service';
   templateUrl: './side-nav.component.html',
   styleUrls: ['./side-nav.component.scss']
 })
-export class SideNavComponent implements OnInit {
+export class SideNavComponent {
 
-  pinned: boolean = true;
 
   constructor(
     public accessorsService : AccessorsService
 
   ) { }
 
-  ngOnInit(): void {
-  }
-
-  changePinned(): void {
-    this.pinned = !this.pinned;
-    setTimeout(async () => {
-      window.dispatchEvent(new Event('resize'));
-    }, 10);
-  }
 
   goToLink(url: string){
     if(environment.vscode){

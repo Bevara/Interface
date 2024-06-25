@@ -13,10 +13,11 @@ export class MediainfoService {
   supported_format = false;
 
   public readyEvent = new EventEmitter();
-  
+
   async initInfo(src:string){
     function defaultLocateFile(path:string, prefix:string) {
-      return `${environment.server_url}/mediainfo/${path}`;
+      //return `${environment.server_url}/mediainfo/${path}`;
+      return `https://unpkg.com/mediainfo.js@0.3.1/dist/MediaInfoModule.wasm`;
     }
 
     try{
@@ -25,7 +26,7 @@ export class MediainfoService {
       if (!this.mi){
         this.mi = await MediaInfoFactory({ format: 'JSON',locateFile: defaultLocateFile});
       }
-      
+
       const getSize = () => blob.size;
       const readChunk: ReadChunkFunc = ((chunkSize, offset) =>{
         return new Promise((resolve, reject) => {
@@ -46,7 +47,7 @@ export class MediainfoService {
     catch(e){
       console.log("Info failed at parsing file :"+src);
     }
-    
+
 
     if (this.json_info.media && this.json_info.media.track.length != 1){
       // Information surely not revelant
@@ -57,7 +58,7 @@ export class MediainfoService {
 
   get info(){
     if ("media" in this.json_info && "track" in  this.json_info.media){
-      return this.json_info.media.track;      
+      return this.json_info.media.track;
     }
 
     return {};

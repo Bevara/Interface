@@ -1,0 +1,10 @@
+
+
+  <button mat-raised-button [cdkCopyToClipboard]="accessorsService.html_preview">Copy code to clipboard</button>
+  <button mat-raised-button (click)="zip_libraries()">Download required libraries</button>
+  <button mat-raised-button (click)="accessorsService.showModalNeedPreserve = true">Preserve your file</button>
+
+
+<div class="hide">
+    <a href="" id="exportLink"></a>
+</div>

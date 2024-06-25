@@ -18,12 +18,13 @@ import { debug } from '../debug';
 export class AccessorsService {
   private _src = environment.src;
   private _dataUrl: string | null = null;
-  public readyEvent = new EventEmitter();
   public not_supported = false;
   public isReady = false;
   public isEmpty = false;
   private _solver = "solver_1";
   private _is_vscode = environment.vscode;
+  public showModalNeedPreserve = false;
+  public showLicenceRequired = false;
 
   constructor(
     private http: HttpClient,
@@ -74,10 +75,9 @@ export class AccessorsService {
         case 'wasmReady':
           {
             this.isReady = true;
-            this.readyEvent.emit();
+            this.libs.readyEvent.emit();
             return;
           }
-          break;
       }
     });
 
@@ -163,11 +163,7 @@ export class AccessorsService {
 
       if (!this.is_vscode){
         this.isReady = true;
-        this.readyEvent.emit();
-      }else{
-        if (environment.vscode) {
-          vscode.postMessage({ type: 'getWasms', libs: this.libs._slctLibs.map(x => x.id)});
-        }
+        this.libs.readyEvent.emit();
       }
 
     });
@@ -251,8 +247,13 @@ export class AccessorsService {
   }
 
   public get isScript() {
-    return this.tags.integration != 'Universal tags';
+    return this.tags.integration == 'Script' ||  this.tags.integration == 'ArtPlayer';
   }
+
+  public get isTag() {
+    return this.tags.integration == 'Universal tags';
+  }
+
 
   public get html_code() {
     return `<${this.tag} is="${this.tags.is}" ${this.tag != 'canvas' ? "id=preview_tag" : ""} ${this.tag == 'canvas' ? 'data-url' : 'src'}="${this.is_vscode ? this._dataUrl : this._src}" using="solver_1" with="${this.with_template}" ${this.options.optionsStr} ${this.is_vscode && !this.options.script_directory? 'script-directory="' + this.options.vsCodeScriptDirectory + '"': ''} ${this.logs.logsStr} print="console" printErr="console" noCleanupOnExit=true >`;

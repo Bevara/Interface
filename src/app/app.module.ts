@@ -14,7 +14,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatTableModule} from '@angular/material/table';
-import {MatLegacyListModule as MatListModule} from '@angular/material/legacy-list';
+import {MatListModule} from '@angular/material/list';
 import {CdkDrag, CdkDropList} from '@angular/cdk/drag-drop';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
@@ -26,9 +26,8 @@ import { AsyncPipe, NgFor } from '@angular/common';
 import {MatInputModule} from '@angular/material/input';
 import { OptionsComponent } from './accessor/options/options.component';
 import { TagsComponent } from './accessor/tags/tags.component';
-import { IntegrationComponent } from './accessor/integration/integration.component';
 import { CodeComponent } from './accessor/code/code.component';
-import { ActionsComponent } from './accessor/actions/actions.component';
+import { ActionsComponent } from './accessor/code/actions/actions.component';
 import { SourceComponent } from './accessor/source/source.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ModalComponent } from './accessor/modal/modal.component';
@@ -53,7 +52,6 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     LibsComponent,
     OptionsComponent,
     TagsComponent,
-    IntegrationComponent,
     CodeComponent,
     ActionsComponent,
     SourceComponent,
