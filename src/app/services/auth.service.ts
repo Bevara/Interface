@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import Sdk from 'casdoor-js-sdk';
+import { vscode } from "../utilities/vscode";
 
 const config = {
   serverUrl: environment.cas_url,
@@ -14,7 +15,7 @@ const config = {
   providedIn: 'root'
 })
 export class AuthService {
-  _username= '';
+  _username = '';
   _isLoggedIn = false;
   _tokenReceived = false;
   sdk = new Sdk(config);
@@ -23,23 +24,19 @@ export class AuthService {
     if (this.sessionToken) {
       this.getInfo().then((res) => this.setInfo(res));
     }
-
   }
 
-  get username(){
+  get username() {
     return this._username;
   }
 
-  get isLoggedIn(){
+  get isLoggedIn() {
     return this._isLoggedIn;
   }
 
   async getInfo() {
-    const token = this.sessionToken;
-    if (!token) {
-      return;
-    } else {
-      const response = await fetch(`${environment.auth_url}/api/getUserInfo?token=${token}`);
+    if (this._tokenReceived) {
+      const response = await fetch(`${environment.auth_url}/api/getUserInfo?token=${this.sessionToken}`);
       return response.json();
     }
   }
@@ -56,9 +53,9 @@ export class AuthService {
     this._isLoggedIn = false;
   }
 
-  signIn(){
+  signIn() {
     this.sdk.signin(environment.auth_url).then((res: any) => {
-      if (res.token){
+      if (res.token) {
         this.sessionToken = res.token;
         this._tokenReceived = true;
 
@@ -67,19 +64,32 @@ export class AuthService {
     });
   }
 
-  get signinUrl(){
-    return this.sdk.getSigninUrl();
+  gotoSignInPage(){
+    if (environment.vscode) {
+      vscode.postMessage({ type: 'login' });
+    } else {
+      window.location.href = this.sdk.getSigninUrl();
+    }
   }
 
-  get sessionToken() : string | null{
-    return sessionStorage.getItem('token');
+  get sessionToken(): string | null {
+    if (environment.vscode) {
+      vscode.postMessage({ type: 'getToken' });
+      return null;
+    } else {
+      return sessionStorage.getItem('token');
+    }
   }
 
-  set sessionToken(value : string | null){
-    if (value == null){
-      sessionStorage.removeItem('token');
-    }else{
-      sessionStorage.setItem('token', value);
+  set sessionToken(value: string | null) {
+    if (environment.vscode) {
+      vscode.postMessage({ type: 'setToken', token: value });
+    } else {
+      if (value == null) {
+        sessionStorage.removeItem('token');
+      } else {
+        sessionStorage.setItem('token', value);
+      }
     }
   }
 }
