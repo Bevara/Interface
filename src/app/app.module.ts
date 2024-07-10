@@ -41,6 +41,7 @@ import { LoggerModule, NgxLoggerLevel } from "ngx-logger";
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSelectModule} from '@angular/material/select';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import { AuthComponent } from "./auth/auth.component";
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     UnusedComponent,
     GraphComponent,
     StatsComponent,
-    InfoComponent
+    InfoComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,
@@ -90,12 +92,12 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     HttpClientModule,
     MatProgressSpinnerModule,
     LoggerModule.forRoot({
-      serverLoggingUrl: 'http://bevara.ddns.net:9090/logs',
-      level: NgxLoggerLevel.DEBUG,
-      serverLogLevel: NgxLoggerLevel.ERROR,
-      httpResponseType:'text'
+        serverLoggingUrl: 'http://bevara.ddns.net:9090/logs',
+        level: NgxLoggerLevel.DEBUG,
+        serverLogLevel: NgxLoggerLevel.ERROR,
+        httpResponseType: 'text'
     })
-  ],
+],
   providers: [],
   bootstrap: [AppComponent]
 })

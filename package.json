@@ -29,6 +29,7 @@
     "@syncfusion/ej2": "^21.2.10",
     "@types/emscripten": "^1.39.7",
     "@vscode/webview-ui-toolkit": "^1.2.2",
+    "casdoor-js-sdk": "^0.14.0",
     "d3": "^7.8.5",
     "d3-graphviz": "^5.1.0",
     "jszip": "^3.10.1",

@@ -1,0 +1,8 @@
+<mat-toolbar>
+  <ng-container *ngIf="isLoggedIn; else loginOptions">
+    <span>You are signed in as {{ username }}. <a style="color: #fff;" href="javascript:void(0);" (click)="signOut()">Log out</a></span>
+  </ng-container>
+  <ng-template #loginOptions>
+    <span>You are not logged in. Please <a style="color: #fff;" href="{{sdk.getSigninUrl()}}">sign in</a> to get access to the SDK and an extended number of accessors.</span>
+  </ng-template>
+</mat-toolbar>
