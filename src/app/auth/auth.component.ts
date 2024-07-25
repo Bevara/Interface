@@ -1,6 +1,7 @@
 import Sdk from 'casdoor-js-sdk';
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { AuthService } from '../services/auth.service';
 
 const config = {
   serverUrl: environment.cas_url,
@@ -16,68 +17,15 @@ const config = {
   styleUrl: './auth.component.scss'
 })
 export class AuthComponent implements OnInit {
-
-  username= '';
-  isLoggedIn = false;
-  sdk = new Sdk(config);
-  tokenReceived = false;
+  constructor(
+    public auth : AuthService
+  ) { }
 
   ngOnInit() {
     if (window.location.href.indexOf('code') !== -1) {
-      if (!sessionStorage.getItem('token')) {
-
-        this.sdk.signin(environment.auth_url).then((res: any) => {
-          if (res.token){
-            sessionStorage.setItem('token', res.token);
-            this.setTokenReceived(true);
-
-            this.getInfo().then((res) => this.setInfo(res));
-          }
-        });
+      if (!this.auth.isLoggedIn) {
+        this.auth.signIn();
       }
     }
-
-    if (sessionStorage.getItem('token')) {
-      this.getInfo().then((res) => this.setInfo(res));
-    }
-  }
-
-
-  async getInfo() {
-    const token = sessionStorage.getItem('token');
-    if (!token) {
-      return;
-    } else {
-      const response = await fetch(`${environment.auth_url}/api/getUserInfo?token=${token}`);
-      return response.json();
-    }
-  }
-
-  setInfo(res: any) {
-    const userinfo = res;
-    this.setUsername(userinfo.name);
-    this.setIsLoggedIn(true);
-  }
-
-  gotoSignInPage() {
-    window.location.href = this.sdk.getSigninUrl();
-  }
-
-  signOut() {
-    sessionStorage.removeItem('token');
-    this.setTokenReceived(false);
-    this.setIsLoggedIn(false);
-  }
-
-  setUsername(username: string) {
-    this.username = username;
-  }
-
-  setIsLoggedIn(isLoggedIn: boolean) {
-    this.isLoggedIn = isLoggedIn;
-  }
-
-  setTokenReceived(tokenReceived: boolean) {
-    this.tokenReceived = tokenReceived;
   }
 }

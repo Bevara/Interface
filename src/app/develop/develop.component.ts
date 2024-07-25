@@ -46,7 +46,7 @@ export class DevelopComponent {
 
   addToLibs(lib : Library){
     if (lib.licence_required){
-      this.accessorsService.showLicenceRequired = true;
+      this.accessorsService.libs.licence_required = true;
      }else{
       this.accessorsService.libs.addLibraryStr(lib.name);
      }

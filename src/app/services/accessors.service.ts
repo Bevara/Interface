@@ -24,7 +24,6 @@ export class AccessorsService {
   private _solver = "solver_1";
   private _is_vscode = environment.vscode;
   public showModalNeedPreserve = false;
-  public showLicenceRequired = false;
 
   constructor(
     private http: HttpClient,
@@ -84,10 +83,10 @@ export class AccessorsService {
     if (this.is_vscode) {
       vscode.postMessage({ type: 'ready' });
     } else {
-      this.http.get<JSON_Libraries>(debug ? "http://localhost:8081/" : environment.server_url + "/accessors-build/accessors-" + environment.accessor_version + "/" + "filter_list.json")
-        .subscribe(libs => {
-          this.initFilterAndInfo(this._src, libs);
-        });
+      this.http.get<JSON_Libraries>("assets/filter_list.json")
+      .subscribe(libs => {
+        this.initFilterAndInfo(this._src, libs);
+      });
     }
   }
 
@@ -190,9 +189,6 @@ export class AccessorsService {
     return "";
   }
 
-  public set html_preview(html) {
-
-  }
 
   private get with_template() {
     return this.libs._slctLibs.map(x => x.id).join(";");

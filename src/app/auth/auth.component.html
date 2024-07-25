@@ -1,8 +1,9 @@
 <mat-toolbar>
-  <ng-container *ngIf="isLoggedIn; else loginOptions">
-    <span>You are signed in as {{ username }}. <a style="color: #fff;" href="javascript:void(0);" (click)="signOut()">Log out</a></span>
+  <ng-container *ngIf="auth.isLoggedIn; else loginOptions">
+    <span>You are signed in as {{ auth.username }}. <a style="color: #fff;" href="javascript:void(0);" (click)="auth.signOut()">Log out</a></span>
   </ng-container>
   <ng-template #loginOptions>
-    <span>You are not logged in. Please <a style="color: #fff;" href="{{sdk.getSigninUrl()}}">sign in</a> to get access to the SDK and an extended number of accessors.</span>
+    <!-- <span>You are not logged in. Please <a style="color: #fff;" (click)="auth.gotoSignInPage()" href="javascript:void(0);">sign in</a> to get access to the SDK and an extended number of accessors.</span> -->
+    <span>You are not logged in. Please contact <a href="mailto:sales@bevara.com">sales&#64;bevara.com</a>  to register.</span>
   </ng-template>
 </mat-toolbar>

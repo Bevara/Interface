@@ -75,6 +75,15 @@ export const recommendedFilters: Recommended<Identifier> = {
   },
   "ffmpeg-hevc": {
     "Format": ["HEVC"]
+  },
+  "avidmx": {
+    "Format": ["AVI"]
+  },
+  "libmad": {
+    "Format": ["MPEG Audio"]
+  },
+  "libxvid": {
+    "Format": ["xvid","MPEG-4 Visual"]
   }
   /*,
   "avi": [

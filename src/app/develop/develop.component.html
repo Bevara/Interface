@@ -53,7 +53,7 @@
             {{library.help}}
         </mat-card-content>
 
-        <mat-card-actions>
+        <mat-card-actions *ngIf="library.licence_required == false">
             <button *ngIf="!accessorsService.libs.hasLibStr(library.name)" mat-button
                 (click)="addToLibs(library)">Add to
                 library</button>
@@ -63,5 +63,9 @@
             <button mat-button (click)="addToExplorer(library)">View</button>
             <!-- <button mat-button (click)="showModal = true">Edit</button> -->
         </mat-card-actions>
+
+        <mat-card-actions *ngIf="library.licence_required == true">
+          <button mat-button disabled>This library requires a licence to be used.</button>
+      </mat-card-actions>
     </mat-card>
 </div>

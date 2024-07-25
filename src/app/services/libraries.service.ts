@@ -81,12 +81,6 @@ export class LibrariesService {
     [key:string]: string
   } = {};
 
-  //announcer = inject(LiveAnnouncer);
-
-  constructor(
-  ) {
-
-  }
 
   addLibraryStr(value: string): void {
     if (value && !this.hasLibStr(value)) {
