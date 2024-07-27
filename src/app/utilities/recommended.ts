@@ -1,6 +1,4 @@
 
-import { Tag } from '../services/tags.service';
-
 interface Identifier {
   [id: string]: string[];
 }
@@ -84,6 +82,9 @@ export const recommendedFilters: Recommended<Identifier> = {
   },
   "libxvid": {
     "Format": ["xvid","MPEG-4 Visual"]
+  },
+  "theora": {
+    "Format": ["Theora"]
   }
   /*,
   "avi": [

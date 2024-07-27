@@ -13,7 +13,7 @@ export const environment = {
   cas_url : "http://192.168.1.120:8000",
   auth_url : "http://192.168.1.120:5000",
   accessor_version : build,
-  src:'https://bevara.ddns.net/test-signals/xvid/Big_Buck_Bunny_Trailer_400p.avi',
+  src:'https://bevara.ddns.net/test-signals/ogv/Big_Buck_Bunny_Trailer_400p.ogv',
   tags_version : version
 };
 

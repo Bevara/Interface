@@ -285,5 +285,20 @@
       "rfmpgvid": "reframe_mpegvid.c"
     },
     "licence_required": false
+  },
+  "theora_1.wasm": {
+    "name": "theora",
+    "description": "Theora decoder",
+    "filters":["theoradec"],
+    "help": "This filter decodes Theora streams through libtheora library.",
+    "support": [
+        "video"
+    ],
+    "sources":"https://codeload.github.com/Bevara/theora/zip/refs/heads/main",
+    "binaries": "https://github.com/Bevara/theora/releases/download/1/theora_1.wasm",
+    "filter_source":{
+        "theoradec" : "dec_theora.c"
+    },
+    "licence_required": false
   }
 }
