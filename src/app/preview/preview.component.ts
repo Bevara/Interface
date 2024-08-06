@@ -17,6 +17,7 @@ export class PreviewComponent implements AfterViewInit {
   tabIndex = 0;
   open_stat = "fin";
   player : any = null;
+  wait_for_click = false;
 
   @ViewChild('contentScript') contentScript: ElementRef | undefined;
   @ViewChild('contentTag') contentTag: ElementRef | undefined;
@@ -32,6 +33,37 @@ export class PreviewComponent implements AfterViewInit {
     ) { }
 
 
+  insertHtml() {
+    if (this.contentTag){
+      if (this.player != null){
+        this.renderer.removeChild(this.contentTag.nativeElement, this.player);
+      }
+
+      this.player = document.createElement("div");
+      this.player.innerHTML = this.accessorsService.html_code;
+
+      this.renderer.appendChild(this.contentTag.nativeElement, this.player);
+      const preview_elt = document.getElementById(this.accessorsService.id) as any;
+
+      if (this.accessorsService.tag == "canvas" || this.accessorsService.not_supported) return;
+
+      //this.decoding = true;
+
+      if (!preview_elt.decodingPromise){
+        this.decoding = false;
+        this.error =true;
+        return;
+      }
+
+      // preview_elt.decodingPromise.then((src:any) => {
+      //   this.decoding = false;
+      //   if(!src){
+      //     this.error =true;
+      //   }
+      // });
+    }
+  }
+
   updateView() {
     if (this.contentScript) {
       if (this.player != null){
@@ -43,33 +75,14 @@ export class PreviewComponent implements AfterViewInit {
         this.player.innerHTML = this.accessorsService.html_code;
 
         this.renderer.appendChild(this.contentScript.nativeElement, this.player);
-      } else if (this.accessorsService.isTag && this.contentTag) {
-        if (this.player != null){
-          this.renderer.removeChild(this.contentTag.nativeElement, this.player);
-        }
-
-        this.player = document.createElement("div");
-        this.player.innerHTML = this.accessorsService.html_code;
-
-        this.renderer.appendChild(this.contentTag.nativeElement, this.player);
-        const preview_elt = document.getElementById(this.accessorsService.id) as any;
-
-        if (this.accessorsService.tag == "canvas" || this.accessorsService.not_supported) return;
-
-        //this.decoding = true;
-
-        if (!preview_elt.decodingPromise){
-          this.decoding = false;
-          this.error =true;
+      } else if (this.accessorsService.isTag ) {
+        if (this.accessorsService.tag == "canvas"  && this.infoService.hasAudio){
+          //For canvas, the user should click first on the screen
+          this.wait_for_click = true;
           return;
         }
 
-        // preview_elt.decodingPromise.then((src:any) => {
-        //   this.decoding = false;
-        //   if(!src){
-        //     this.error =true;
-        //   }
-        // });
+        this.insertHtml();
       }
     }
   }
@@ -89,5 +102,10 @@ export class PreviewComponent implements AfterViewInit {
   changeTab(event:any){
     this.tabIndex = event.tabIndex;
     this.open_stat = event.key;
+  }
+
+  showContent(){
+    this.wait_for_click = false;
+    this.insertHtml();
   }
 }

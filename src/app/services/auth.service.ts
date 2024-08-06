@@ -15,49 +15,53 @@ const config = {
   providedIn: 'root'
 })
 export class AuthService {
-  _username = '';
-  _isLoggedIn = false;
-  _tokenReceived = false;
   sdk = new Sdk(config);
+  _sessionToken :string | null = null;
+ account : any;
 
   constructor() {
-    if (this.sessionToken) {
-      this.getInfo().then((res) => this.setInfo(res));
+    if (!environment.vscode){
+      const url = new URL(window.location.href);
+      const params = url.searchParams;
+      if (params.get('code')){
+        this.sessionToken = params.get('code');
+      }
     }
   }
 
   get username() {
-    return this._username;
+    if (this.isLoggedIn)
+      return this.account.name;
+    else
+    return null;
   }
 
   get isLoggedIn() {
-    return this._isLoggedIn;
+    return this.account != null;
   }
 
   async getInfo() {
-    if (this._tokenReceived) {
-      const response = await fetch(`${environment.auth_url}/api/getUserInfo?token=${this.sessionToken}`);
-      return response.json();
-    }
+    const sessionToken = environment.vscode? this._sessionToken : this.sessionToken;
+    const response = await fetch(`${environment.auth_url}/api/getUserInfo?token=${this.sessionToken}`);
+    return response.json();
   }
 
   setInfo(res: any) {
     const userinfo = res;
-    this._username = userinfo.name;
-    this._isLoggedIn = true;
   }
 
-  signOut() {
-    this.sessionToken = null;
-    this._tokenReceived = false;
-    this._isLoggedIn = false;
+  switchUser() {
+    if (environment.vscode) {
+      vscode.postMessage({ type: 'switchUser' });
+    } else {
+      this.gotoSignInPage();
+    }
   }
 
   signIn() {
     this.sdk.signin(environment.auth_url).then((res: any) => {
       if (res.token) {
         this.sessionToken = res.token;
-        this._tokenReceived = true;
 
         this.getInfo().then((res) => this.setInfo(res));
       }
@@ -83,7 +87,10 @@ export class AuthService {
 
   set sessionToken(value: string | null) {
     if (environment.vscode) {
-      vscode.postMessage({ type: 'setToken', token: value });
+      if (value){
+        this._sessionToken = value;
+        this.getInfo();
+      }
     } else {
       if (value == null) {
         sessionStorage.removeItem('token');

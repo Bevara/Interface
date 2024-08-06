@@ -77,4 +77,16 @@ export class MediainfoService {
 
     return img.length == 1 && "Format" in img[0] && img[0]["Format"] == "PNG";
   }
+
+  get hasAudio(){
+    const info = this.info;
+    const audio = info.filter((x :any) => x["@type"] == "Audio");
+    return audio.length >= 1;
+  }
+
+  get hasVideo(){
+    const info = this.info;
+    const video = info.filter((x :any) => x["@type"] == "Audio");
+    return video.length >= 1;
+  }
 }

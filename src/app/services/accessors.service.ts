@@ -10,6 +10,7 @@ import { LogsService } from './logs.service';
 import { MediainfoService } from './mediainfo.service';
 import { NGXLogger } from "ngx-logger";
 import { debug } from '../debug';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +33,7 @@ export class AccessorsService {
     private _options: OptionsService,
     private _logs: LogsService,
     private _mediainfo: MediainfoService,
+    private _auth : AuthService
     //private logger: NGXLogger
   ) {
     //this.logger.error("Your log message goes here");
@@ -77,6 +79,11 @@ export class AccessorsService {
             this.libs.readyEvent.emit();
             return;
           }
+        case 'updateProfile':
+          {
+            this._auth.account = body.account;
+            return;
+          }
       }
     });
 
@@ -84,9 +91,9 @@ export class AccessorsService {
       vscode.postMessage({ type: 'ready' });
     } else {
       this.http.get<JSON_Libraries>("assets/filter_list.json")
-      .subscribe(libs => {
-        this.initFilterAndInfo(this._src, libs);
-      });
+        .subscribe(libs => {
+          this.initFilterAndInfo(this._src, libs);
+        });
     }
   }
 
@@ -160,7 +167,7 @@ export class AccessorsService {
       //Default libs
       this.setRecommended();
 
-      if (!this.is_vscode){
+      if (!this.is_vscode) {
         this.isReady = true;
         this.libs.readyEvent.emit();
       }
@@ -243,7 +250,7 @@ export class AccessorsService {
   }
 
   public get isScript() {
-    return this.tags.integration == 'Script' ||  this.tags.integration == 'ArtPlayer';
+    return this.tags.integration == 'Script' || this.tags.integration == 'ArtPlayer';
   }
 
   public get isTag() {
@@ -252,7 +259,7 @@ export class AccessorsService {
 
 
   public get html_code() {
-    return `<${this.tag} is="${this.tags.is}" ${this.tag != 'canvas' ? "id=preview_tag" : ""} ${this.tag == 'canvas' ? 'data-url' : 'src'}="${this.is_vscode ? this._dataUrl : this._src}" using="solver_1" with="${this.with_template}" ${this.options.optionsStr} ${this.is_vscode && !this.options.script_directory? 'script-directory="' + this.options.vsCodeScriptDirectory + '"': ''} ${this.logs.logsStr} print="console" printErr="console" noCleanupOnExit=true >`;
+    return `<${this.tag} is="${this.tags.is}" ${this.tag != 'canvas' ? "id=preview_tag" : ""} ${this.tag == 'canvas' ? 'data-url' : 'src'}="${this.is_vscode ? this._dataUrl : this._src}" using="solver_1" with="${this.with_template}" ${this.options.optionsStr} ${this.is_vscode && !this.options.script_directory ? 'script-directory="' + this.options.vsCodeScriptDirectory + '"' : ''} ${this.logs.logsStr} print="console" printErr="console" noCleanupOnExit=true >`;
   }
 
   public get id() {

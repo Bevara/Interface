@@ -15,6 +15,12 @@
     style="color: #fff;" href="mailto:sales@bevara.com">sales&#64;bevara.com</a> for information.
 </app-modal>
 
+<mat-card appearance="outlined" (click)="showContent()" *ngIf="wait_for_click == true">
+  <mat-card-header>
+    <mat-card-title> This file contains audio </mat-card-title>
+    <mat-card-subtitle>Click on this card to show the content </mat-card-subtitle>
+  </mat-card-header>
+</mat-card>
 
 <ng-container *ngTemplateOutlet="console"></ng-container>
 
