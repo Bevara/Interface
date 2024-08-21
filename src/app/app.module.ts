@@ -42,6 +42,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSelectModule} from '@angular/material/select';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { AuthComponent } from "./auth/auth.component";
+import { AddComponent } from "./accessor/add/add.component";
 
 @NgModule({
   declarations: [
@@ -96,7 +97,8 @@ import { AuthComponent } from "./auth/auth.component";
         level: NgxLoggerLevel.DEBUG,
         serverLogLevel: NgxLoggerLevel.ERROR,
         httpResponseType: 'text'
-    })
+    }),
+    AddComponent
 ],
   providers: [],
   bootstrap: [AppComponent]

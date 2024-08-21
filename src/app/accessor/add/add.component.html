@@ -1,0 +1,44 @@
+<mat-tab-group >
+  <!-- #enddocregion dynamic-height -->
+    <mat-tab label="From an existing repository">
+      @if (!pending) {
+      <form class="example-form" (ngSubmit)="Submit()">
+        <mat-form-field class="example-full-width">
+          <mat-label>Repository URL</mat-label>
+          <input type="url" matInput [formControl]="accessorFormControl" [errorStateMatcher]="matcher"
+                 placeholder="Ex. https://github.com/Bevara/libxvid" [(ngModel)]="url">
+          <mat-hint>{{status}}</mat-hint>
+          @if (accessorFormControl.hasError('githubName') && !accessorFormControl.hasError('required')) {
+            <mat-error>Please enter a valid github address</mat-error>
+          }
+          @if (accessorFormControl.hasError('required')) {
+            <mat-error>A valid URL is <strong>required</strong></mat-error>
+          }
+        </mat-form-field>
+        @if (branches.length > 0) {
+          <mat-form-field class="example-full-width">
+            <mat-label>Select a branch</mat-label>
+            <mat-select [(value)]="selected_branch">
+              @for (option of branches; track option) {
+                <mat-option [value]="option">{{ option}}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        }
+        <button [disabled]="accessorFormControl.hasError('required')" mat-raised-button type="submit">Import accessor</button>
+      </form>
+    }
+    </mat-tab>
+    <mat-tab label="Create new accessor">
+      <div class="example-large-box mat-elevation-z4">
+        Large content
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+
+  @if (pending) {
+    <div class="add-spinner">
+      <mat-spinner ></mat-spinner>
+    </div>
+  }
+

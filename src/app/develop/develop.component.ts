@@ -6,6 +6,7 @@ import { map, startWith } from 'rxjs/operators';
 import { Library } from '../services/libraries.service';
 import {environment} from '../../environments/environment';
 import { vscode } from "../utilities/vscode";
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-develop',
@@ -18,7 +19,9 @@ export class DevelopComponent {
   initialSearch = "";
 
 
-  constructor(public accessorsService: AccessorsService,
+  constructor(
+    public accessorsService: AccessorsService,
+    private authService : AuthService
   ) {
     this.filteredLibs = this.search.valueChanges.pipe(
       startWith(""),
@@ -50,5 +53,13 @@ export class DevelopComponent {
      }else{
       this.accessorsService.libs.addLibraryStr(lib.name);
      }
+  }
+
+  addAccessor(){
+    if (!this.authService.isLoggedIn){
+      this.accessorsService.showModalNeedLogin = true;
+      return;
+    }
+    this.accessorsService.showModalAdd = true;
   }
 }

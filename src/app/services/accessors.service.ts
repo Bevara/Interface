@@ -25,6 +25,10 @@ export class AccessorsService {
   private _solver = "solver_1";
   private _is_vscode = environment.vscode;
   public showModalNeedPreserve = false;
+  public showModalNeedLogin = false;
+  public showModalAdd = false;
+  public newAccessorAdded = new EventEmitter<string>();
+
 
   constructor(
     private http: HttpClient,
@@ -33,7 +37,7 @@ export class AccessorsService {
     private _options: OptionsService,
     private _logs: LogsService,
     private _mediainfo: MediainfoService,
-    private _auth : AuthService
+    private _auth: AuthService
     //private logger: NGXLogger
   ) {
     //this.logger.error("Your log message goes here");
@@ -82,6 +86,11 @@ export class AccessorsService {
         case 'updateProfile':
           {
             this._auth.account = body.account;
+            return;
+          }
+        case 'newAccessor':
+          {
+            this.newAccessorAdded.emit(body.status);
             return;
           }
       }

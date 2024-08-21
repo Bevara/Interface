@@ -58,6 +58,14 @@ export class AuthService {
     }
   }
 
+  logout() {
+    if (environment.vscode) {
+      vscode.postMessage({ type: 'logout' });
+    } else {
+      this.gotoSignInPage();
+    }
+  }
+
   signIn() {
     this.sdk.signin(environment.auth_url).then((res: any) => {
       if (res.token) {

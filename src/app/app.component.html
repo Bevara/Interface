@@ -1,5 +1,11 @@
 <app-auth></app-auth>
 <app-side-nav></app-side-nav>
+<app-modal
+  *ngIf="accessorsService.showModalAdd"
+  (clickOnClose)="accessorsService.showModalAdd = false"
+>
+<app-add></app-add>
+</app-modal>
 
 <app-modal
   *ngIf="accessorsService.showModalNeedPreserve"
@@ -19,4 +25,11 @@
   This format is not supported by the Bevara Access IDE.
   <br> <br> Please contact <a style="color: #fff;" href="mailto:sales@bevara.com">support&#64;bevara.com</a> to inquire
   <br> about support options.
+</app-modal>
+
+<app-modal
+  *ngIf="accessorsService.showModalNeedLogin"
+  (clickOnClose)="accessorsService.showModalNeedLogin = false"
+>
+Please <a style="color: #fff;" (click)="authService.gotoSignInPage()" href="javascript:void(0);">sign in</a> first to get access to this feature.
 </app-modal>
