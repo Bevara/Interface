@@ -27,6 +27,9 @@ export class AccessorsService {
   public showModalNeedPreserve = false;
   public showModalNeedLogin = false;
   public showModalAdd = false;
+  public showModalUpdating = false;
+  public updatingProgress = 0;
+  public showModalUpdateAvailable = false;
   public newAccessorAdded = new EventEmitter<string>();
 
 
@@ -92,6 +95,20 @@ export class AccessorsService {
           {
             this.newAccessorAdded.emit(body.status);
             return;
+          }
+        case 'UpdateAvailable':
+          {
+            this.showModalUpdateAvailable = true;
+            return;
+          }
+          case 'updatingList':
+          {
+            if (body.end == true){
+              this.showModalUpdating = false;
+            }else{
+              this.showModalUpdating = true;
+              this.updatingProgress = Math.round(100 * body.counter / body.total);
+            }
           }
       }
     });
@@ -170,6 +187,9 @@ export class AccessorsService {
       lib.id = filename.replace('.wasm', '');
       this.libs._allLibs.push(lib);
     }
+
+    this.libs.updateRecommended(libs);
+    this.tags.updateRecommended(libs);
 
     this._mediainfo.initInfo(src);
     this._mediainfo.readyEvent.subscribe(() => {
@@ -277,5 +297,9 @@ export class AccessorsService {
 
   public get info() {
     return this._mediainfo.info;
+  }
+
+  updateLibraries(){
+    vscode.postMessage({ type: 'updateList' });
   }
 }

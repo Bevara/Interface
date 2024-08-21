@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { OptionsService } from './options.service';
-import {recommendedExt } from '../utilities/recommended';
 import { environment } from 'src/environments/environment';
 
 export type Tag = 'img' | 'audio' | 'video' | 'canvas';
@@ -15,37 +14,38 @@ export class TagsService {
   private _is: Is = 'universal-canvas_1';
   private _tags: Tag[] = [];
   private _integration: Integration = null;
+  private _recommendedExt: any = {};
 
   constructor(
-   private options: OptionsService
+    private options: OptionsService
   ) { }
 
-  setRecommended(info:any, ext:string | undefined) {
+  setRecommended(info: any, ext: string | undefined) {
 
     this.integration = "Universal tags";
 
-    const video = info.filter((x :any) => x["@type"] == "Video");
-    if(video.length > 0) {
+    const video = info.filter((x: any) => x["@type"] == "Video");
+    if (video.length > 0) {
       this.tag = "canvas";
       return;
     }
 
-    const img = info.filter((x :any) => x["@type"] == "Image");
+    const img = info.filter((x: any) => x["@type"] == "Image");
 
-    if(img.length > 0) {
+    if (img.length > 0) {
       this.tag = "img";
       return;
     }
 
-    const audio = info.filter((x :any) => x["@type"] == "Audio");
+    const audio = info.filter((x: any) => x["@type"] == "Audio");
 
-    if(audio.length > 0) {
+    if (audio.length > 0) {
       this.tag = "audio";
       return;
     }
 
-    if (ext && ext in recommendedExt){
-      this.tag = recommendedExt[ext].tag;
+    if (ext && ext in this._recommendedExt) {
+      this.tag = this._recommendedExt[ext].tag;
       return;
     }
   }
@@ -62,7 +62,7 @@ export class TagsService {
     return this._is;
   }
 
-  set is(value : Is ) {
+  set is(value: Is) {
     this._is = value;
   }
 
@@ -70,7 +70,7 @@ export class TagsService {
     return this._tag;
   }
 
-  set tag(value : Tag ) {
+  set tag(value: Tag) {
     this._tag = value;
 
     switch (value) {
@@ -117,7 +117,21 @@ export class TagsService {
     return this._tags.indexOf(tag) !== -1;
   }
 
-  public get tagScripts(){
-    return  environment.server_url +"/accessors/universal-"+this._tag+"_"+environment.tags_version+".js";
+  public get tagScripts() {
+    return environment.server_url + "/accessors/universal-" + this._tag + "_" + environment.tags_version + ".js";
+  }
+
+  updateRecommended(libs: any) {
+    this._recommendedExt = {};
+    for (const [key, value] of Object.entries(libs)) {
+      const filter = value as any;
+      if (filter.extension) {
+        const exts = Object.keys(filter.extension);
+
+        for (const ext of exts) {
+          this._recommendedExt[ext] = { "tag": filter.extension[ext] };
+        }
+      }
+    }
   }
 }

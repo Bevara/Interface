@@ -31,5 +31,29 @@
   *ngIf="accessorsService.showModalNeedLogin"
   (clickOnClose)="accessorsService.showModalNeedLogin = false"
 >
-Please <a style="color: #fff;" (click)="authService.gotoSignInPage()" href="javascript:void(0);">sign in</a> first to get access to this feature.
+Please <a style="color: #fff;" (click)="authService.gotoSignInPage();accessorsService.showModalNeedLogin = false" href="javascript:void(0);">sign in</a> first to get access to this feature.
+</app-modal>
+
+<app-modal
+  *ngIf="accessorsService.showModalUpdateAvailable"
+  (clickOnClose)="accessorsService.showModalUpdateAvailable = false"
+>
+  An update of the filters library is available. <br><br>
+  Would you like to update it now? <br><br>
+  <button mat-button
+  (click)="accessorsService.updateLibraries();accessorsService.showModalUpdateAvailable = false;">Yes</button>
+  <button mat-button
+  (click)="accessorsService.showModalUpdateAvailable = false">No</button>
+</app-modal>
+
+
+<app-modal
+  *ngIf="accessorsService.showModalUpdating"
+  [hideClose]="true"
+>
+  <div class="spinner">
+    <mat-spinner ></mat-spinner>
+  </div>
+  <br>
+  Updating library : {{accessorsService.updatingProgress}} %
 </app-modal>

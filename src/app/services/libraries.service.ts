@@ -1,11 +1,10 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { MatChipEditedEvent, MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
 import { EventEmitter, Injectable } from '@angular/core';
-import { recommendedFilters, recommendedExt } from '../utilities/recommended';
 import { environment } from './../../environments/environment';
 import { vscode } from "../utilities/vscode";
-import { AccessorsService } from './accessors.service';
 export type MediaSupport = 'image' | 'audio' | 'video';
+
 
 export interface Library {
   id: string;
@@ -26,12 +25,22 @@ export interface JSON_Libraries {
   [index: string]: Library;
 }
 
+interface Identifier {
+  [id: string]: string[];
+}
+
+interface Recommended<TValue> {
+  [id: string]: TValue;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class LibrariesService {
 
   public readyEvent = new EventEmitter();
+  private recommendedFilters : Recommended<Identifier> = {};
+  private recommendedExt : Recommended<any> = {};
 
   public using: Library[] = [{
     id: "solver_1",
@@ -174,9 +183,9 @@ export class LibrariesService {
 
     const libs = new Set<string>();
     console.log(infos);
-    for (const lib of Object.keys(recommendedFilters)){
+    for (const lib of Object.keys(this.recommendedFilters)){
       let found = false;
-      const identifiers = recommendedFilters[lib];
+      const identifiers = this.recommendedFilters[lib];
       for (const info of infos){
         const match_id = Object.keys(identifiers);
         const match_info = Object.keys(info).filter((x:string) => match_id.includes(x) &&  identifiers[x].includes(info[x]));
@@ -190,8 +199,8 @@ export class LibrariesService {
       }
     }
 
-    if (ext && ext in recommendedExt){
-      recommendedExt[ext].accessors.forEach((x:string) => libs.add(x));
+    if (ext && ext in this.recommendedExt){
+      this.recommendedExt[ext].accessors.forEach((x:string) => libs.add(x));
     }
 
 
@@ -242,4 +251,28 @@ export class LibrariesService {
     return {accessor_url: accessor.sources, filter:accessor.filter_source[filter]};
   }
 
+  updateRecommended(libs:any){
+    this.recommendedFilters = {};
+    this.recommendedExt = {};
+    for (const [key, value] of Object.entries(libs)) {
+      const filter = value as any;
+      if (filter.Format){
+        this.recommendedFilters[filter.name] = {
+          "Format" : filter.Format
+        };
+      }
+
+      if (filter.extension){
+        const exts = Object.keys(filter.extension);
+
+        for (const ext of exts){
+          if (!(ext in this.recommendedExt)){
+            this.recommendedExt[ext] = {"accessors" : []};
+          }
+
+          this.recommendedExt[ext].accessors.push(filter.name);
+        }
+      }
+    }
+  }
 }
