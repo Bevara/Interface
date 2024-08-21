@@ -19,7 +19,6 @@ import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { vscode } from 'src/app/utilities/vscode';
 import { AccessorsService } from 'src/app/services/accessors.service';
-import { Octokit } from "@octokit/core";
 import { MatSelectModule } from '@angular/material/select';
 
 /** Error when invalid control is dirty, touched, or submitted. */
@@ -50,7 +49,6 @@ export class AddComponent {
   matcher = new MyErrorStateMatcher();
   pending = false;
   url = "";
-  octokit = new Octokit();
   releases: any = [];
   selected_release = "";
   status = "";
