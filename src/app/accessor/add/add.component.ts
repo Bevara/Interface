@@ -51,8 +51,8 @@ export class AddComponent {
   pending = false;
   url = "";
   octokit = new Octokit();
-  branches: string[] = [];
-  selected_branch = "";
+  releases: any = [];
+  selected_release = "";
   status = "";
 
   constructor(private accessorService: AccessorsService) {
@@ -63,29 +63,29 @@ export class AddComponent {
   owner = "bevara";
   repo = "avidmx";
 
-  async listBranches(url: string) {
-    try {
-      this.pending = true;
-      const response = await this.octokit.request(`/repos/${url}/branches`);
+  async listBranches(owner: string, repo : string) {
+    this.pending = true;
+    vscode.postMessage({ type: 'getReleases', owner: owner, repo:repo, release: this.selected_release });
+    this.accessorService.releaseList.subscribe(releases => {
       this.pending = false;
-      console.log("Branches:", response);
-      return response.data.map((x: any) => x.name);
-    } catch (error) {
-      this.pending = false;
-      console.error("Error fetching branches:", error);
-      return [];
-    }
+      this.releases = releases;
+      this.selected_release = this.releases.length > 0 ? this.releases[0].id : "";
+      this.accessorService.releaseList.unsubscribe();
+    });
   }
 
-  checkout(url:string) {
-    const owner = url.split("/")[0];
-    const repo = url.split("/")[1];
+  checkout(owner:string, repo : string) {
     this.pending = true;
-    vscode.postMessage({ type: 'addAccessor', owner: owner, repo:repo, branch: this.selected_branch });
+    const release = this.releases.find((x:any) => x.id == this.selected_release);
+    vscode.postMessage({ type: 'addAccessor', owner: owner, repo:repo, release: release });
     this.accessorService.newAccessorAdded.subscribe(status => {
       this.pending = false;
       this.status = status;
       this.accessorService.newAccessorAdded.unsubscribe();
+
+      if (status == "OK"){
+        this.accessorService.showModalAdd = false;
+      }
     });
   }
 
@@ -95,13 +95,14 @@ export class AddComponent {
     }
 
     const end_url = this.url.replace("https://github.com/", "");
+    const owner = end_url.split("/")[0];
+    const repo = end_url.split("/")[1];
 
-    if (this.selected_branch != "") {
-      this.checkout(end_url);
+    if (this.selected_release != "") {
+      this.checkout(owner, repo);
       return ;
     }
 
-    this.branches = await this.listBranches(end_url);
-    this.selected_branch = this.branches.length > 0 ? this.branches[0] : "";
+    this.listBranches(owner, repo);
   }
 }

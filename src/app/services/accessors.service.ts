@@ -31,6 +31,7 @@ export class AccessorsService {
   public updatingProgress = 0;
   public showModalUpdateAvailable = false;
   public newAccessorAdded = new EventEmitter<string>();
+  public releaseList = new EventEmitter<string[]>();
 
 
   constructor(
@@ -93,6 +94,10 @@ export class AccessorsService {
           }
         case 'newAccessor':
           {
+
+            if (this._dataUrl && body.filter_list) {
+              this.initFilterAndInfo(this._dataUrl, body.filter_list);
+            }
             this.newAccessorAdded.emit(body.status);
             return;
           }
@@ -101,11 +106,16 @@ export class AccessorsService {
             this.showModalUpdateAvailable = true;
             return;
           }
-          case 'updatingList':
+          case 'releaseList':
+            {
+              this.releaseList.emit(body.releases);
+              return;
+            }
+        case 'updatingList':
           {
-            if (body.end == true){
+            if (body.end == true) {
               this.showModalUpdating = false;
-            }else{
+            } else {
               this.showModalUpdating = true;
               this.updatingProgress = Math.round(100 * body.counter / body.total);
             }
@@ -299,7 +309,7 @@ export class AccessorsService {
     return this._mediainfo.info;
   }
 
-  updateLibraries(){
+  updateLibraries() {
     vscode.postMessage({ type: 'updateList' });
   }
 }

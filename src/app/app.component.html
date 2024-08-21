@@ -21,7 +21,8 @@
     This content requires obtaining a licence to be used. <br> Contact <a style="color: #fff;" href="mailto:sales@bevara.com">sales&#64;bevara.com</a> for information.
 </app-modal>
 
-<app-modal *ngIf="accessorsService.not_supported" [hideClose]="true">
+<app-modal *ngIf="accessorsService.not_supported"
+(clickOnClose)="accessorsService.not_supported = false">
   This format is not supported by the Bevara Access IDE.
   <br> <br> Please contact <a style="color: #fff;" href="mailto:sales@bevara.com">support&#64;bevara.com</a> to inquire
   <br> about support options.
