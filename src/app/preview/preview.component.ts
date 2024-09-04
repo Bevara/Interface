@@ -3,16 +3,16 @@ import { AccessorsService } from '../services/accessors.service';
 import { MatTabChangeEvent, MatTabsModule } from '@angular/material/tabs';
 import { LibrariesService, Library } from '../services/libraries.service';
 import { MediainfoService } from '../services/mediainfo.service';
-import { ModalComponent } from './modal/modal.component';
+import { ModalComponent } from '../modal/modal.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCardModule } from '@angular/material/card';
 import { IntegrationComponent } from './integration/integration.component';
-import { AccessorComponent } from '../accessor/accessor.component';
 import { InfoComponent } from './info/info.component';
 import { GraphComponent } from './graph/graph.component';
 import { StatsComponent } from './stats/stats.component';
 import { UnusedComponent } from './unused/unused.component';
 import { BrowserModule } from '@angular/platform-browser';
+import { AccessorComponent } from './accessor/accessor.component';
 
 @Component({
   selector: 'app-preview',

@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import { PreviewComponent } from './preview/preview.component';
-import { AccessorComponent } from './accessor/accessor.component';
 import { DevelopComponent } from './develop/develop.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatSidenavModule} from '@angular/material/sidenav';
@@ -22,12 +21,9 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { AsyncPipe, NgFor } from '@angular/common';
 import {MatInputModule} from '@angular/material/input';
-import { TagsComponent } from './accessor/tags/tags.component';
 import { IntegrationComponent } from './preview/integration/integration.component';
-import { SourceComponent } from './accessor/source/source.component';
 import { HttpClientModule } from '@angular/common/http';
-import { ModalComponent } from './preview/modal/modal.component';
-import { LogsComponent } from './accessor/logs/logs.component';
+import { ModalComponent } from './modal/modal.component';
 import { UnusedComponent } from './preview/unused/unused.component';
 import { GraphComponent } from './preview/graph/graph.component';
 import { StatsComponent } from './preview/stats/stats.component';
@@ -79,10 +75,6 @@ import { AddComponent } from "./preview/add/add.component";
         httpResponseType: 'text'
     }),
     AddComponent,
-    AccessorComponent,
-    LogsComponent,
-    SourceComponent,
-    TagsComponent,
     IntegrationComponent,
     UnusedComponent,
     StatsComponent,
