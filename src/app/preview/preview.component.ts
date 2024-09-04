@@ -3,7 +3,7 @@ import { AccessorsService } from '../services/accessors.service';
 import { MatTabChangeEvent, MatTabsModule } from '@angular/material/tabs';
 import { LibrariesService, Library } from '../services/libraries.service';
 import { MediainfoService } from '../services/mediainfo.service';
-import { ModalComponent } from '../modal/modal.component';
+import { ModalComponent } from './modal/modal.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCardModule } from '@angular/material/card';
 import { IntegrationComponent } from './integration/integration.component';

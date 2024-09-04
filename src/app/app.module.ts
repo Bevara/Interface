@@ -26,7 +26,7 @@ import { TagsComponent } from './accessor/tags/tags.component';
 import { IntegrationComponent } from './preview/integration/integration.component';
 import { SourceComponent } from './accessor/source/source.component';
 import { HttpClientModule } from '@angular/common/http';
-import { ModalComponent } from './modal/modal.component';
+import { ModalComponent } from './preview/modal/modal.component';
 import { LogsComponent } from './accessor/logs/logs.component';
 import { UnusedComponent } from './preview/unused/unused.component';
 import { GraphComponent } from './preview/graph/graph.component';
@@ -38,7 +38,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSelectModule} from '@angular/material/select';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { AuthComponent } from "./auth/auth.component";
-import { AddComponent } from "./accessor/add/add.component";
+import { AddComponent } from "./preview/add/add.component";
 
 @NgModule({
   declarations: [
