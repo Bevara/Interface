@@ -7,12 +7,12 @@ import { ActionsComponent } from './actions/actions.component';
 import { MatInputModule } from '@angular/material/input';
 
 @Component({
-  selector: 'app-code',
-  templateUrl: './code.component.html',
-  styleUrls: ['./code.component.scss'],
+  selector: 'app-integration',
+  templateUrl: './integration.component.html',
+  styleUrls: ['./integration.component.scss'],
   standalone:true,
   imports:[MatInputModule, MatFormFieldModule, FormsModule, TextFieldModule, ActionsComponent]
 })
-export class CodeComponent {
+export class IntegrationComponent {
   constructor(public accessorsService : AccessorsService) { }
 }

@@ -23,8 +23,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { AsyncPipe, NgFor } from '@angular/common';
 import {MatInputModule} from '@angular/material/input';
 import { TagsComponent } from './accessor/tags/tags.component';
-import { CodeComponent } from './preview/code/code.component';
-import { ActionsComponent } from './preview/code/actions/actions.component';
+import { IntegrationComponent } from './preview/integration/integration.component';
 import { SourceComponent } from './accessor/source/source.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ModalComponent } from './accessor/modal/modal.component';
@@ -92,7 +91,7 @@ import { AddComponent } from "./accessor/add/add.component";
     LogsComponent,
     SourceComponent,
     TagsComponent,
-    CodeComponent
+    IntegrationComponent
 ],
   providers: [],
   bootstrap: [AppComponent]
