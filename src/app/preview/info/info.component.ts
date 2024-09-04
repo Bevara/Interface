@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Input, OnInit } from '@angular/core';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatTableModule } from '@angular/material/table';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import * as _ from 'lodash';
 import { AccessorsService } from 'src/app/services/accessors.service';
@@ -6,7 +8,9 @@ import { AccessorsService } from 'src/app/services/accessors.service';
 @Component({
   selector: 'app-info',
   templateUrl: './info.component.html',
-  styleUrls: ['./info.component.scss']
+  styleUrls: ['./info.component.scss'],
+  standalone : true,
+  imports:[MatExpansionModule, MatTableModule]
 })
 export class InfoComponent implements OnInit {
   tracks: string[] = [];

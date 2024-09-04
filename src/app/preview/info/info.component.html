@@ -1,28 +1,31 @@
 <mat-accordion>
-	<mat-expansion-panel *ngFor="let track of tracks">
-		<mat-expansion-panel-header>
-			<mat-panel-title>
-				{{track}}
-			</mat-panel-title>
-		</mat-expansion-panel-header>
+  @for(track of tracks; track track){
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{track}}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
 
-		<table mat-table [dataSource]="trackInfo[track]" class="mat-elevation-z8">
+      <table mat-table [dataSource]="trackInfo[track]" class="mat-elevation-z8">
 
-			<!-- Position Column -->
-			<ng-container matColumnDef="type">
-			  <th mat-header-cell *matHeaderCellDef> Type </th>
-			  <td mat-cell *matCellDef="let element"> {{element.type}} </td>
-			</ng-container>
+        <!-- Position Column -->
+        <ng-container matColumnDef="type">
+          <th mat-header-cell *matHeaderCellDef> Type </th>
+          <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+        </ng-container>
 
-			<!-- Name Column -->
-			<ng-container matColumnDef="desc">
-			  <th mat-header-cell *matHeaderCellDef> Desc </th>
-			  <td mat-cell *matCellDef="let element"> {{element.desc}} </td>
-			</ng-container>
+        <!-- Name Column -->
+        <ng-container matColumnDef="desc">
+          <th mat-header-cell *matHeaderCellDef> Desc </th>
+          <td mat-cell *matCellDef="let element"> {{element.desc}} </td>
+        </ng-container>
 
 
-			<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-		  </table>
-	</mat-expansion-panel>
+        </table>
+    </mat-expansion-panel>
+  }
+
 </mat-accordion>
