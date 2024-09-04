@@ -23,7 +23,9 @@ interface link {
 @Component({
   selector: 'app-graph',
   templateUrl: './graph.component.html',
-  styleUrls: ['./graph.component.scss']
+  styleUrls: ['./graph.component.scss'],
+  standalone: true,
+  imports: []
 })
 
 export class GraphComponent implements OnInit {
