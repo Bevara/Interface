@@ -56,6 +56,11 @@ export class DevelopComponent {
   }
 
   addAccessor(){
+    if (!this.accessorsService.is_vscode){
+      this.accessorsService.showModalAdd = true;
+      return;
+    }
+
     if (!this.authService.isLoggedIn){
       this.accessorsService.showModalNeedLogin = true;
       return;
