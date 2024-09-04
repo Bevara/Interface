@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Renderer2 } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { AccessorsService } from 'src/app/services/accessors.service';
 import { Library } from 'src/app/services/libraries.service';
@@ -6,7 +8,9 @@ import { Library } from 'src/app/services/libraries.service';
 @Component({
   selector: 'app-unused',
   templateUrl: './unused.component.html',
-  styleUrls: ['./unused.component.scss']
+  styleUrls: ['./unused.component.scss'],
+  standalone:true,
+  imports:[MatCardModule, MatButtonModule]
 })
 export class UnusedComponent implements OnInit  {
   @Input() tabEvent: EventEmitter<MatTabChangeEvent> | null = null;

@@ -47,7 +47,6 @@ import { AddComponent } from "./accessor/add/add.component";
     PreviewComponent,
     DevelopComponent,
     ModalComponent,
-    UnusedComponent,
     GraphComponent,
     StatsComponent,
     InfoComponent,
@@ -91,7 +90,8 @@ import { AddComponent } from "./accessor/add/add.component";
     LogsComponent,
     SourceComponent,
     TagsComponent,
-    IntegrationComponent
+    IntegrationComponent,
+    UnusedComponent
 ],
   providers: [],
   bootstrap: [AppComponent]
