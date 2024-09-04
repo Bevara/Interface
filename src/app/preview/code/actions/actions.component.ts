@@ -5,11 +5,15 @@ import { forkJoin,Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import * as JSZip from 'jszip';
 import { LibrariesService } from 'src/app/services/libraries.service';
+import { ClipboardModule } from '@angular/cdk/clipboard';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-actions',
   templateUrl: './actions.component.html',
-  styleUrls: ['./actions.component.scss']
+  styleUrls: ['./actions.component.scss'],
+  standalone:true,
+  imports:[ClipboardModule, MatButtonModule]
 })
 export class ActionsComponent {
   showModal = false;
