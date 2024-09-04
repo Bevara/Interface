@@ -1,17 +1,25 @@
 import { Component} from '@angular/core';
 import { AccessorsService } from '../services/accessors.service';
-import { FormControl } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { Library } from '../services/libraries.service';
 import {environment} from '../../environments/environment';
 import { vscode } from "../utilities/vscode";
 import { AuthService } from '../services/auth.service';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { CommonModule } from '@angular/common';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-develop',
   templateUrl: './develop.component.html',
-  styleUrls: ['./develop.component.scss']
+  styleUrls: ['./develop.component.scss'],
+  standalone:true,
+  imports:[MatCardModule, MatFormFieldModule, ReactiveFormsModule, MatIconModule, CommonModule, MatInputModule, MatButtonModule]
 })
 export class DevelopComponent {
   search = new FormControl();

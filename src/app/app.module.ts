@@ -43,8 +43,6 @@ import { AddComponent } from "./accessor/add/add.component";
 @NgModule({
   declarations: [
     AppComponent,
-    SideNavComponent,
-    DevelopComponent,
     AuthComponent
   ],
   imports: [
@@ -91,7 +89,9 @@ import { AddComponent } from "./accessor/add/add.component";
     InfoComponent,
     GraphComponent,
     PreviewComponent,
-    ModalComponent
+    ModalComponent,
+    SideNavComponent,
+    DevelopComponent
 ],
   providers: [],
   bootstrap: [AppComponent]
