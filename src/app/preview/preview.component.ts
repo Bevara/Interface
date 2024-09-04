@@ -1,13 +1,25 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { AccessorsService } from '../services/accessors.service';
-import { MatTabChangeEvent } from '@angular/material/tabs';
+import { MatTabChangeEvent, MatTabsModule } from '@angular/material/tabs';
 import { LibrariesService, Library } from '../services/libraries.service';
 import { MediainfoService } from '../services/mediainfo.service';
+import { ModalComponent } from '../accessor/modal/modal.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatCardModule } from '@angular/material/card';
+import { IntegrationComponent } from './integration/integration.component';
+import { AccessorComponent } from '../accessor/accessor.component';
+import { InfoComponent } from './info/info.component';
+import { GraphComponent } from './graph/graph.component';
+import { StatsComponent } from './stats/stats.component';
+import { UnusedComponent } from './unused/unused.component';
+import { BrowserModule } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-preview',
   templateUrl: './preview.component.html',
-  styleUrls: ['./preview.component.scss']
+  styleUrls: ['./preview.component.scss'],
+  standalone : true,
+  imports : [ModalComponent, MatProgressSpinnerModule, MatCardModule, MatTabsModule, IntegrationComponent, AccessorComponent, InfoComponent, GraphComponent, StatsComponent, UnusedComponent, BrowserModule]
 })
 export class PreviewComponent implements AfterViewInit {
   decoding = false;

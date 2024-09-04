@@ -44,9 +44,7 @@ import { AddComponent } from "./accessor/add/add.component";
   declarations: [
     AppComponent,
     SideNavComponent,
-    PreviewComponent,
     DevelopComponent,
-    ModalComponent,
     AuthComponent
   ],
   imports: [
@@ -91,7 +89,9 @@ import { AddComponent } from "./accessor/add/add.component";
     UnusedComponent,
     StatsComponent,
     InfoComponent,
-    GraphComponent
+    GraphComponent,
+    PreviewComponent,
+    ModalComponent
 ],
   providers: [],
   bootstrap: [AppComponent]
