@@ -22,7 +22,6 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { AsyncPipe, NgFor } from '@angular/common';
 import {MatInputModule} from '@angular/material/input';
-import { OptionsComponent } from './accessor/options/options.component';
 import { TagsComponent } from './accessor/tags/tags.component';
 import { CodeComponent } from './accessor/code/code.component';
 import { ActionsComponent } from './accessor/code/actions/actions.component';
@@ -48,7 +47,6 @@ import { AddComponent } from "./accessor/add/add.component";
     SideNavComponent,
     PreviewComponent,
     DevelopComponent,
-    OptionsComponent,
     CodeComponent,
     ActionsComponent,
     ModalComponent,
