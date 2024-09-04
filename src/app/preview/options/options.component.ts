@@ -8,13 +8,13 @@ import { LogsComponent } from './logs/logs.component';
 import { AccessorsService } from 'src/app/services/accessors.service';
 
 @Component({
-  selector: 'app-accessor',
-  templateUrl: './accessor.component.html',
-  styleUrls: ['./accessor.component.scss'],
+  selector: 'app-options',
+  templateUrl: './options.component.html',
+  styleUrls: ['./options.component.scss'],
   standalone:true,
   imports: [MatExpansionModule,LibsComponent, SourceComponent, TagsComponent, LogsComponent],
 })
-export class AccessorComponent {
+export class OptionsComponent {
 
   constructor(public accessorsService : AccessorsService) { }
 

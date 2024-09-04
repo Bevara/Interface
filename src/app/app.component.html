@@ -6,37 +6,41 @@
 >
 <app-add></app-add>
 </app-modal>
-
-<app-modal
-  *ngIf="accessorsService.showModalNeedPreserve"
+@if(accessorsService.showModalNeedPreserve){
+  <app-modal
   (clickOnClose)="accessorsService.showModalNeedPreserve = false"
 >
     This feature is only available with the Bevara Preserve IDE. <br> Contact <a style="color: #fff;" href="mailto:sales@bevara.com">sales&#64;bevara.com</a> for information.
 </app-modal>
+}
 
-<app-modal
-  *ngIf="accessorsService.libs.licence_required"
+@if(accessorsService.libs.licence_required){
+  <app-modal
   [hideClose]="true"
 >
     This content requires obtaining a licence to be used. <br> Contact <a style="color: #fff;" href="mailto:sales@bevara.com">sales&#64;bevara.com</a> for information.
 </app-modal>
+}
 
-<app-modal *ngIf="accessorsService.not_supported"
-(clickOnClose)="accessorsService.not_supported = false">
-  This format is not supported by the Bevara Access IDE.
-  <br> <br> Please contact <a style="color: #fff;" href="mailto:sales@bevara.com">support&#64;bevara.com</a> to inquire
-  <br> about support options.
-</app-modal>
+@if(accessorsService.not_supported){
+  <app-modal
+  (clickOnClose)="accessorsService.not_supported = false">
+    This format is not supported by the Bevara Access IDE.
+    <br> <br> Please contact <a style="color: #fff;" href="mailto:sales@bevara.com">support&#64;bevara.com</a> to inquire
+    <br> about support options.
+  </app-modal>
+}
 
-<app-modal
-  *ngIf="accessorsService.showModalNeedLogin"
+@if(accessorsService.showModalNeedLogin){
+  <app-modal
   (clickOnClose)="accessorsService.showModalNeedLogin = false"
 >
 Please <a style="color: #fff;" (click)="authService.gotoSignInPage();accessorsService.showModalNeedLogin = false" href="javascript:void(0);">sign in</a> first to get access to this feature.
 </app-modal>
+}
 
-<app-modal
-  *ngIf="accessorsService.showModalUpdateAvailable"
+@if(accessorsService.showModalUpdateAvailable){
+  <app-modal
   (clickOnClose)="accessorsService.showModalUpdateAvailable = false"
 >
   An update of the filters library is available. <br><br>
@@ -46,10 +50,10 @@ Please <a style="color: #fff;" (click)="authService.gotoSignInPage();accessorsSe
   <button mat-button
   (click)="accessorsService.showModalUpdateAvailable = false">No</button>
 </app-modal>
+}
 
-
-<app-modal
-  *ngIf="accessorsService.showModalUpdating"
+@if(accessorsService.showModalUpdating){
+  <app-modal
   [hideClose]="true"
 >
   <div class="spinner">
@@ -58,3 +62,6 @@ Please <a style="color: #fff;" (click)="authService.gotoSignInPage();accessorsSe
   <br>
   Updating library : {{accessorsService.updatingProgress}} %
 </app-modal>
+
+}
+

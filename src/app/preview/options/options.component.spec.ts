@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AccessorComponent } from './accessor.component';
+import { AccessorComponent } from './options.component';
 
 describe('AccessorComponent', () => {
   let component: AccessorComponent;

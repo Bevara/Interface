@@ -1,10 +1,8 @@
 <mat-toolbar>
   <!-- <span>You are not logged in. Please contact <a href="mailto:sales@bevara.com">sales&#64;bevara.com</a>  to register.</span> -->
-
-  <ng-container *ngIf="auth.isLoggedIn; else loginOptions">
-    <span *ngIf="auth.isLoggedIn">You are logged in as {{auth.username}}. <a style="color: #fff;" (click)="auth.logout()" href="javascript:void(0);">Log out</a> </span>
-  </ng-container>
-  <ng-template #loginOptions>
-    <span *ngIf="!auth.isLoggedIn">You are not logged in. Please <a style="color: #fff;" (click)="auth.gotoSignInPage()" href="javascript:void(0);">sign in</a> to get access to the SDK and an extended number of accessors.</span>
-  </ng-template>
+  @if(auth.isLoggedIn){
+    <span>You are logged in as {{auth.username}}. <a style="color: #fff;" (click)="auth.logout()" href="javascript:void(0);">Log out</a> </span>
+  }@else {
+    <span>You are not logged in. Please <a style="color: #fff;" (click)="auth.gotoSignInPage()" href="javascript:void(0);">sign in</a> to get access to the SDK and an extended number of accessors.</span>
+  }
 </mat-toolbar>

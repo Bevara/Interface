@@ -2,6 +2,7 @@ import Sdk from 'casdoor-js-sdk';
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { AuthService } from '../services/auth.service';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 const config = {
   serverUrl: environment.cas_url,
@@ -14,7 +15,9 @@ const config = {
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
-  styleUrl: './auth.component.scss'
+  styleUrl: './auth.component.scss',
+  standalone:true,
+  imports:[MatToolbarModule]
 })
 export class AuthComponent implements OnInit {
   constructor(
