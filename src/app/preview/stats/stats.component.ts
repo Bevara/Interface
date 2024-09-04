@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Input, OnInit } from '@angular/core';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatTableModule } from '@angular/material/table';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 
 interface FilterStats {
@@ -8,14 +10,16 @@ interface FilterStats {
 @Component({
   selector: 'app-stats',
   templateUrl: './stats.component.html',
-  styleUrls: ['./stats.component.scss']
+  styleUrls: ['./stats.component.scss'],
+  standalone:true,
+  imports:[MatExpansionModule, MatTableModule]
 })
 
 export class StatsComponent implements OnInit {
   @Input() tabEvent: EventEmitter<MatTabChangeEvent> | null = null;
   @Input() universal_elt = "";
   @Input() open_stat = "fin";
-  
+
   interval: string | number | NodeJS.Timeout | undefined = undefined;
   connected: string[] = [];
   filters_contents: FilterStats = {};
