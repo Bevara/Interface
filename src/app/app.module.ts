@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppComponent } from './app.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import { PreviewComponent } from './preview/preview.component';
 import { AccessorComponent } from './accessor/accessor.component';
 import { DevelopComponent } from './develop/develop.component';
-import { LibsComponent } from './accessor/libs/libs.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatIconModule} from '@angular/material/icon';
@@ -49,16 +47,11 @@ import { AddComponent } from "./accessor/add/add.component";
     AppComponent,
     SideNavComponent,
     PreviewComponent,
-    AccessorComponent,
     DevelopComponent,
-    LibsComponent,
     OptionsComponent,
-    TagsComponent,
     CodeComponent,
     ActionsComponent,
-    SourceComponent,
     ModalComponent,
-    LogsComponent,
     UnusedComponent,
     GraphComponent,
     StatsComponent,
@@ -98,7 +91,11 @@ import { AddComponent } from "./accessor/add/add.component";
         serverLogLevel: NgxLoggerLevel.ERROR,
         httpResponseType: 'text'
     }),
-    AddComponent
+    AddComponent,
+    AccessorComponent,
+    LogsComponent,
+    SourceComponent,
+    TagsComponent
 ],
   providers: [],
   bootstrap: [AppComponent]

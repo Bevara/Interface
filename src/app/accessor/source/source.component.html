@@ -1,28 +1,33 @@
 <mat-chip-listbox [multiple]="false" aria-label="Source option">
-    <mat-chip-option color="accent" [selected]="source_option == 'url'"
-        (click)="source_option = 'url'">URL</mat-chip-option>
-    <mat-chip-option color="accent" [selected]="source_option == 'local'" (click)="import()">Local
-        file</mat-chip-option>
+  <mat-chip-option color="accent" [selected]="source_option == 'url'"
+    (click)="source_option = 'url'">URL</mat-chip-option>
+  <mat-chip-option color="accent" [selected]="source_option == 'local'" (click)="import()">Local
+    file</mat-chip-option>
 </mat-chip-listbox>
 <br>
-<div *ngIf="source_option == 'url'">
-    <form class="example-form">
-        <mat-form-field class="example-full-width">
-            <mat-label>URL</mat-label>
-            <input matInput [(ngModel)]="accessorsService.src" [ngModelOptions]="{standalone: true}" placeholder="{{accessorsService.src}}" type="url" />
-            <mat-error *ngIf="!validUrl">
-                Please enter a valid URL
-            </mat-error>
-        </mat-form-field>
-    </form>
+@if(source_option == 'url'){
+<div>
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>URL</mat-label>
+      <input matInput [(ngModel)]="accessorsService.src" [ngModelOptions]="{standalone: true}" placeholder="{{accessorsService.src}}" type="url" />
+      @if(!validUrl){
+        <mat-error>
+          Please enter a valid URL
+        </mat-error>
+      }
+    </mat-form-field>
+  </form>
 </div>
+}
+
 
 <!-- Import/export functions -->
 <div class="hide">
-    <form enctype="multipart/form-data" [formGroup]="importForm">
-        <input type="file" formControlName="import_file" id="import_file" (change)="import($event)" class="hide" />
-    </form>
-    <a href="" id="base-exportBlock"></a>
+  <form enctype="multipart/form-data" [formGroup]="importForm">
+    <input type="file" formControlName="import_file" id="import_file" (change)="import($event)" class="hide" />
+  </form>
+  <a href="" id="base-exportBlock"></a>
 </div>
 
 <br>

@@ -223,7 +223,6 @@ export class AccessorsService {
   }
 
   public get html_preview() {
-    const with_value = this.libs._slctLibs.map(x => x.name).join(";");
     switch (this.tags.integration) {
       case 'ArtPlayer':
         return this.artplayer_template;
@@ -241,8 +240,6 @@ export class AccessorsService {
   }
 
   private get artplayer_template() {
-    const with_value = this.libs._slctLibs.map(x => x.name).join(";");
-
     return `var art = new Artplayer({
       container: '.artplayer-app',
       url: '${this._src}',

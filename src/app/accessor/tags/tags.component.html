@@ -1,29 +1,24 @@
-<mat-chip-listbox *ngIf="accessorsService.integration == 'Script' else scriptTags"
-[multiple]="true"
-aria-label="Integration tag">
-    <mat-chip-option color="accent" (click)="accessorsService.toogleTags('img')"
-        [selected]="accessorsService.includeTags('img')">img</mat-chip-option>
-    <mat-chip-option color="accent" (click)="accessorsService.toogleTags('audio')"
-        [selected]="accessorsService.includeTags('audio')">audio</mat-chip-option>
-    <mat-chip-option color="accent" (click)="accessorsService.toogleTags('video')"
-        [selected]="accessorsService.includeTags('video')">video</mat-chip-option>
-    <mat-chip-option
-    *ngIf="accessorsService.integration != 'Script'"
-    color="accent" (click)="accessorsService.tag = 'canvas'"
-        [selected]="accessorsService.tag == 'canvas'">canvas</mat-chip-option>
-</mat-chip-listbox>
+@if(accessorsService.integration == 'Script'){
+<mat-chip-listbox [multiple]="true" aria-label="Integration tag">
+  <mat-chip-option color="accent" (click)="accessorsService.toogleTags('img')"
+    [selected]="accessorsService.includeTags('img')">img</mat-chip-option>
+  <mat-chip-option color="accent" (click)="accessorsService.toogleTags('audio')"
+    [selected]="accessorsService.includeTags('audio')">audio</mat-chip-option>
+  <mat-chip-option color="accent" (click)="accessorsService.toogleTags('video')"
+    [selected]="accessorsService.includeTags('video')">video</mat-chip-option>
+    @if(accessorsService.integration != 'Script'){
+      <mat-chip-option color="accent"
+      (click)="accessorsService.tag = 'canvas'" [selected]="accessorsService.tag == 'canvas'">canvas</mat-chip-option>
+    }
 
-<ng-template #scriptTags>
-    <mat-chip-listbox [multiple]="false" aria-label="Integration tag">
-        <mat-chip-option color="accent" (click)="accessorsService.tag = 'img'"
-            [selected]="accessorsService.tag == 'img'">img</mat-chip-option>
-        <mat-chip-option color="accent" (click)="accessorsService.tag = 'audio'"
-            [selected]="accessorsService.tag == 'audio'">audio</mat-chip-option>
-        <mat-chip-option color="accent" (click)="accessorsService.tag = 'video'"
-            [selected]="accessorsService.tag == 'video'">video</mat-chip-option>
-        <mat-chip-option
-        *ngIf="accessorsService.integration != 'Script'"
-        color="accent" (click)="accessorsService.tag = 'canvas'"
-            [selected]="accessorsService.tag == 'canvas'">canvas</mat-chip-option>
-    </mat-chip-listbox>
-</ng-template>
+</mat-chip-listbox>
+}@else{
+<mat-chip-listbox [multiple]="false" aria-label="Integration tag">
+  <mat-chip-option color="accent" (click)="accessorsService.tag = 'img'"
+    [selected]="accessorsService.tag == 'img'">img</mat-chip-option>
+  <mat-chip-option color="accent" (click)="accessorsService.tag = 'audio'"
+    [selected]="accessorsService.tag == 'audio'">audio</mat-chip-option>
+  <mat-chip-option color="accent" (click)="accessorsService.tag = 'video'"
+    [selected]="accessorsService.tag == 'video'">video</mat-chip-option>
+</mat-chip-listbox>
+}

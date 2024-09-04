@@ -10,15 +10,16 @@
     <app-libs></app-libs>
   </mat-expansion-panel>
 
-  <mat-expansion-panel *ngIf="!vscode">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        Source option
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <app-source></app-source>
-  </mat-expansion-panel>
-
+  @if (!vscode) {
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Source option
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <app-source></app-source>
+    </mat-expansion-panel>
+  }
   <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title>
