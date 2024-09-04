@@ -9,7 +9,7 @@ import { ModalComponent } from './modal/modal.component';
 import { LoggerModule, NgxLoggerLevel } from "ngx-logger";
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { AuthComponent } from "./auth/auth.component";
-import { AddComponent } from "./preview/add/add.component";
+import { AddComponent } from "./add/add.component";
 
 @NgModule({
   declarations: [
