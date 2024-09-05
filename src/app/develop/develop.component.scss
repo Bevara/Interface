@@ -1,3 +1,14 @@
 .develop-card {
     margin-bottom: 8px;
   }
+
+  .card-container {
+    /*  not needed styles to reflect it */
+    background: blue;
+    padding: 10px;
+    color: white;
+    /* needed styles below */
+    display: flex;
+    justify-content: space-between;
+    width: 500px;
+  }

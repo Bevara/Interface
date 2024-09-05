@@ -11,7 +11,6 @@ import { InfoComponent } from './info/info.component';
 import { GraphComponent } from './graph/graph.component';
 import { StatsComponent } from './stats/stats.component';
 import { UnusedComponent } from './unused/unused.component';
-import { BrowserModule } from '@angular/platform-browser';
 import { OptionsComponent } from './options/options.component';
 
 @Component({
@@ -19,7 +18,7 @@ import { OptionsComponent } from './options/options.component';
   templateUrl: './preview.component.html',
   styleUrls: ['./preview.component.scss'],
   standalone : true,
-  imports : [ModalComponent, MatProgressSpinnerModule, MatCardModule, MatTabsModule, IntegrationComponent, OptionsComponent, InfoComponent, GraphComponent, StatsComponent, UnusedComponent, BrowserModule]
+  imports : [ModalComponent, MatProgressSpinnerModule, MatCardModule, MatTabsModule, IntegrationComponent, OptionsComponent, InfoComponent, GraphComponent, StatsComponent, UnusedComponent]
 })
 export class PreviewComponent implements AfterViewInit {
   decoding = false;

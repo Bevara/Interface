@@ -13,13 +13,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import {MatMenuModule} from '@angular/material/menu';
 
 @Component({
   selector: 'app-develop',
   templateUrl: './develop.component.html',
   styleUrls: ['./develop.component.scss'],
   standalone:true,
-  imports:[MatCardModule, MatFormFieldModule, ReactiveFormsModule, MatIconModule, CommonModule, MatInputModule, MatButtonModule]
+  imports:[MatCardModule, MatFormFieldModule, ReactiveFormsModule, MatIconModule, CommonModule, MatInputModule, MatButtonModule, MatMenuModule]
 })
 export class DevelopComponent {
   search = new FormControl();
@@ -52,6 +53,14 @@ export class DevelopComponent {
   addToExplorer(lib : Library){
     if(environment.vscode){
       vscode.postMessage({ type: 'explore', url: lib.sources, filter:lib.name});
+    }
+  }
+
+  removeFromList(lib : Library){
+    if(environment.vscode){
+      vscode.postMessage({ type: 'removeFromList', filter:lib.name});
+    }else{
+      this.accessorsService.libs.removeFromList(lib);
     }
   }
 

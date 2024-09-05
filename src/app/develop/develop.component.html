@@ -1,80 +1,89 @@
 <div class="content" #content>
-    <mat-card class="develop-card">
-        <mat-form-field class="example-form-field">
-            <mat-label>Find a library</mat-label>
-            <input matInput type="text" [formControl]="search" >
-            @if(search.value != ''){
-              <button matSuffix mat-icon-button aria-label="Clear" (click)="search.setValue('')">
-                <mat-icon>close</mat-icon>
-            </button>
-            }@else {
-              <button matSuffix mat-icon-button aria-label="Search">
-                <mat-icon>search</mat-icon>
-            </button>
-            }
-        </mat-form-field>
+  <mat-card class="develop-card">
+    <mat-form-field class="example-form-field">
+      <mat-label>Find a library</mat-label>
+      <input matInput type="text" [formControl]="search">
+      @if(search.value != ''){
+      <button matSuffix mat-icon-button aria-label="Clear" (click)="search.setValue('')">
+        <mat-icon>close</mat-icon>
+      </button>
+      }@else {
+      <button matSuffix mat-icon-button aria-label="Search">
+        <mat-icon>search</mat-icon>
+      </button>
+      }
+    </mat-form-field>
 
-    </mat-card>
+  </mat-card>
 
-    <mat-card class="develop-card" (click)="addAccessor()">
-        <mat-card-header>
+  <mat-card class="develop-card" (click)="addAccessor()">
+    <mat-card-header>
 
-            <mat-card-title-group>
-                <mat-card-title>
-                    Add accessor
-                    <mat-icon class="action-icon" aria-hidden="false" aria-label="add icon">add_to_queue</mat-icon>
-                </mat-card-title>
-                <mat-card-subtitle>Add or create an accessor from a repository.</mat-card-subtitle>
-            </mat-card-title-group>
+      <mat-card-title-group>
+        <mat-card-title>
+          Add accessor
+          <mat-icon class="action-icon" aria-hidden="false" aria-label="add icon">add_to_queue</mat-icon>
+        </mat-card-title>
+        <mat-card-subtitle>Add or create an accessor from a repository.</mat-card-subtitle>
+      </mat-card-title-group>
 
-        </mat-card-header>
-        <br>
-    </mat-card>
-
-
-    <mat-card class="develop-card" *ngFor="let library of filteredLibs | async">
-        <mat-card-header>
-            <mat-card-title-group>
-                <mat-card-title>
-                    {{library.name}}
-                    <mat-icon *ngIf="library.support.includes('image')" class="action-icon" aria-hidden="false"
-                        aria-label="add icon">image</mat-icon>
-                    <mat-icon *ngIf="library.support.includes('video')" class="action-icon" aria-hidden="false"
-                        aria-label="add icon">videocam</mat-icon>
-                    <mat-icon *ngIf="library.support.includes('audio')" class="action-icon" aria-hidden="false"
-                        aria-label="add icon">audiotrack</mat-icon>
-                </mat-card-title>
-                <mat-card-subtitle>{{library.description}}</mat-card-subtitle>
-            </mat-card-title-group>
-
-        </mat-card-header>
-        <mat-card-content>
-            {{library.help}}
-        </mat-card-content>
-
-        <mat-card-actions *ngIf="library.licence_required == false">
-          @if(!accessorsService.libs.hasLibStr(library.name)){
-            <button mat-button
-            (click)="addToLibs(library)">Add to
-            library</button>
-          }
-
-          @if(accessorsService.libs.hasLibStr(library.name)){
-            <button *ngIf="accessorsService.libs.hasLibStr(library.name)" mat-button
-                (click)="accessorsService.libs.removeLibStr(library.name)">Remove
-                from library</button>
-          }
+    </mat-card-header>
+    <br>
+  </mat-card>
 
 
-            <button mat-button (click)="addToExplorer(library)">View</button>
-            <!-- <button mat-button (click)="showModal = true">Edit</button> -->
-        </mat-card-actions>
+  <mat-card class="develop-card" *ngFor="let library of filteredLibs | async">
+    <mat-card-header>
+      <mat-card-title-group>
+        <mat-card-title>
+          {{library.name}}
+          <mat-icon *ngIf="library.support.includes('image')" class="action-icon" aria-hidden="false"
+            aria-label="add icon">image</mat-icon>
+          <mat-icon *ngIf="library.support.includes('video')" class="action-icon" aria-hidden="false"
+            aria-label="add icon">videocam</mat-icon>
+          <mat-icon *ngIf="library.support.includes('audio')" class="action-icon" aria-hidden="false"
+            aria-label="add icon">audiotrack</mat-icon>
+        </mat-card-title>
 
-        @if(library.licence_required == true){
-          <mat-card-actions>
-            <button mat-button disabled>This library requires a licence to be used.</button>
-        </mat-card-actions>
-        }
 
-    </mat-card>
+        <mat-card-subtitle>{{library.description}}</mat-card-subtitle>
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="addToExplorer(library)">
+            <span>View</span>
+          </button>
+          <button mat-menu-item (click)="removeFromList(library)">
+            <span>Remove from list</span>
+          </button>
+        </mat-menu>
+      </mat-card-title-group>
+
+    </mat-card-header>
+    <mat-card-content>
+      {{library.help}}
+    </mat-card-content>
+
+    <mat-card-actions *ngIf="library.licence_required == false">
+      @if(!accessorsService.libs.hasLibStr(library.name)){
+      <button mat-button (click)="addToLibs(library)">Add to
+        library</button>
+      }
+
+      @if(accessorsService.libs.hasLibStr(library.name)){
+      <button *ngIf="accessorsService.libs.hasLibStr(library.name)" mat-button
+        (click)="accessorsService.libs.removeLibStr(library.name)">Remove
+        from library</button>
+      }
+    </mat-card-actions>
+
+    @if(library.licence_required == true){
+    <mat-card-actions>
+      <button mat-button disabled>This library requires a licence to be used.</button>
+    </mat-card-actions>
+    }
+
+
+  </mat-card>
 </div>

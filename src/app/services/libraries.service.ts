@@ -251,6 +251,17 @@ export class LibrariesService {
     return {accessor_url: accessor.sources, filter:accessor.filter_source[filter]};
   }
 
+  removeFromList(library: Library){
+    const index = this._allLibs.findIndex(x=> x.name == library.name);
+
+    if (index >= 0) {
+      this._allLibs.splice(index, 1);
+
+      //this.announcer.announce(`Removed ${library}`);
+    }
+    this.updateService();
+  }
+
   updateRecommended(libs:any){
     this.recommendedFilters = {};
     this.recommendedExt = {};

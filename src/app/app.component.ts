@@ -10,7 +10,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  standalone: true,
+  imports: [MatProgressSpinnerModule, ModalComponent, AddComponent, SideNavComponent, AuthComponent ]
 })
 export class AppComponent {
   title = 'interface';

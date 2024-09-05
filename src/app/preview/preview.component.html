@@ -29,7 +29,7 @@
 }
 
 
-<ng-container *ngTemplateOutlet="console"></ng-container>
+<div id="console" aria-busy="false"></div>
 
 <mat-tab-group color="accent" mat-stretch-tabs="true" [(selectedIndex)]="tabIndex"
   (selectedTabChange)="selectTab($event)" >
@@ -58,9 +58,3 @@
   </mat-tab>
 
 </mat-tab-group>
-
-
-<ng-template #console>
-  <div id="console" aria-busy="false"></div>
-</ng-template>
-

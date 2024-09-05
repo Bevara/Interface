@@ -1,11 +1,14 @@
 <app-auth></app-auth>
 <app-side-nav></app-side-nav>
-<app-modal
-  *ngIf="accessorsService.showModalAdd"
+
+@if(accessorsService.showModalAdd){
+  <app-modal
   (clickOnClose)="accessorsService.showModalAdd = false"
 >
 <app-add></app-add>
 </app-modal>
+}
+
 @if(accessorsService.showModalNeedPreserve){
   <app-modal
   (clickOnClose)="accessorsService.showModalNeedPreserve = false"
