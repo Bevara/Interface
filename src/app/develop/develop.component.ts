@@ -56,12 +56,18 @@ export class DevelopComponent {
     }
   }
 
+  viewOnGitHub(lib : Library){
+    if(environment.vscode){
+      vscode.postMessage({ type: 'open_link', url: "https://github.com/"+lib.owner+"/"+lib.repo});
+    }
+  }
+
   removeFromList(lib : Library){
     if(environment.vscode){
       vscode.postMessage({ type: 'removeFromList', filter:lib.name});
-    }else{
-      this.accessorsService.libs.removeFromList(lib);
     }
+
+    this.accessorsService.libs.removeFromList(lib);
   }
 
   addToLibs(lib : Library){

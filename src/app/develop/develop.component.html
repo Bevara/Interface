@@ -52,7 +52,10 @@
         </button>
         <mat-menu #menu="matMenu">
           <button mat-menu-item (click)="addToExplorer(library)">
-            <span>View</span>
+            <span>Explore</span>
+          </button>
+          <button mat-menu-item (click)="viewOnGitHub(library)">
+            <span>View on GitHub</span>
           </button>
           <button mat-menu-item (click)="removeFromList(library)">
             <span>Remove from list</span>

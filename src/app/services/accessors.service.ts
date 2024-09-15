@@ -93,6 +93,7 @@ export class AccessorsService {
             return;
           }
         case 'newAccessor':
+        case 'refreshList':
           {
 
             if (this._dataUrl && body.filter_list) {

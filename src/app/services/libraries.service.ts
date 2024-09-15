@@ -17,7 +17,10 @@ export interface Library {
   sources: string;
   filter_source : { [key: string]: string; };
   licence_required : boolean;
-  binaries : string
+  binaries : string,
+  imported : boolean,
+  owner : string,
+  repo : string
 }
 
 
@@ -53,7 +56,10 @@ export class LibrariesService {
     sources:"https://bevara.ddns.net/sources/solver.accessor",
     filter_source : {},
     licence_required : false,
-    binaries:""
+    binaries:"",
+    imported : false,
+    owner : "Bevara",
+    repo : "solver"
   }, {
     id: "solver_1",
     name: "solver.wasm",
@@ -79,7 +85,10 @@ export class LibrariesService {
         "compositor" : "compositor.c"
     },
     licence_required : false,
-    binaries:""
+    binaries:"",
+    imported : false,
+    owner : "Bevara",
+    repo : "solver"
   }];
 
   public _slctLibs: Library[] = [];
