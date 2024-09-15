@@ -207,11 +207,9 @@ export class LibrariesService {
         libs.add(lib);
       }
     }
-
     if (ext && ext in this.recommendedExt){
       this.recommendedExt[ext].accessors.forEach((x:string) => libs.add(x));
     }
-
 
 
     this._slctLibs = this._allLibs.filter(x => libs.has(x.name));

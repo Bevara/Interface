@@ -89,7 +89,9 @@ export class AccessorsService {
           }
         case 'updateProfile':
           {
-            this._auth.account = body.account;
+            if (body.account){
+              this._auth.account = body.account;
+            }
             return;
           }
         case 'newAccessor':
@@ -192,6 +194,7 @@ export class AccessorsService {
   }
 
   public initFilterAndInfo(src: string, libs: any) {
+    this.libs._allLibs = [];
     for (const filename in libs) {
       const lib = libs[filename];
       lib.url = environment.server_url + "/accessors/" + filename;
