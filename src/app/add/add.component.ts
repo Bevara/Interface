@@ -54,7 +54,20 @@ export class AddComponent {
   status = "";
 
   constructor(private accessorService: AccessorsService) {
+    this.accessorService.releaseList.subscribe(releases => {
+      this.pending = false;
+      this.releases = releases;
+      this.selected_release = this.releases.length > 0 ? this.releases[0].id : "";
+    });
 
+    this.accessorService.newAccessorAdded.subscribe(status => {
+      this.pending = false;
+      this.status = status;
+
+      if (status == "OK"){
+        this.accessorService.showModalAdd = false;
+      }
+    });
   }
 
   // Replace with the owner and repo you're interested in
@@ -64,27 +77,12 @@ export class AddComponent {
   async listBranches(owner: string, repo : string) {
     this.pending = true;
     vscode.postMessage({ type: 'getReleases', owner: owner, repo:repo, release: this.selected_release });
-    this.accessorService.releaseList.subscribe(releases => {
-      this.pending = false;
-      this.releases = releases;
-      this.selected_release = this.releases.length > 0 ? this.releases[0].id : "";
-      this.accessorService.releaseList.unsubscribe();
-    });
   }
 
   checkout(owner:string, repo : string) {
     this.pending = true;
     const release = this.releases.find((x:any) => x.id == this.selected_release);
     vscode.postMessage({ type: 'addAccessor', owner: owner, repo:repo, release: release });
-    this.accessorService.newAccessorAdded.subscribe(status => {
-      this.pending = false;
-      this.status = status;
-      this.accessorService.newAccessorAdded.unsubscribe();
-
-      if (status == "OK"){
-        this.accessorService.showModalAdd = false;
-      }
-    });
   }
 
   async Submit() {
