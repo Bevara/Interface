@@ -18,6 +18,8 @@ export class AuthService {
   sdk = new Sdk(config);
   _sessionToken :string | null = null;
  account : any;
+ _githubUser :any = null;
+ _hasGit = false;
 
   constructor() {
     if (!environment.vscode){
@@ -30,19 +32,23 @@ export class AuthService {
   }
 
   get username() {
-    if (this.isLoggedIn)
+    if (this.isLoggedIn && this.account)
       return this.account.name;
     else
     return null;
   }
 
   get isLoggedIn() {
-    return this.account != null;
+    if (environment.vscode) {
+      return this.account != null;
+    } else {
+      return true;
+    }
   }
 
   async getInfo() {
     const sessionToken = environment.vscode? this._sessionToken : this.sessionToken;
-    const response = await fetch(`${environment.auth_url}/api/getUserInfo?token=${this.sessionToken}`);
+    const response = await fetch(`${environment.auth_url}/api/getUserInfo?token=${sessionToken}`);
     return response.json();
   }
 
@@ -84,6 +90,10 @@ export class AuthService {
     }
   }
 
+  loginToGithub(){
+    vscode.postMessage({ type: 'loginToGithub' });
+  }
+
   get sessionToken(): string | null {
     if (environment.vscode) {
       vscode.postMessage({ type: 'getToken' });
@@ -106,5 +116,42 @@ export class AuthService {
         sessionStorage.setItem('token', value);
       }
     }
+  }
+
+
+
+  get isAuthtoGithub(){
+    if (environment.vscode) {
+      return this._githubUser != null;
+    } else {
+      return true;
+    }
+  }
+
+  set githubUser(user){
+    this._githubUser = user;
+  }
+
+  get githubUser(){
+    return this._githubUser;
+  }
+
+  get owner(){
+    if (this._githubUser){
+      return this._githubUser.login;
+    }
+    return null;
+  }
+
+  get hasGit(){
+    if (environment.vscode) {
+      return this._hasGit;
+    } else {
+      return true;
+    }
+  }
+
+  set hasGit(value){
+    this._hasGit = value;
   }
 }

@@ -1,48 +1,134 @@
-<mat-tab-group >
+<mat-tab-group>
   <!-- #enddocregion dynamic-height -->
-    <mat-tab label="From an existing repository">
-      <div class="example-small-box mat-elevation-z4">
+  <mat-tab label="From an existing repository">
+    <div class="example-small-box mat-elevation-z4">
 
       @if (!pending) {
-      <form class="example-form" (ngSubmit)="Submit()">
+      <form class="example-form" (ngSubmit)="submitExistingRepository()">
         <mat-form-field class="example-full-width">
           <mat-label>Repository URL</mat-label>
-          <input type="url" matInput [formControl]="accessorFormControl" [errorStateMatcher]="matcher"
-                 placeholder="Ex. https://github.com/Bevara/libxvid" [(ngModel)]="url">
+          <input type="url" matInput [formControl]="existingAccessorFormControl"
+            [errorStateMatcher]="existingAccessorMatcher" placeholder="Ex. https://github.com/Bevara/libxvid"
+            [(ngModel)]="url" (change)="onChangeRepositoryUrl($event)">
           <mat-hint>{{status}}</mat-hint>
-          @if (accessorFormControl.hasError('githubName') && !accessorFormControl.hasError('required')) {
-            <mat-error>Please enter a valid github address</mat-error>
-          }
-          @if (accessorFormControl.hasError('required')) {
-            <mat-error>A valid URL is <strong>required</strong></mat-error>
+          @if (existingAccessorFormControl.hasError('githubName'))
+          {
+          <mat-error>Please enter a valid github address</mat-error>
+          }@else if (existingAccessorFormControl.hasError('required')) {
+          <mat-error>A valid URL is <strong>required</strong></mat-error>
+          }@else if (existingAccessorFormControl.hasError('templateDoesNotExist') && releases.length == 0) {
+          <mat-error>This github repository {{url}} does not exist, please use another url.</mat-error>
           }
         </mat-form-field>
         @if (releases.length > 0) {
-          <mat-form-field class="example-full-width">
-            <mat-label>Select a release</mat-label>
-            <mat-select [(value)]="selected_release">
-              @for (option of releases; track option) {
-                <mat-option [value]="option.id">{{ option.name}}</mat-option>
-              }
-            </mat-select>
-          </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Select a release</mat-label>
+          <mat-select [(value)]="selected_release">
+            @for (option of releases; track option) {
+            <mat-option [value]="option.id">{{ option.name}}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
         }
-        <button [disabled]="accessorFormControl.hasError('required')" mat-raised-button type="submit">Import accessor</button>
+        <button [disabled]="existingAccessorFormControl.hasError('required')" mat-raised-button type="submit">Import
+          accessor</button>
       </form>
-    }
+      }
 
-  </div>
-    </mat-tab>
-    <mat-tab label="Create new accessor">
-      <div class="example-large-box mat-elevation-z4">
-        TBD
-      </div>
-    </mat-tab>
-  </mat-tab-group>
-
-  @if (pending) {
-    <div class="add-spinner">
-      <mat-spinner ></mat-spinner>
     </div>
-  }
+  </mat-tab>
+  <mat-tab label="Create new accessor">
+    @if (!authService.isAuthtoGithub && !authService.hasGit) {
+    <div class="example-small-box2">
+      This function requires Git and Github authentification
+    </div>
+    <button (click)="authService.loginToGithub()" mat-raised-button>Login to github</button>
+    <button (click)="openGitExtension()" mat-raised-button>Install Git</button>
+    }@else if (!authService.isAuthtoGithub) {
+    <div class="example-small-box2">
+      This function requires an authentification to Github
+    </div>
+    <div class="example-small-box2">
+      <button (click)="authService.loginToGithub()" mat-raised-button>Login to github</button>
+    </div>
+    }@else if (!authService.hasGit) {
+    <div class="example-small-box2">
+      This function requires the installation of Git extension
+    </div>
+    <button (click)="openGitExtension()" mat-raised-button>Install Git</button>
+    }@else {
+    <div class="example-large-box mat-elevation-z4">
+      <form class="example-form" (ngSubmit)="submitNewAccessor()">
+        <mat-form-field class="example-full-width">
+          <mat-label>Name of the filter</mat-label>
+          <input matInput [formControl]="newAccessorFormControl" placeholder="Ex. JPEG filter"
+            [(ngModel)]="new_filter_name" (change)="onChangeFilterName($event)">
 
+          @if (accessorService.forkExist && this.new_filter_type == "base_filter"){
+            <mat-error>A fork already exists for the base filter, please use another existing repository.</mat-error>
+          }@else if (accessorService.forkExist && this.new_filter_type == "existing"){
+            <mat-error>A fork exists for the given repository, please use another repository.</mat-error>
+          }@else if (newAccessorFormControl.hasError('required')) {
+          <mat-error>Please enter a valid name</mat-error>
+          }
+
+          @if (newAccessorFormControl.hasError('already_exist')) {
+          <mat-error>This github repository {{authService.githubUser?.html_url}}/{{new_filter_name}} already exists,
+            please use another name.</mat-error>
+          }
+
+          @if (new_filter_name != "") {
+          <mat-hint>
+            The URL of the filter will be : {{authService.githubUser?.html_url}}/{{new_filter_name}}
+          </mat-hint>
+          }
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <mat-select [(ngModel)]="new_filter_type" name="from">
+            <mat-option value="base_filter">Use an empty template</mat-option>
+            <mat-option value="existing">Use an existing repository</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+
+        @if(new_filter_type == "existing"){
+        <mat-form-field class="example-full-width">
+          <mat-label>Repository URL</mat-label>
+          <input type="url" matInput [formControl]="existingAccessorFormControl"
+            [errorStateMatcher]="existingAccessorMatcher" placeholder="Ex. https://github.com/Bevara/base_filter"
+            [(ngModel)]="url" (change)="onChangeRepositoryUrl($event)">
+          <mat-hint>{{status}}</mat-hint>
+          @if (existingAccessorFormControl.hasError('githubName'))
+          {
+          <mat-error>Please enter a valid github address</mat-error>
+          }@else if (existingAccessorFormControl.hasError('required')) {
+          <mat-error>A valid URL is <strong>required</strong></mat-error>
+          }@else if (existingAccessorFormControl.hasError('templateDoesNotExist')) {
+          <mat-error>This github repository {{url}} does not exist, please use another url.</mat-error>
+          }
+        </mat-form-field>
+        }
+
+        <button [disabled]="accessorService.forkExist"
+
+        mat-raised-button type="submit">
+          @if(new_filter_type == "base_filter"){
+          Create empty filter
+          }@else {
+          Fork this filter
+          }
+        </button>
+
+      </form>
+    </div>
+    }
+  </mat-tab>
+</mat-tab-group>
+
+@if (pending) {
+<div class="add-spinner">
+  <mat-spinner></mat-spinner>
+</div>
+}

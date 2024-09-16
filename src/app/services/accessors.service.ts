@@ -32,7 +32,9 @@ export class AccessorsService {
   public showModalUpdateAvailable = false;
   public newAccessorAdded = new EventEmitter<string>();
   public releaseList = new EventEmitter<string[]>();
-
+  public repoExist = false;
+  public templateExist = false;
+  public forkExist = false;
 
   constructor(
     private http: HttpClient,
@@ -89,9 +91,9 @@ export class AccessorsService {
           }
         case 'updateProfile':
           {
-            if (body.account){
-              this._auth.account = body.account;
-            }
+            this._auth.account = body.account;
+            this._auth.githubUser = body.github;
+            this._auth.hasGit = body.hasGit;
             return;
           }
         case 'newAccessor':
@@ -109,11 +111,11 @@ export class AccessorsService {
             this.showModalUpdateAvailable = true;
             return;
           }
-          case 'releaseList':
-            {
-              this.releaseList.emit(body.releases);
-              return;
-            }
+        case 'releaseList':
+          {
+            this.releaseList.emit(body.releases);
+            return;
+          }
         case 'updatingList':
           {
             if (body.end == true) {
@@ -122,6 +124,21 @@ export class AccessorsService {
               this.showModalUpdating = true;
               this.updatingProgress = Math.round(100 * body.counter / body.total);
             }
+            return;
+          }
+        case 'repoExist':
+          {
+            if (body.isTemplate) {
+              this.templateExist = body.repoExist;
+            } else {
+              this.repoExist = body.repoExist;
+            }
+            return;
+          }
+        case 'forkExist':
+          {
+            this.forkExist = body.forkExist;
+            return;
           }
       }
     });
