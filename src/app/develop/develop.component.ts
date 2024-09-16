@@ -30,7 +30,7 @@ export class DevelopComponent {
 
   constructor(
     public accessorsService: AccessorsService,
-    private authService : AuthService
+    public authService : AuthService
   ) {
     this.filteredLibs = this.search.valueChanges.pipe(
       startWith(""),
@@ -59,6 +59,12 @@ export class DevelopComponent {
   viewOnGitHub(lib : Library){
     if(environment.vscode){
       vscode.postMessage({ type: 'open_link', url: "https://github.com/"+lib.owner+"/"+lib.repo});
+    }
+  }
+
+  forkOnGitHub(lib : Library){
+    if(environment.vscode){
+      vscode.postMessage({ type: 'createAccessor', name: lib.name, owner : lib.owner, repo : lib.repo});
     }
   }
 

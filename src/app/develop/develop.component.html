@@ -57,6 +57,11 @@
           <button mat-menu-item (click)="viewOnGitHub(library)">
             <span>View on GitHub</span>
           </button>
+          @if(authService.isAuthtoGithub){
+            <button mat-menu-item (click)="forkOnGitHub(library)">
+              <span>Fork this project</span>
+            </button>
+          }
           <button mat-menu-item (click)="removeFromList(library)">
             <span>Remove from list</span>
           </button>
