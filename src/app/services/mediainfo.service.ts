@@ -61,7 +61,7 @@ export class MediainfoService {
       return this.json_info.media.track;
     }
 
-    return {};
+    return [];
   }
 
   get isJpeg(){
