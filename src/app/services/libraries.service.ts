@@ -47,7 +47,7 @@ export class LibrariesService {
 
   public using: Library[] = [{
     id: "solver_1",
-    name: "solver.js",
+    name: "solver_1.js",
     filters: [],
     description: "",
     help: "",
@@ -56,13 +56,13 @@ export class LibrariesService {
     sources:"https://bevara.ddns.net/sources/solver.accessor",
     filter_source : {},
     licence_required : false,
-    binaries:"",
+    binaries:"183214313",
     imported : false,
     owner : "Bevara",
     repo : "solver"
   }, {
     id: "solver_1",
-    name: "solver.wasm",
+    name: "solver_1.wasm",
     filters: ["vout","aout","fout","fin","httpin","writeuf","writegen","wcdec","wcenc","webgrab","resample","reframer","compositor"],
     description: "",
     help: "",
@@ -85,7 +85,7 @@ export class LibrariesService {
         "compositor" : "compositor.c"
     },
     licence_required : false,
-    binaries:"",
+    binaries:"183214312",
     imported : false,
     owner : "Bevara",
     repo : "solver"
