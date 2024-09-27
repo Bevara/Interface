@@ -92,7 +92,7 @@ export class GraphComponent implements OnInit {
         d3.select(this).style("color", "black");
       })
       .on("click", function (d) {
-        self.changeTab.emit({tabIndex:2, key:key});
+        self.changeTab.emit({tabIndex:4, key:key});
       });
 
     const nodes = d3.selectAll('.node');
