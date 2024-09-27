@@ -65,9 +65,7 @@ export class ActionsComponent {
       vscode.postMessage({ type: 'download_zip',
         libraries: this.accessorsService.libs.libraries,
         using : this.accessorsService.libs.using,
-        tag : this.accessorsService.tags.is,
-        input_file : this.accessorsService.src,
-        html_code : this.accessorsService.html_preview
+        tag : this.accessorsService.tags.is
       });
       return;
     } else {
@@ -88,7 +86,18 @@ export class ActionsComponent {
         }
       );
     }
+  }
 
-
+  public export_html() {
+    if (environment.vscode) {
+      vscode.postMessage({ type: 'export_html',
+        libraries: this.accessorsService.libs.libraries,
+        using : this.accessorsService.libs.using,
+        tag : this.accessorsService.tags.is,
+        input_file : this.accessorsService.src,
+        html_code : this.accessorsService.html_preview
+      });
+      return;
+    }
   }
 }
