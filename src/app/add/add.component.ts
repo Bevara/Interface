@@ -47,7 +47,7 @@ export function forbiddenNameValidator(nameRe: RegExp): ValidatorFn {
 
 export function repoExistValidator(accessorsService: AccessorsService): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
-    return !accessorsService.repoExist ? { already_exist: { value: control.value } } : null;
+    return accessorsService.repoExist ? { already_exist: { value: control.value } } : null;
   };
 }
 
@@ -115,7 +115,7 @@ export class AddComponent implements OnInit {
   }
 
   async submitExistingRepository() {
-    if (!this.accessorService.templateExist || !this.url.startsWith("https://github.com/")) {
+    if (!this.url.startsWith("https://github.com/")) {
       return;
     }
 
