@@ -28,9 +28,9 @@
 @if(accessorsService.not_supported){
   <app-modal
   (clickOnClose)="accessorsService.not_supported = false">
-    This format is not supported by the Bevara Access IDE.
-    <br> <br> Please contact <a style="color: #fff;" href="mailto:sales@bevara.com">support&#64;bevara.com</a> to inquire
-    <br> about support options.
+  This format is not supported by the Bevara Access IDE. <br> <br> <br>
+    Please contact <a style="color: #fff;" href="mailto:sales@bevara.com">support&#64;bevara.com</a> to inquire
+    about support options <br>  <br> or <br> <br> <a style="color: #fff;" (click)="authService.gotoSignInPage();accessorsService.showModalNeedLogin = false" href="javascript:void(0);">Sign in</a> for access to your Premium Account or to the Bevara Open-Source Developer SDK.
   </app-modal>
 }
 
@@ -38,7 +38,7 @@
   <app-modal
   (clickOnClose)="accessorsService.showModalNeedLogin = false"
 >
-Please <a style="color: #fff;" (click)="authService.gotoSignInPage();accessorsService.showModalNeedLogin = false" href="javascript:void(0);">sign in</a> first to get access to this feature.
+<a style="color: #fff;" (click)="authService.gotoSignInPage();accessorsService.showModalNeedLogin = false" href="javascript:void(0);">Sign in</a> for access to this feature.
 </app-modal>
 }
 

@@ -1,8 +1,12 @@
 <mat-toolbar>
   <!-- <span>You are not logged in. Please contact <a href="mailto:sales@bevara.com">sales&#64;bevara.com</a>  to register.</span> -->
   @if(auth.isLoggedIn){
-    <span>You are logged in as {{auth.username}}. <a style="color: #fff;" (click)="auth.logout()" href="javascript:void(0);">Log out</a> </span>
+    <span>You are signed in as {{auth.username}}.
+      <!-- <a style="color: #fff;" (click)="auth.logout()" href="javascript:void(0);">Log out</a>  -->
+    </span>
   }@else {
-    <span>You are not logged in. Please <a style="color: #fff;" (click)="auth.gotoSignInPage()" href="javascript:void(0);">sign in</a> to get access to the SDK and an extended number of accessors.</span>
+    <span>
+      You are not signed in. Please  <a style="color: #fff;" (click)="auth.gotoSignInPage()" href="javascript:void(0);">sign in</a> for access to the Open-Source Developer SDK or your Premium account.
+    </span>
   }
 </mat-toolbar>
