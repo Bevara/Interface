@@ -9,13 +9,13 @@ const build = require("../../player/version.js").build;
 export const environment = {
   production: false,
   vscode:false,
-  server_url : "http://localhost:8081",
+  server_url : "https://bevara.ddns.net/player",
   cas_url : "https://bevara-auth.ddns.net",
   //auth_url : "http://192.168.1.120:5000",
   auth_url : "http://127.0.0.1:5000",
   accessor_version : build,
   accessToken : "d4787460bf24abecc78c",
-  src:'http://localhost:8081/Bretagne1.j2k',
+  src:'https://bevara.ddns.net/test-signals/j2k/Bretagne1.j2k',
 
   tags_version : version
 };

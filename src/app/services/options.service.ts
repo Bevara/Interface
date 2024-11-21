@@ -11,7 +11,7 @@ export type Option = 'use-cache' | 'use-workers' | 'use-webcodecs' | 'data-autop
 })
 export class OptionsService {
   private _options: Option[] = [];
-  private _scriptDirectoryUrl = debug? "http://localhost:8081/" : environment.server_url +"/accessors-build/accessors-"+environment.accessor_version+"/";
+  private _scriptDirectoryUrl = debug? "http://localhost:8081/" : environment.server_url +"/";
   private _out = "rgba";
   private _is_vscode = environment.vscode;
 
