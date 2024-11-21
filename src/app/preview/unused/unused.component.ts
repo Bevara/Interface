@@ -28,6 +28,10 @@ export class UnusedComponent implements OnInit  {
       this.tabEvent.subscribe(changeEvent => {
         if (changeEvent.tab.textLabel == "Unused"){
           this.populateUnused();
+
+          this.accessorsService.libs.readyEvent.subscribe(event => {
+            this.populateUnused();
+          });
         }
       });
     }
