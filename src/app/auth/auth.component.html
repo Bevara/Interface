@@ -1,7 +1,8 @@
 <mat-toolbar>
+  <span class="spacer"></span>
   <!-- <span>You are not logged in. Please contact <a href="mailto:sales@bevara.com">sales&#64;bevara.com</a>  to register.</span> -->
   @if(auth.isLoggedIn){
-    <span>You are signed in as {{auth.username}}.
+    <span class="login">You are signed in as {{auth.username}}.
       <!-- <a style="color: #fff;" (click)="auth.logout()" href="javascript:void(0);">Log out</a>  -->
     </span>
   }@else {

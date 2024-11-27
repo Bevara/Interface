@@ -1,6 +1,6 @@
 <mat-tab-group>
   <!-- #enddocregion dynamic-height -->
-  <mat-tab label="From an existing repository">
+  <mat-tab label="Add a pre-built Accessor">
     <div class="example-small-box mat-elevation-z4">
 
       @if (!pending) {
@@ -37,7 +37,7 @@
 
     </div>
   </mat-tab>
-  <mat-tab label="Create new accessor">
+  <mat-tab label="Create a new Accessor">
     @if (!authService.isAuthtoGithub && !authService.hasGit) {
     <div class="example-small-box2">
       This function requires Git and Github authentification
