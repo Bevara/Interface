@@ -4,12 +4,12 @@
       <button mat-icon-button (click)="accessorsService.setRecommended()" class="icon-action" aria-label="Get recommended accessors">
         <mat-icon>image_search</mat-icon>
       </button>
-      <button mat-icon-button (click)="accessorsService.libs.removeAll()" class="icon-action" aria-label="Remove all accessors">
+      <!-- <button mat-icon-button (click)="accessorsService.libs.removeAll()" class="icon-action" aria-label="Remove all accessors">
         <mat-icon>remove_circle</mat-icon>
       </button>
       <button mat-icon-button (click)="accessorsService.libs.addAll()" class="icon-action" aria-label="Add all accessors">
         <mat-icon>add_circle</mat-icon>
-      </button>
+      </button> -->
     </div>
     <mat-chip-grid class="example-chip" cdkDropList cdkDropListOrientation="horizontal"
         (cdkDropListDropped)="accessorsService.libs.dropLibrary($event)" #chipGrid aria-label="Enter libraries">
