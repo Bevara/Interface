@@ -54,7 +54,7 @@ export class GraphComponent implements OnInit {
     const self = this;
     let key = "";
 
-    const tooltip = d3.select("#graph_placeholder")
+   /* const tooltip = d3.select("#graph_placeholder")
       .append("div")
       .attr("id", "node_menu")
       .style("position", "absolute")
@@ -94,7 +94,7 @@ export class GraphComponent implements OnInit {
       .on("click", function (d) {
         self.changeTab.emit({tabIndex:4, key:key});
       });
-
+*/
     const nodes = d3.selectAll('.node');
     nodes
       .on("mouseover", function (e, d: any) {
