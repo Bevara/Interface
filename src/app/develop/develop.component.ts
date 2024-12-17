@@ -80,7 +80,7 @@ export class DevelopComponent {
     if (lib.licence_required){
       this.accessorsService.libs.licence_required = true;
      }else{
-      this.accessorsService.libs.addLibraryStr(lib.name);
+      this.accessorsService.libs.addLibraryId(lib.id);
      }
   }
 

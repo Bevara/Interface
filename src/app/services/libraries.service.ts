@@ -110,6 +110,16 @@ export class LibrariesService {
     this.updateService();
   }
 
+  addLibraryId(value: string): void {
+    if (value && !this.hasLibStr(value)) {
+      const newlib = this._allLibs.find(x => x.id == value);
+      if (newlib)
+        this._slctLibs.push(newlib);
+    }
+
+    this.updateService();
+  }
+
 
   updateService(){
     this.licence_required = this._slctLibs.some(x => x.licence_required == true);
