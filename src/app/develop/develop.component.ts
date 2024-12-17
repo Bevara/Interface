@@ -70,7 +70,7 @@ export class DevelopComponent {
 
   removeFromList(lib : Library){
     if(environment.vscode){
-      vscode.postMessage({ type: 'removeFromList', filter:lib.name});
+      vscode.postMessage({ type: 'removeFromList', filter:lib.id});
     }
 
     this.accessorsService.libs.removeFromList(lib);

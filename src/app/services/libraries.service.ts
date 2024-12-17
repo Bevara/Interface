@@ -259,7 +259,7 @@ export class LibrariesService {
   }
 
   removeFromList(library: Library){
-    const index = this._allLibs.findIndex(x=> x.name == library.name);
+    const index = this._allLibs.findIndex(x=> x.id == library.id);
 
     if (index >= 0) {
       this._allLibs.splice(index, 1);
