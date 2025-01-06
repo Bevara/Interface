@@ -1,7 +1,7 @@
 <div class="content" #content>
   <mat-card class="develop-card">
     <mat-form-field class="example-form-field">
-      <mat-label>Find a library</mat-label>
+      <mat-label>Search Library</mat-label>
       <input matInput type="text" [formControl]="search">
       @if(search.value != ''){
       <button matSuffix mat-icon-button aria-label="Clear" (click)="search.setValue('')">
