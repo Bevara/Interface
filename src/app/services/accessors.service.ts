@@ -99,7 +99,7 @@ export class AccessorsService {
         case 'newAccessor':
         case 'refreshList':
           {
-
+            this.not_supported = false;
             if (this._dataUrl && body.filter_list) {
               this.initFilterAndInfo(this._dataUrl, body.filter_list);
             }
