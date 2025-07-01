@@ -1,5 +1,5 @@
 # Bevara Access
-## A free, open-source IDE.
+
 This easy-to-use tool based on Bevara open-source libraries to create a decoding and presentation pipeline. Use the auto-suggested pipeline elements or tailor the elements to your needs. Drop the generated HTML into your website for easy display and playback of many types of file formats.
 
 [Learn more](https://bevara.com/how-it-works/) &nbsp;&nbsp;&nbsp;&nbsp; [Get started](https://bevara.com/documentation/)
