@@ -24,7 +24,7 @@ jobs:
       with:
         submodules: 'recursive'  # Automatically updates submodules
     - name: Install dependencies in player
-      run: npm ci
+      run: npm install
       working-directory: ./player
     - name: Build universal tags
       run: npm run build
