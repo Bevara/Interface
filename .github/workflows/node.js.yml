@@ -24,8 +24,6 @@ jobs:
       with:
         submodules: 'recursive'  # Automatically updates submodules
     - uses: lovasoa/setup-emscripten@master
-      with:
-        emscripten-version: '3.1.56'
     - name: Create build folder in player
       run: mkdir -p build
       working-directory: ./player
