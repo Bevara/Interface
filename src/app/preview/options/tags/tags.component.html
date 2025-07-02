@@ -14,11 +14,13 @@
 </mat-chip-listbox>
 }@else{
 <mat-chip-listbox [multiple]="false" aria-label="Integration tag">
-  <mat-chip-option color="accent" (click)="accessorsService.tag = 'img'"
+  <mat-chip-option color="accent" (click)="accessorsService.tag = 'img'; accessorsService.updateView()"
     [selected]="accessorsService.tag == 'img'">img</mat-chip-option>
-  <mat-chip-option color="accent" (click)="accessorsService.tag = 'audio'"
+  <mat-chip-option color="accent" (click)="accessorsService.tag = 'audio'; accessorsService.updateView()"
     [selected]="accessorsService.tag == 'audio'">audio</mat-chip-option>
-  <mat-chip-option color="accent" (click)="accessorsService.tag = 'video'"
+  <mat-chip-option color="accent" (click)="accessorsService.tag = 'video'; accessorsService.updateView()"
     [selected]="accessorsService.tag == 'video'">video</mat-chip-option>
+  <mat-chip-option color="accent" (click)="accessorsService.tag = 'canvas'; accessorsService.updateView()"
+    [selected]="accessorsService.tag == 'canvas'">canvas</mat-chip-option>
 </mat-chip-listbox>
 }

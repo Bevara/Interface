@@ -34,6 +34,9 @@
 <mat-tab-group color="accent" mat-stretch-tabs="true" [(selectedIndex)]="tabIndex"
   (selectedTabChange)="selectTab($event)" >
 
+  <mat-tab label="Source">
+    <app-source></app-source>
+  </mat-tab>
   <mat-tab label="Integration">
     <app-integration></app-integration>
   </mat-tab>

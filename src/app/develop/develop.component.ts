@@ -26,6 +26,7 @@ export class DevelopComponent {
   search = new FormControl();
   filteredLibs: Observable<Library[]>;
   initialSearch = "";
+environment = environment;
 
 
   constructor(
@@ -95,5 +96,9 @@ export class DevelopComponent {
       return;
     }
     this.accessorsService.showModalAdd = true;
+  }
+
+  openGithubproject(lib:Library){
+    window.open(`https://github.com/${lib.owner}/${lib.repo}`, '_blank');
   }
 }

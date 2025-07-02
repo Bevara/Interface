@@ -1,8 +1,10 @@
 <div class="button-row">
   <button mat-raised-button [cdkCopyToClipboard]="accessorsService.html_preview">Copy code to clipboard</button>
   <button mat-raised-button (click)="zip_libraries()">Download required libraries</button>
-  <button mat-raised-button (click)="export_html()">Export as HTML template</button>
-  <button mat-raised-button (click)="accessorsService.showModalNeedPreserve = true">Preserve your file</button>
+  @if(environment.vscode){
+    <button mat-raised-button (click)="export_html()">Export as HTML template</button>
+    <button mat-raised-button (click)="accessorsService.showModalNeedPreserve = true">Preserve your file</button>
+  }
 </div>
 
 <div class="hide">

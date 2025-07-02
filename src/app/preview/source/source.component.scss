@@ -1,0 +1,33 @@
+.hide {
+    display: none;
+}
+
+.example-form {
+  display: flex;
+  align-items: center;
+  gap: 1rem; // Optional: adds spacing between input and button
+
+  .example-full-width {
+    flex: 1; // Makes the input grow to fill available space
+    margin: 0; // Removes extra margin if any
+  }
+
+  button {
+    white-space: nowrap; // Prevents the button text from wrapping
+  }
+}
+.no-expand .mat-expansion-panel-header {
+  pointer-events: none;
+}
+
+.example-radio-group {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+  align-items: flex-start;
+}
+
+.example-radio-button {
+  margin: 5px;
+}
+

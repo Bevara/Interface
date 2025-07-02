@@ -2,71 +2,64 @@
 <app-side-nav></app-side-nav>
 
 @if(accessorsService.showModalAdd){
-  <app-modal
-  (clickOnClose)="accessorsService.showModalAdd = false"
->
-<app-add></app-add>
+<app-modal (clickOnClose)="accessorsService.showModalAdd = false">
+  <app-add></app-add>
 </app-modal>
 }
 
 @if(accessorsService.showModalNeedPreserve){
-  <app-modal
-  (clickOnClose)="accessorsService.showModalNeedPreserve = false"
->
-    This feature is only available with the Bevara Preserve IDE. <br> Contact <a style="color: #fff;" href="mailto:sales@bevara.com">sales&#64;bevara.com</a> for information.
+<app-modal (clickOnClose)="accessorsService.showModalNeedPreserve = false">
+  This feature is only available with the Bevara Preserve IDE. <br> Contact <a style="color: #fff;"
+    href="mailto:sales@bevara.com">sales&#64;bevara.com</a> for information.
 </app-modal>
 }
 
 @if(accessorsService.libs.licence_required){
-  <app-modal
-  [hideClose]="true"
->
-    This content requires obtaining a licence to be used. <br> Contact <a style="color: #fff;" href="mailto:sales@bevara.com">sales&#64;bevara.com</a> for information.
+<app-modal [hideClose]="true">
+  This content requires obtaining a licence to be used. <br> Contact <a style="color: #fff;"
+    href="mailto:sales@bevara.com">sales&#64;bevara.com</a> for information.
 </app-modal>
 }
 
 @if(accessorsService.not_supported){
-  <app-modal
-  (clickOnClose)="accessorsService.not_supported = false">
+<app-modal (clickOnClose)="accessorsService.not_supported = false">
   <span style="font-size:20px;">
     This format is not supported by the Bevara Access IDE. <br> <br> <br>
     Please contact <a style="color: #fff;" href="mailto:sales@bevara.com">support&#64;bevara.com</a> to inquire
-    about support options <br>  <br> or <br> <br> <a style="color: #fff;" (click)="authService.gotoSignInPage();accessorsService.showModalNeedLogin = false" href="javascript:void(0);">Sign in</a> for access to your Premium Account or to the Bevara Open-Source Developer SDK.
+    about support options <br>
   </span>
-  </app-modal>
+</app-modal>
+}
+
+@if(showsplashcreen){
+<app-splash (clickOnClose)="showsplashcreen = false">
+</app-splash>
 }
 
 @if(accessorsService.showModalNeedLogin){
-  <app-modal
-  (clickOnClose)="accessorsService.showModalNeedLogin = false"
->
-<a style="color: #fff;" (click)="authService.gotoSignInPage();accessorsService.showModalNeedLogin = false" href="javascript:void(0);">Sign in</a> for access to this feature.
+<app-modal (clickOnClose)="accessorsService.showModalNeedLogin = false">
+  <a style="color: #fff;" (click)="authService.gotoSignInPage();accessorsService.showModalNeedLogin = false"
+    href="javascript:void(0);">Sign in</a> for access to this feature.
 </app-modal>
 }
 
 @if(accessorsService.showModalUpdateAvailable){
-  <app-modal
-  (clickOnClose)="accessorsService.showModalUpdateAvailable = false"
->
+<app-modal (clickOnClose)="accessorsService.showModalUpdateAvailable = false">
   An update of the filters library is available. <br><br>
   Would you like to update it now? <br><br>
   <button mat-button
-  (click)="accessorsService.updateLibraries();accessorsService.showModalUpdateAvailable = false;">Yes</button>
-  <button mat-button
-  (click)="accessorsService.showModalUpdateAvailable = false">No</button>
+    (click)="accessorsService.updateLibraries();accessorsService.showModalUpdateAvailable = false;">Yes</button>
+  <button mat-button (click)="accessorsService.showModalUpdateAvailable = false">No</button>
 </app-modal>
 }
 
 @if(accessorsService.showModalUpdating){
-  <app-modal
-  [hideClose]="true"
->
+<app-modal [hideClose]="true">
   <div class="spinner">
-    <mat-spinner ></mat-spinner>
+    <mat-spinner></mat-spinner>
   </div>
   <br>
   Updating library : {{accessorsService.updatingProgress}} %
 </app-modal>
 
 }
-

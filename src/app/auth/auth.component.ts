@@ -20,6 +20,8 @@ const config = {
   imports:[MatToolbarModule]
 })
 export class AuthComponent implements OnInit {
+  environment = environment;
+
   constructor(
     public auth : AuthService
   ) { }

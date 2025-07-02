@@ -1,0 +1,79 @@
+<mat-accordion>
+
+  <mat-expansion-panel [expanded]="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Test sequences
+      </mat-panel-title>
+      @if(accessorsService.source_option == 'test_sequence'){
+      <mat-panel-description>
+        <mat-icon>done</mat-icon>
+      </mat-panel-description>
+      }
+    </mat-expansion-panel-header>
+    <label id="example-radio-group-label">Select a testing sequence :</label>
+    <mat-radio-group
+    aria-labelledby="example-radio-group-label"
+    class="example-radio-group"
+      [(ngModel)]="accessorsService.src"
+      (change)="onSequenceChange()"
+      >
+      @for (sequence of test_sequences; track sequence) {
+      <mat-radio-button class="example-radio-button" [value]="sequence[1]">{{sequence[0]}}</mat-radio-button>
+      }
+    </mat-radio-group>
+  </mat-expansion-panel>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        URL
+      </mat-panel-title>
+@if(accessorsService.source_option == 'url'){
+      <mat-panel-description>
+        <mat-icon>done</mat-icon>
+      </mat-panel-description>
+      }
+    </mat-expansion-panel-header>
+    <form class="example-form" (ngSubmit)="onSubmitURL()">
+      <mat-form-field class="example-full-width">
+        <mat-label>URL</mat-label>
+        <input matInput
+          name="urlInput"
+          placeholder="{{accessorsService.src}}"
+          [(ngModel)]="url" type="url"
+           />
+        @if(!validUrl){
+        <mat-error>
+          Please enter a valid URL
+        </mat-error>
+        }
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit">Apply</button>
+    </form>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel (click)="import()" hideToggle class="no-expand">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Local files
+      </mat-panel-title>
+  @if(accessorsService.source_option == 'local'){
+      <mat-panel-description>
+        <mat-icon>done</mat-icon>
+      </mat-panel-description>
+      }
+    </mat-expansion-panel-header>
+  </mat-expansion-panel>
+
+</mat-accordion>
+
+
+<!-- Import/export functions -->
+<div class="hide">
+  <form enctype="multipart/form-data" [formGroup]="importForm">
+    <input type="file" formControlName="import_file" id="import_file" (change)="import($event)" class="hide" />
+  </form>
+  <a href="" id="base-exportBlock"></a>
+</div>
+
+<br>

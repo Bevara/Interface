@@ -40,7 +40,7 @@ interface Recommended<TValue> {
   providedIn: 'root'
 })
 export class LibrariesService {
-
+  public isReady = false;
   public readyEvent = new EventEmitter();
   private recommendedFilters : Recommended<Identifier> = {};
   private recommendedExt : Recommended<any> = {};
@@ -52,8 +52,8 @@ export class LibrariesService {
     description: "",
     help: "",
     support: [],
-    url: "https://bevara.ddns.net/accessors/solver_1.wasm",
-    sources:"https://bevara.ddns.net/sources/solver.accessor",
+    url: "../accessors/solver_1.wasm",
+    sources:"https://api.github.com/repos/Bevara/solver/zipball/1",
     filter_source : {},
     licence_required : false,
     binaries:"183214313",
@@ -67,8 +67,8 @@ export class LibrariesService {
     description: "",
     help: "",
     support: [],
-    url: "https://bevara.ddns.net/accessors/solver_1.js",
-    sources:"https://bevara.ddns.net/sources/solver.accessor",
+    url: "../accessors/solver_1.js",
+    sources:"https://api.github.com/repos/Bevara/solver/zipball/1",
     filter_source:{
         "vout" : "out_video.c",
         "aout" : "out_audio.c",
@@ -125,7 +125,7 @@ export class LibrariesService {
     this.licence_required = this._slctLibs.some(x => x.licence_required == true);
     if (environment.vscode) {
       vscode.postMessage({ type: 'getWasms', libs: this._slctLibs.map(x => x.id)});
-    }else{
+    }else if (this.isReady){
       this.readyEvent.emit();
     }
   }
@@ -223,7 +223,6 @@ export class LibrariesService {
 
 
     this._slctLibs = this._allLibs.filter(x => libs.has(x.name));
-    this.updateService();
   }
 
   get remain() {

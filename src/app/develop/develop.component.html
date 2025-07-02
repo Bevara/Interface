@@ -16,6 +16,7 @@
 
   </mat-card>
 
+  @if(environment.vscode){
   <mat-card class="develop-card" (click)="addAccessor()">
     <mat-card-header>
 
@@ -30,7 +31,7 @@
     </mat-card-header>
     <br>
   </mat-card>
-
+  }
 
   <mat-card class="develop-card" *ngFor="let library of filteredLibs | async">
     <mat-card-header>
@@ -47,6 +48,7 @@
 
 
         <mat-card-subtitle>{{library.description}}</mat-card-subtitle>
+        @if(environment.vscode){
         <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
           <mat-icon>more_vert</mat-icon>
         </button>
@@ -58,14 +60,15 @@
             <span>View on GitHub</span>
           </button>
           @if(authService.isAuthtoGithub){
-            <button mat-menu-item (click)="forkOnGitHub(library)">
-              <span>Fork this project</span>
-            </button>
+          <button mat-menu-item (click)="forkOnGitHub(library)">
+            <span>Fork this project</span>
+          </button>
           }
           <button mat-menu-item (click)="removeFromList(library)">
             <span>Remove from list</span>
           </button>
         </mat-menu>
+        }
       </mat-card-title-group>
 
     </mat-card-header>
@@ -83,6 +86,10 @@
       <button *ngIf="accessorsService.libs.hasLibStr(library.name)" mat-button
         (click)="accessorsService.libs.removeLibStr(library.name)">Remove
         from library</button>
+      }
+
+      @if(!environment.vscode){
+      <button mat-button (click)="openGithubproject(library)">View source</button>
       }
     </mat-card-actions>
 

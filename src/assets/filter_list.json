@@ -295,29 +295,5 @@
     "binaries": 187396073,
     "owner": "Bevara",
     "repo": "theora"
-  },
-  "BMP1BPP_1.wasm":{
-    "name": "BMP1PP",
-    "description": "BMP 1BPP",
-    "filters": [
-      "BMP1BPP"
-    ],
-    "help": "This filter handles a small subset of BMP images with little checking.",
-    "support": [
-      "image",
-      "audio",
-      "video"
-    ],
-    "filter_source": {
-      "BMP1BPP": "base_filter.c"
-    },
-    "Format": [
-      "Audio",
-      "Video"
-    ],
-    "extension": {
-      "bmp": "image"
-    },
-    "licence_required": false
   }
 }

@@ -12,13 +12,14 @@ import { GraphComponent } from './graph/graph.component';
 import { StatsComponent } from './stats/stats.component';
 import { UnusedComponent } from './unused/unused.component';
 import { OptionsComponent } from './options/options.component';
+import { SourceComponent } from "./source/source.component";
 
 @Component({
   selector: 'app-preview',
   templateUrl: './preview.component.html',
   styleUrls: ['./preview.component.scss'],
   standalone : true,
-  imports : [ModalComponent, MatProgressSpinnerModule, MatCardModule, MatTabsModule, IntegrationComponent, OptionsComponent, InfoComponent, GraphComponent, StatsComponent, UnusedComponent]
+  imports: [ModalComponent, MatProgressSpinnerModule, MatCardModule, MatTabsModule, IntegrationComponent, OptionsComponent, InfoComponent, GraphComponent, StatsComponent, UnusedComponent, SourceComponent]
 })
 export class PreviewComponent implements AfterViewInit {
   decoding = false;
@@ -87,12 +88,6 @@ export class PreviewComponent implements AfterViewInit {
 
         this.renderer.appendChild(this.contentScript.nativeElement, this.player);
       } else if (this.accessorsService.isTag ) {
-        if (this.accessorsService.tag == "canvas"  && this.infoService.hasAudio){
-          //For canvas, the user should click first on the screen
-          this.wait_for_click = true;
-          return;
-        }
-
         this.insertHtml();
       }
     }

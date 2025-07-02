@@ -9,17 +9,6 @@
     </mat-expansion-panel-header>
     <app-libs></app-libs>
   </mat-expansion-panel>
-
-  @if (!accessorsService.is_vscode) {
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Source option
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <app-source></app-source>
-    </mat-expansion-panel>
-  }
   <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title>
@@ -29,13 +18,13 @@
     <app-tags></app-tags>
   </mat-expansion-panel>
 
-  <!-- <mat-expansion-panel>
+  <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title>
         Logs
       </mat-panel-title>
     </mat-expansion-panel-header>
     <app-logs></app-logs>
-  </mat-expansion-panel> -->
+  </mat-expansion-panel>
 
 </mat-accordion>

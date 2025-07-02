@@ -1,7 +1,7 @@
 <mat-toolbar>
 
-
-  <!-- <span>You are not logged in. Please contact <a href="mailto:sales@bevara.com">sales&#64;bevara.com</a>  to register.</span> -->
+@if(environment.vscode){
+<!-- <span>You are not logged in. Please contact <a href="mailto:sales@bevara.com">sales&#64;bevara.com</a>  to register.</span> -->
   @if(auth.isLoggedIn){
     <span class="spacer"></span>
     <span class="login">You are signed in as {{auth.username}}.
@@ -12,4 +12,8 @@
      <a style="color: #fff;" (click)="auth.gotoSignInPage()" href="javascript:void(0);">Sign in</a> for access to the Open-Source Developer SDK or your Premium account.
     </span>
   }
+}@else{
+  <a href="javascript:history.back()">← Back</a>
+}
+
 </mat-toolbar>

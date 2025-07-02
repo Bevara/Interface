@@ -1,11 +1,11 @@
 <mat-chip-listbox [multiple]="true" aria-label="Integration option">
-  <mat-chip-option (click)="accessorsService.logs.toogleLog('graph')"
+  <mat-chip-option (click)="accessorsService.logs.toogleLog('graph'); accessorsService.updateView()"
     [selected]="accessorsService.logs.hasLog('graph')">Show graph</mat-chip-option>
-  <mat-chip-option (click)="accessorsService.logs.toogleLog('stats')"
+  <mat-chip-option (click)="accessorsService.logs.toogleLog('stats'); accessorsService.updateView()"
     [selected]="accessorsService.logs.hasLog('stats')">Show stats</mat-chip-option>
-  <mat-chip-option (click)="accessorsService.logs.toogleLog('report')"
+  <mat-chip-option (click)="accessorsService.logs.toogleLog('report');accessorsService.updateView()"
     [selected]="accessorsService.logs.hasLog('report')">Show reports</mat-chip-option>
-  <mat-chip-option (click)="accessorsService.logs.toogleLog('logs')"
+  <mat-chip-option (click)="accessorsService.logs.toogleLog('logs'); accessorsService.updateView()"
     [selected]="accessorsService.logs.hasLog('logs')">Show logs</mat-chip-option>
 </mat-chip-listbox>
 

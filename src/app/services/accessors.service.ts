@@ -20,7 +20,7 @@ export class AccessorsService {
   private _src = environment.src;
   private _dataUrl: string | null = null;
   public not_supported = false;
-  public isReady = false;
+  public filename = "";
   public isEmpty = false;
   private _solver = "solver_1";
   private _is_vscode = environment.vscode;
@@ -35,6 +35,8 @@ export class AccessorsService {
   public repoExist = false;
   public templateExist = false;
   public forkExist = false;
+
+  source_option: 'test_sequence' | 'url' | 'local' = 'test_sequence';
 
   constructor(
     private http: HttpClient,
@@ -85,7 +87,7 @@ export class AccessorsService {
           }
         case 'wasmReady':
           {
-            this.isReady = true;
+            this.libs.isReady = true;
             this.libs.readyEvent.emit();
             return;
           }
@@ -153,6 +155,10 @@ export class AccessorsService {
     }
   }
 
+  get isReady() {
+    return this.libs.isReady;
+  }
+
   get libs() {
     return this._libs;
   }
@@ -201,7 +207,7 @@ export class AccessorsService {
   }
 
   setRecommended() {
-    const ext = this._src.split('.').pop();
+    const ext = this.source_option == 'local'? this.filename.split('.').pop() : this._src.split('.').pop();
     this.libs.setRecommended(this._mediainfo.info, ext);
     this.tags.setRecommended(this._mediainfo.info, ext);
 
@@ -214,7 +220,7 @@ export class AccessorsService {
     this.libs._allLibs = [];
     for (const filename in libs) {
       const lib = libs[filename];
-      lib.url = environment.server_url + "/accessors/" + filename;
+      lib.url = environment.server_url + "/" + filename;
       lib.id = filename.replace('.wasm', '');
       this.libs._allLibs.push(lib);
     }
@@ -228,11 +234,15 @@ export class AccessorsService {
       this.setRecommended();
 
       if (!this.is_vscode) {
-        this.isReady = true;
+        this.libs.isReady = true;
         this.libs.readyEvent.emit();
       }
 
     });
+  }
+
+  public updateView(){
+    this.libs.readyEvent.emit();
   }
 
   get src() {
@@ -241,6 +251,10 @@ export class AccessorsService {
 
   set src(value: string) {
     this._src = value;
+
+    if (this.libs.isReady){
+      this._mediainfo.initInfo(value);
+    }
   }
 
   public get html_preview() {

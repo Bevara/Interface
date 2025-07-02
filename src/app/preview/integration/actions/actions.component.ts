@@ -18,13 +18,14 @@ import { vscode } from 'src/app/utilities/vscode';
 })
 export class ActionsComponent {
   showModal = false;
+  environment = environment;
 
   constructor(public accessorsService: AccessorsService,
     public librariesService: LibrariesService,
     private http: HttpClient) { }
 
-  private get all_libs(){
-    return  this.accessorsService.libs.libraries.concat(this.accessorsService.libs.using);
+  private get all_libs() {
+    return this.accessorsService.libs.libraries.concat(this.accessorsService.libs.using);
   }
 
   private download_libs() {
@@ -62,10 +63,11 @@ export class ActionsComponent {
 
   public zip_libraries() {
     if (environment.vscode) {
-      vscode.postMessage({ type: 'download_zip',
+      vscode.postMessage({
+        type: 'download_zip',
         libraries: this.accessorsService.libs.libraries,
-        using : this.accessorsService.libs.using,
-        tag : this.accessorsService.tags.is
+        using: this.accessorsService.libs.using,
+        tag: this.accessorsService.tags.is
       });
       return;
     } else {
@@ -89,15 +91,14 @@ export class ActionsComponent {
   }
 
   public export_html() {
-    if (environment.vscode) {
-      vscode.postMessage({ type: 'export_html',
-        libraries: this.accessorsService.libs.libraries,
-        using : this.accessorsService.libs.using,
-        tag : this.accessorsService.tags.is,
-        input_file : this.accessorsService.src,
-        html_code : this.accessorsService.html_preview
-      });
-      return;
-    }
+    vscode.postMessage({
+      type: 'export_html',
+      libraries: this.accessorsService.libs.libraries,
+      using: this.accessorsService.libs.using,
+      tag: this.accessorsService.tags.is,
+      input_file: this.accessorsService.src,
+      html_code: this.accessorsService.html_preview
+    });
+    return;
   }
 }

@@ -1,0 +1,113 @@
+.modalBlock {
+    opacity: 0;
+    transition: opacity 2s ease-in-out;
+    z-index: 1;
+    display: none;
+    overflow: auto;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    &.open {
+      opacity: 1;
+      display: block;
+      z-index: 999;
+    }
+    &-close {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      z-index: 9999;
+      color:#3574ba
+    }
+    &-validate {
+      margin-top: 12px;
+      button {
+        padding-left: 35px;
+        padding-right: 35px;
+      }
+    }
+    &-buttons-choice {
+      margin-top: 2rem;
+      button {
+        vertical-align: top;
+      }
+      a {
+        text-decoration: none;
+      }
+    }
+    > div {
+      position: absolute;
+      top: 32.5%;
+      left: 50%;
+      margin-left: -300px;
+      background-color: #ffffff;
+    }
+
+    &-content {
+      z-index: 300;
+      margin-left: -220px;
+      width: 700px;
+      box-shadow: 15px 15px 130px -35px black;
+      text-align: center;
+      color: #fff;
+      font-style: italic;
+      font-weight: 400;
+      font-size: 1.4rem;
+      padding: 33px 70px;
+    }
+}
+
+.fusion-button{
+    padding-top: var(--button_padding-top,13px);
+    padding-right: var(--button_padding-right,29px);
+    padding-bottom: var(--button_padding-bottom,13px);
+    padding-left: var(--button_padding-left,29px);
+    line-height: var(--button_line_height, 1);
+    font-size : 16px;
+    background: #5698d2;
+    color: #ffffff;
+    border-color: #3574ba;
+      --button_margin-top: 0px;
+    --button_margin-right: 0px;
+    --button_margin-bottom: 0px;
+    --button_margin-left: 0px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    text-decoration: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    font-family: "Roboto Condensed", Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    letter-spacing: 0.015em;;
+    border-width: 0px 0px 0px var(--button_border_width-left,0);
+    border-style: solid;
+    border-radius: 30px 30px 30px 30px;
+    text-transform: var(--button_text_transform);
+    transition: all .2s;
+    margin: 20px var(--button_margin-right) 20px var(--button_margin-left);
+    transition: all .2s
+}
+
+.fusion-button:hover {
+  color: white !important;
+  background-color: #2f6fb3; /* darker blue */
+  border-color: #245a95;     /* optional */
+}
+
+.fusion-flex.layout-three {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.fusion-flex.layout-three > div {
+  flex: 1;
+  text-align: center;
+}
