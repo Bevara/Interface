@@ -23,7 +23,6 @@ jobs:
     - uses: actions/checkout@v4
       with:
         submodules: 'recursive'  # Automatically updates submodules
-    - uses: lovasoa/setup-emscripten@master
     - name: Create build folder in player
       run: mkdir -p build
       working-directory: ./player
