@@ -21,6 +21,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+      with:
+        submodules: 'recursive'  # Automatically updates submodules
+    - name: Build universal tags
+      run: npm run build
+      working-directory: ./player
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:
