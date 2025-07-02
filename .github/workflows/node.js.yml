@@ -23,12 +23,15 @@ jobs:
     - uses: actions/checkout@v4
       with:
         submodules: 'recursive'  # Automatically updates submodules
-    - name: Install dependencies in player
-      run: npm install
+    - uses: lovasoa/setup-emscripten@master
+      with:
+        emscripten-version: '3.1.56'
+    - name: Create build folder in player
+      run: mkdir -p build
       working-directory: ./player
-    - name: Build universal tags
-      run: npm run build
-      working-directory: ./player
+    - name: Run configure from build folder
+      run: ../configure
+      working-directory: ./player/build
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:
