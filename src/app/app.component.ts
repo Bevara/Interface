@@ -7,6 +7,7 @@ import { ModalComponent } from './modal/modal.component';
 import { AddComponent } from './add/add.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SplashComponent } from "./splash/splash.component";
+import {environment} from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +19,8 @@ import { SplashComponent } from "./splash/splash.component";
 export class AppComponent {
   title = 'interface';
   showsplashcreen = true;
+  environment = environment;
+
   constructor(public accessorsService : AccessorsService,
     public authService : AuthService
     ) { }

@@ -34,9 +34,11 @@
 <mat-tab-group color="accent" mat-stretch-tabs="true" [(selectedIndex)]="tabIndex"
   (selectedTabChange)="selectTab($event)" >
 
+@if (environment.vscode == false){
   <mat-tab label="Source">
     <app-source></app-source>
   </mat-tab>
+}
   <mat-tab label="Integration">
     <app-integration></app-integration>
   </mat-tab>

@@ -31,7 +31,7 @@
 </app-modal>
 }
 
-@if(showsplashcreen){
+@if(showsplashcreen && !environment.vscode){
 <app-splash (clickOnClose)="showsplashcreen = false">
 </app-splash>
 }

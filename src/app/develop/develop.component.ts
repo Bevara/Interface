@@ -43,6 +43,12 @@ environment = environment;
         this.search.setValue(this.initialSearch);
       });
     }
+
+    // filteredLibs only recomputes when the search box changes: re-run it
+    // whenever the list itself is replaced, at start-up or after a refresh.
+    this.accessorsService.libs.listChanged.subscribe(() => {
+      this.search.setValue(this.search.value ?? this.initialSearch);
+    });
   }
 
   private _filterLibs(value: string): Library[] {
@@ -83,6 +89,12 @@ environment = environment;
      }else{
       this.accessorsService.libs.addLibraryId(lib.id);
      }
+  }
+
+  refreshAccessors(){
+    // The extension rebuilds the list from the releases and reports progress
+    // through 'updatingList', which drives the modal shown while it runs.
+    this.accessorsService.updateLibraries();
   }
 
   addAccessor(){

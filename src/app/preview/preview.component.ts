@@ -13,6 +13,7 @@ import { StatsComponent } from './stats/stats.component';
 import { UnusedComponent } from './unused/unused.component';
 import { OptionsComponent } from './options/options.component';
 import { SourceComponent } from "./source/source.component";
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-preview',
@@ -30,6 +31,7 @@ export class PreviewComponent implements AfterViewInit {
   open_stat = "fin";
   player : any = null;
   wait_for_click = false;
+  environment = environment;
 
   @ViewChild('contentScript') contentScript: ElementRef | undefined;
   @ViewChild('contentTag') contentTag: ElementRef | undefined;

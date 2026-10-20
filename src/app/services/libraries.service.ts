@@ -42,6 +42,10 @@ interface Recommended<TValue> {
 export class LibrariesService {
   public isReady = false;
   public readyEvent = new EventEmitter();
+  // Fires whenever the full list of accessors is replaced. readyEvent only
+  // follows the wasm download, which the vscode path does not trigger on its
+  // own, so a view listing every accessor needs its own signal.
+  public listChanged = new EventEmitter();
   private recommendedFilters : Recommended<Identifier> = {};
   private recommendedExt : Recommended<any> = {};
 

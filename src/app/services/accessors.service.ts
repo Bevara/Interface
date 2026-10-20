@@ -1,5 +1,6 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Subscription } from 'rxjs';
 import { vscode } from "../utilities/vscode";
 import { LibrariesService, JSON_Libraries } from './libraries.service';
 import { TagsService } from './tags.service';
@@ -35,6 +36,7 @@ export class AccessorsService {
   public repoExist = false;
   public templateExist = false;
   public forkExist = false;
+  private _infoReady: Subscription | null = null;
 
   source_option: 'test_sequence' | 'url' | 'local' = 'test_sequence';
 
@@ -64,13 +66,22 @@ export class AccessorsService {
               //await editor.setData(body.uri.path, body.value, body.scripts, body.scriptsDirectory);
               this._src = body.uri.path;
 
-              if (this._dataUrl) {
+              if (this._dataUrl?.startsWith('blob:')) {
                 URL.revokeObjectURL(this._dataUrl);
-                this._dataUrl = null;
               }
+              this._dataUrl = null;
               this.options.vsCodeScriptDirectory = body.scriptsDirectory;
-              const blob = new Blob([body.value]);
-              this._dataUrl = URL.createObjectURL(blob);
+              // The pipeline hands the source to GPAC, which opens it itself
+              // and only knows http(s): a blob: built from the bytes is refused
+              // as "not valid or cannot be found". The extension therefore
+              // serves the document as a webview resource; the bytes are only
+              // the fallback for an extension that does not send it.
+              if (body.fileUrl) {
+                this._dataUrl = body.fileUrl;
+              } else {
+                const blob = new Blob([body.value]);
+                this._dataUrl = URL.createObjectURL(blob);
+              }
             }
             if (this._dataUrl) {
               this.initFilterAndInfo(this._dataUrl, body.filter_list);
@@ -102,8 +113,10 @@ export class AccessorsService {
         case 'refreshList':
           {
             this.not_supported = false;
-            if (this._dataUrl && body.filter_list) {
-              this.initFilterAndInfo(this._dataUrl, body.filter_list);
+            // Same fallback as 'init': a document opened as untitled has no
+            // data URL, and a refreshed list must still reach it.
+            if (body.filter_list) {
+              this.initFilterAndInfo(this._dataUrl || this._src, body.filter_list);
             }
             this.newAccessorAdded.emit(body.status);
             return;
@@ -207,7 +220,9 @@ export class AccessorsService {
   }
 
   setRecommended() {
-    const ext = this.source_option == 'local'? this.filename.split('.').pop() : this._src.split('.').pop();
+    // Accessors declare their extensions in lower case (as GPAC compares
+    // them), so MARBLES.TIF has to be looked up as "tif".
+    const ext = (this.source_option == 'local'? this.filename.split('.').pop() : this._src.split('.').pop())?.toLowerCase();
     this.libs.setRecommended(this._mediainfo.info, ext);
     this.tags.setRecommended(this._mediainfo.info, ext);
 
@@ -227,18 +242,27 @@ export class AccessorsService {
 
     this.libs.updateRecommended(libs);
     this.tags.updateRecommended(libs);
+    this.libs.listChanged.emit();
 
-    this._mediainfo.initInfo(src);
-    this._mediainfo.readyEvent.subscribe(() => {
+    // One subscription at a time: each call used to add another, so a refresh
+    // ran setRecommended once per earlier call on every MediaInfo result.
+    this._infoReady?.unsubscribe();
+    this._infoReady = this._mediainfo.readyEvent.subscribe(() => {
       //Default libs
       this.setRecommended();
 
-      if (!this.is_vscode) {
+      if (this.is_vscode) {
+        // Ask the extension for the wasm of the recommended accessors. It
+        // answers with wasmReady, and that is what emits readyEvent on this
+        // path - without the request, nothing ever tells the preview to
+        // insert the tag.
+        this.libs.updateService();
+      } else {
         this.libs.isReady = true;
         this.libs.readyEvent.emit();
       }
-
     });
+    this._mediainfo.initInfo(src);
   }
 
   public updateView(){

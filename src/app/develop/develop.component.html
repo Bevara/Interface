@@ -101,4 +101,21 @@
 
 
   </mat-card>
+
+  @if(environment.vscode){
+  <mat-card class="develop-card" (click)="refreshAccessors()">
+    <mat-card-header>
+
+      <mat-card-title-group>
+        <mat-card-title>
+          Refresh the list
+          <mat-icon class="action-icon" aria-hidden="false" aria-label="refresh icon">refresh</mat-icon>
+        </mat-card-title>
+        <mat-card-subtitle>Rebuild the list of accessors from the latest releases on GitHub.</mat-card-subtitle>
+      </mat-card-title-group>
+
+    </mat-card-header>
+    <br>
+  </mat-card>
+  }
 </div>
