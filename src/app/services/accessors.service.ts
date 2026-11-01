@@ -23,7 +23,7 @@ export class AccessorsService {
   public not_supported = false;
   public filename = "";
   public isEmpty = false;
-  private _solver = "solver_1";
+  private _solver = "mm_solver_1.0.1";
   private _is_vscode = environment.vscode;
   public showModalNeedPreserve = false;
   public showModalNeedLogin = false;
@@ -304,7 +304,7 @@ export class AccessorsService {
       url: '${this._src}',
       plugins: [
         ${this.tag == 'canvas' ? 'UniversalCanvas' : 'UniversalVideo'}({
-          using: "solver_1",
+          using: "${this._solver}",
           with: "${this.with_template}",
           scriptDirectory: "${this.options.scriptDirectoryUrl}",
         }),
@@ -354,7 +354,7 @@ export class AccessorsService {
 
 
   public get html_code() {
-    return `<${this.tag} is="${this.tags.is}" ${this.tag != 'canvas' ? "id=preview_tag" : ""} ${this.tag == 'canvas' ? 'data-url' : 'src'}="${this.is_vscode ? this._dataUrl : this._src}" using="solver_1" with="${this.with_template}" ${this.options.optionsStr} ${this.is_vscode && !this.options.script_directory ? 'script-directory="' + this.options.vsCodeScriptDirectory + '"' : ''} ${this.logs.logsStr} print="console" printErr="console" noCleanupOnExit=true >`;
+    return `<${this.tag} is="${this.tags.is}" ${this.tag != 'canvas' ? "id=preview_tag" : ""} ${this.tag == 'canvas' ? 'data-url' : 'src'}="${this.is_vscode ? this._dataUrl : this._src}" using="${this._solver}" with="${this.with_template}" ${this.options.optionsStr} ${this.is_vscode && !this.options.script_directory ? 'script-directory="' + this.options.vsCodeScriptDirectory + '"' : ''} ${this.logs.logsStr} print="console" printErr="console" noCleanupOnExit=true >`;
   }
 
   public get id() {

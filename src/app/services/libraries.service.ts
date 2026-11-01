@@ -50,13 +50,13 @@ export class LibrariesService {
   private recommendedExt : Recommended<any> = {};
 
   public using: Library[] = [{
-    id: "solver_1",
-    name: "solver_1.js",
+    id: "mm_solver_1.0.1",
+    name: "mm_solver_1.0.1.js",
     filters: [],
     description: "",
     help: "",
     support: [],
-    url: "../accessors/solver_1.wasm",
+    url: "../accessors/mm_solver_1.0.1.wasm",
     sources:"https://api.github.com/repos/Bevara/solver/zipball/1",
     filter_source : {},
     licence_required : false,
@@ -65,13 +65,13 @@ export class LibrariesService {
     owner : "Bevara",
     repo : "solver"
   }, {
-    id: "solver_1",
-    name: "solver_1.wasm",
+    id: "mm_solver_1.0.1",
+    name: "mm_solver_1.0.1.wasm",
     filters: ["vout","aout","fout","fin","httpin","writeuf","writegen","wcdec","wcenc","webgrab","resample","reframer","compositor"],
     description: "",
     help: "",
     support: [],
-    url: "../accessors/solver_1.js",
+    url: "../accessors/mm_solver_1.0.1.js",
     sources:"https://api.github.com/repos/Bevara/solver/zipball/1",
     filter_source:{
         "vout" : "out_video.c",
